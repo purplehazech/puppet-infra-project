@@ -15,7 +15,7 @@ class infra::gentoo {
 	exec {
 		"sync layman repos":
 			command => "/usr/bin/layman -L",
-			onlyif  => "ls -al /var/lib/layman/cache*xml && exit 1 || exit 0",
+			onlyif  => "/bin/ls -al /var/lib/layman/cache*xml && exit 1 || exit 0",
 			require => File["/etc/layman/layman.cfg"]
 	}
 }
