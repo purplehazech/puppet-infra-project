@@ -45,7 +45,7 @@ file {
 		ensure  => file,
 		owner   => git,
 		mode    => 555,
-		content => "git archive --format=tar HEAR | (cd /etc/puppet/ && tar -xf -)",
+		content => "git archive --format=tar HEAR | (cd /etc/puppet/ && tar xf - )",
 		require => Exec["bare puppet git repo"]
 }
 
