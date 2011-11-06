@@ -4,4 +4,6 @@ node gentoo-jenkins-dev {
 	include infra::gentoo
 	# godin overlay for jenkins
 	include gentoo::godin
+	# finally grab jenkins
+	include jenkins
 }
