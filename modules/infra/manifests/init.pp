@@ -1,1 +1,1 @@
-import *.pp
+import "*.pp"
