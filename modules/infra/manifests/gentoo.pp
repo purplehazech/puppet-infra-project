@@ -15,7 +15,7 @@ class infra::gentoo {
 	exec {
 		"sync layman repos":
 			command => "/usr/bin/layman -L",
-			creates => "/var/lib/layman/something",
+			creates => "/var/lib/layman/cache*.xml",
 			require => File["/etc/layman/layman.cfg"]
 	}
 }
