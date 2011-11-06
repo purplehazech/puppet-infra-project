@@ -1,4 +1,4 @@
 
-gentoo-jenkins-dev {
-	include infra::gentoo;
+node gentoo-jenkins-dev {
+	include infra::gentoo
 }
