@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<project name="puppet-infra-project" default="test">
+
+	<target name="test">
+		<exec executable="puppet" failonerror="true">
+			<arg value="apply"/>
+			<arg value="--parseonly"/>
+			<arg value="site.pp"/>
+		</exec>
+	</target>
+
+</project>
