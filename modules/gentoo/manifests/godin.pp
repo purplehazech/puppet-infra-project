@@ -9,6 +9,7 @@ class gentoo::godin {
 	exec {
 		"add godin repo to layman":
 			command => "/usr/bin/layman -a godin",
+			creates => "/var/lib/layman/godin/",
 			require => Exec["sync layman repos"]
 	}
 }
