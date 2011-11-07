@@ -3,7 +3,7 @@ class jenkins {
 
 	package {
 		"jenkins-bin":
-			ensure => installed,
+			ensure => installed;
 		"ant":
 			ensure => installed
 	}
