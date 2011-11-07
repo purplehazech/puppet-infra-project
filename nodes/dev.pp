@@ -6,4 +6,5 @@ node gentoo-jenkins-dev {
 	include gentoo::godin
 	# finally grab jenkins
 	include jenkins
+	include jenkins::github
 }
