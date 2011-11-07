@@ -2,6 +2,6 @@
 class jenkins::github {
 	exec {
 		"install github plugin":
-			command => "/usr/bin/jenkins-cli -s http://localhost:808 install-plugin github"
+			command => "/usr/bin/jenkins-cli -s http://localhost:8080 install-plugin github"
 	}
 }
