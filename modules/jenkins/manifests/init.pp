@@ -3,15 +3,17 @@ class jenkins {
 
 	package {
 		"jenkins-bin":
-			ensure  => installed,
+			ensure => installed,
+		"ant":
+			ensure => installed
 	}
 
 	file {
 
 		"/usr/bin/jenkins-cli":
-			ensure => file,
+			ensure  => file,
 			content => "java -jar /usr/lib/jenkins/jenkins-cli.jar \$@",
-			mode => 555
+			mode    => 555
 	}
 	exec {
 		"/usr/lib/jenkins/jenkins-cli.jar":
