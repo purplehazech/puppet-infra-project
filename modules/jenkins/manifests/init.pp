@@ -10,7 +10,7 @@ class jenkins {
 
 		"/usr/bin/jenkins-cli":
 			ensure => file,
-			content => "java -jar /usr/lib/jenkins/jenkins-cli.jar $0",
+			content => "java -jar /usr/lib/jenkins/jenkins-cli.jar \$@",
 			mode => 555
 	}
 	exec {
