@@ -1,5 +1,5 @@
 
-node jenkins-01.hq.rabe.ch {
+node "jenkins-01.hq.rabe.ch" {
     include infra::gentoo
     include gentoo::godin # thats where jenkins is from
     include jenkins
