@@ -12,15 +12,17 @@
     <target name="docs">
         <mkdir dir="build/"/>
         <mkdir dir="build/docs"/>
-        <exec executable="find" failonerror="true">
-            <arg value="."/>
-            <arg value="-name"/>
-            <arg value="README.md"/>
-            <arg value="-exec"/>
-            <arg value="markdown"/>
-            <arg value="build/docs/{}.html"/>
-            <arg value="{} \;"/>
-        </exec>
+        <apply executable="markdown" failonerror="true" 
+               output="build/docs/README_all-in-one.html">
+
+            <srcfile/>
+
+            <fileset>
+                <include match="README.md"/>
+                <include match="modules/**/README.md"/>
+            </fileset>
+
+        </apply>
     </target>
 
     <target name="deploy-local">
