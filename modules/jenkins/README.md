@@ -25,15 +25,13 @@ Installs the github plugin in jenkins.
 Operating Systems
 -----------------
 
-Gentoo
-------
+### Gentoo
 
 Based on an external "untrusted" repo that doesnt carry the
 latest version. The current production is based off the most
 recent jenkins from upstream and some work on integrating
 jenkins with a portage repo of our own is planned.
 
-CentOS
-------
+### CentOS
 
 Support is planned.
