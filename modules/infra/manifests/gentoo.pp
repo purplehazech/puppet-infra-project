@@ -1,5 +1,8 @@
 
 class infra::gentoo {
+
+    include infra
+
 	package {
 		"layman":
 			ensure => installed
