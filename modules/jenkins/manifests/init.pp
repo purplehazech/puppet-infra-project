@@ -22,7 +22,7 @@ class jenkins {
     # @todo chmod -R g+w /etc/puppet/ /var/git/puppet/ && chgrp -R /etc/puppet/ /var/git/puppet
     service {
         "jenkins":
-            ensure => started
+            ensure => running
     }
        
 }
