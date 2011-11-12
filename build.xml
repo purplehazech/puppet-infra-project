@@ -9,4 +9,13 @@
 		</exec>
 	</target>
 
+    <target name="deploy-local">
+        <exec executable="sudo">
+            <arg value="/usr/sbin/jenkins-receive"/>
+        </exec>
+        <exec executable="sudo">
+            <arg value="/usr/sbin/puppet-apply"/>
+        </exec>
+    </target>
+
 </project>
