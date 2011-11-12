@@ -18,7 +18,7 @@ class sudo::jenkins {
             ensure  => file,
             owner   => root,
             mode    => 500,
-            content => "/usr/bin/puppet apply --modulepath=/etc/puppet/modules/ /etc/puppet/site.pp -v"
+            content => "/usr/bin/puppet apply --modulepath=/etc/puppet/modules/ /etc/puppet/site.pp -v --color html"
     }
 }
 
