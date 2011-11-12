@@ -10,10 +10,10 @@
 	</target>
 
     <target name="deploy-local">
-        <exec executable="sudo">
+        <exec executable="sudo" failonerror="true">
             <arg value="/usr/sbin/jenkins-receive"/>
         </exec>
-        <exec executable="sudo">
+        <exec executable="sudo" failonerror="true">
             <arg value="/usr/sbin/puppet-apply"/>
         </exec>
     </target>
