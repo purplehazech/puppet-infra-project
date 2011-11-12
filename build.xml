@@ -18,8 +18,8 @@
             <srcfile/>
 
             <fileset>
-                <include match="README.md"/>
-                <include match="modules/**/README.md"/>
+                <include name="README.md"/>
+                <include name="modules/**/README.md"/>
             </fileset>
 
         </apply>
