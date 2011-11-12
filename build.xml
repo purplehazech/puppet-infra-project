@@ -9,6 +9,17 @@
 		</exec>
 	</target>
 
+    <target name="docs">
+        <mkdir dir="build/"/>
+        <mkdir dir="build/docs"/>
+        <exec executable="find">
+            <arg value="."/>
+            <arg value="-name README.md"/>
+            <arg value="-exec markdown"/>
+            <arg value=" build/docs/{}.html {} \;"/>
+        </exec>
+    </target>
+
     <target name="deploy-local">
         <exec executable="sudo" failonerror="true">
             <arg value="/usr/sbin/jenkins-receive"/>
