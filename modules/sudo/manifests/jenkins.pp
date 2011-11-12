@@ -12,7 +12,7 @@ class sudo::jenkins {
             ensure  => file,
             owner   => root,
             mode    => 500,
-            content => "/usr/bin/git archive --format=tar HEAD | (cd /etc/puppet/ && tar xf - )";
+            content => "cd /var/git/puppet && /usr/bin/git archive --format=tar HEAD | (cd /etc/puppet/ && tar xf - )";
     }
 }
 
