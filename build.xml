@@ -17,7 +17,7 @@
 
             <srcfile/>
 
-            <fileset>
+            <fileset dir=".">
                 <include name="README.md"/>
                 <include name="modules/**/README.md"/>
             </fileset>
