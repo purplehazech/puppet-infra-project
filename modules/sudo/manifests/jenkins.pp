@@ -8,7 +8,7 @@ class sudo::jenkins {
             mode    => 440,
             content => template("sudo/jenkins_puppet_sudoers.erb");
 
-        "/usr/sbin/jenkins-recieve":
+        "/usr/sbin/jenkins-receive":
             ensure  => file,
             owner   => root,
             mode    => 500,
