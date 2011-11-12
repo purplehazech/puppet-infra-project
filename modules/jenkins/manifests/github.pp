@@ -4,6 +4,6 @@ class jenkins::github {
 		"install github plugin":
 			command => "/usr/bin/jenkins-cli -s http://$ipaddress:8080 install-plugin github",
 			creates => "/var/lib/jenkins/home/plugins/github.hpi",
-            require => Service["/usr/bin/jenkins-cli"]
+            require => File["/usr/bin/jenkins-cli"]
 	}
 }
