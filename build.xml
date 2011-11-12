@@ -12,7 +12,7 @@
     <target name="docs">
         <mkdir dir="build/"/>
         <mkdir dir="build/docs"/>
-        <copy file="docs/README.head.html" tofile="build/docs/README_all-in-one.html"/>
+        <copy file="docs/README.head.html" tofile="build/docs/README_all-in-one.html" overwrite="true"/>
         <apply executable="markdown" failonerror="true" 
                parallel="false" append="true"
                output="build/docs/README_all-in-one.html">
