@@ -12,11 +12,14 @@
     <target name="docs">
         <mkdir dir="build/"/>
         <mkdir dir="build/docs"/>
-        <exec executable="find">
+        <exec executable="find" failonerror="true">
             <arg value="."/>
-            <arg value="-name README.md"/>
-            <arg value="-exec markdown"/>
-            <arg value=" build/docs/{}.html {} \;"/>
+            <arg value="-name"/>
+            <arg value="README.md"/>
+            <arg value="-exec"/>
+            <arg value="markdown"/>
+            <arg value="build/docs/{}.html"/>
+            <arg value="{} \;"/>
         </exec>
     </target>
 
