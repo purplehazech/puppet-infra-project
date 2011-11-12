@@ -5,4 +5,6 @@ node "jenkins-01.hq.rabe.ch" {
     include jenkins
     include ant
     include jenkins::github
+    # sudo for applying updates!
+    include sudo
 }
