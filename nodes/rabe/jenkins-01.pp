@@ -7,4 +7,5 @@ node "jenkins-01.hq.rabe.ch" {
     include jenkins::github
     include sudo
     include jenkins::puppet
+    include jenkins::mantis
 }
