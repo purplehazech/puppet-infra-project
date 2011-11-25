@@ -24,7 +24,22 @@ class jenkins {
         "jenkins":
             ensure => running
     }
-       
+    
+    jenkins::plugin {
+        "analysis-core":
+            ensure => present;
+        "analysis-collector":
+            ensure => present;
+    }
+}
+
+define jenkins::plugin(
+    $name
+){
+    exec "install $name plugin":
+        command => "/usr/bin/jenkins-cli -s http://$ipaddress:8080 install-plugin $name",
+        creates => "/var/lib/jenkins/home/plugins/$name.hpi",
+        require => File["/usr/binm/jenkins-cli"]
 }
 
 import "*.pp"
