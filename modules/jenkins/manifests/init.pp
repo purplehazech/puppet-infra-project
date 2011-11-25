@@ -27,14 +27,17 @@ class jenkins {
     
     jenkins::plugin {
         "analysis-core":
+            name   => "analysis-core",
             ensure => present;
         "analysis-collector":
+            name   => "analysis-collector",
             ensure => present;
     }
 }
 
 # define for installing plugins in a puppety manner
 define jenkins::plugin(
+    $name,
     $ensure
 ){
 
