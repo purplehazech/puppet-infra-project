@@ -33,13 +33,25 @@ class jenkins {
     }
 }
 
+# define for installing plugins in a puppety manner
 define jenkins::plugin(
     $name
 ){
-    exec "install $name plugin":
-        command => "/usr/bin/jenkins-cli -s http://$ipaddress:8080 install-plugin $name",
-        creates => "/var/lib/jenkins/home/plugins/$name.hpi",
-        require => File["/usr/binm/jenkins-cli"]
+
+    # only install when requested, i'll add uninstall cases later
+    case $ensure {
+        present: {
+
+            # install plugin on cli
+            exec { "install jenkins plugin ${name}":
+                command => "/usr/bin/jenkins-cli -s http://$ipaddress:8080 install-plugin $name",
+                creates => "/var/lib/jenkins/home/plugins/$name.hpi",
+                require => [
+                    File["/usr/binm/jenkins-cli"]
+                ]
+            }
+        }
+    }
 }
 
 import "*.pp"
