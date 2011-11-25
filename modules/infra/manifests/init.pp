@@ -12,13 +12,13 @@ class infra {
             ensure  => file,
             owner   => root,
             mode    => 500,
-            content => "cd /var/git/puppet && /usr/bin/git archive --format=tar HEAD | (cd /etc/puppet/ && tar xf - )";
+            content => "cd /var/git/puppet && /usr/bin/git archive --format=tar HEAD | (cd /etc/puppet/ && tar xf - ) ; exit $?";
 
         "/usr/sbin/puppet-apply":
             ensure  => file,
             owner   => root,
             mode    => 500,
-            content => "/usr/bin/puppet apply --modulepath=/etc/puppet/modules/ /etc/puppet/site.pp -v --color false"
+            content => "/usr/bin/puppet apply --modulepath=/etc/puppet/modules/ /etc/puppet/site.pp -v --color false; exit $?"
     }
 
 }
