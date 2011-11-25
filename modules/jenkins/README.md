@@ -35,3 +35,23 @@ jenkins with a portage repo of our own is planned.
 ### CentOS
 
 Support is planned.
+
+Configuration
+-------------
+
+Some parts of the Jenkins server need manual configration.
+
+### jenkins-cli auth
+
+We need to store a password for a service user so jenkins
+is able to configure itself.
+
+ /usr/bin/jenkins-cli -s http://jenkins:hudson@10.1.1.94:8080/jenkins/ login --username jenkins --password
+
+This needs to be done after configuring jenkins to use ldap
+auth and after adding the service user into the tree. You
+will need to login to jenkins with that user to provision it 
+into the system.
+
+After authentication the user also need to be granted admin
+rights in the ui.
