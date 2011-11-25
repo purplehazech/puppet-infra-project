@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
 <project name="puppet-infra-project" default="test">
+<!-- 
+    Main Buildfile used by jenkins  to interact with the system.
+-->
 
+    <!--
+         test the source code for any obvious errors
+
+         this only does a simple puppet parse for now
+    -->
 	<target name="test">
 		<exec executable="puppet" failonerror="true">
 			<arg value="apply"/>
@@ -9,6 +17,12 @@
 		</exec>
 	</target>
 
+    <!--
+         Generate all sorts of documentation
+         
+         For now all we have is one large html file built from markdown. I haven't decided how i would
+         like to do the documentation yet so this probably is subject to lots of changes.
+    -->
     <target name="docs">
         <mkdir dir="build/"/>
         <mkdir dir="build/docs"/>
@@ -27,6 +41,11 @@
         </apply>
     </target>
 
+    <!--
+         Deploy on local machine
+
+         One instance this is used in is when jenkins updates himself
+    -->
     <target name="deploy-local">
         <exec executable="sudo" failonerror="true">
             <arg value="/usr/sbin/jenkins-receive"/>
