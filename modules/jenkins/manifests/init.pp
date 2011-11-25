@@ -35,7 +35,6 @@ class jenkins {
 
 # define for installing plugins in a puppety manner
 define jenkins::plugin(
-    $name,
     $ensure
 ){
 
