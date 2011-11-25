@@ -35,7 +35,8 @@ class jenkins {
 
 # define for installing plugins in a puppety manner
 define jenkins::plugin(
-    $name
+    $name,
+    $ensure
 ){
 
     # only install when requested, i'll add uninstall cases later
