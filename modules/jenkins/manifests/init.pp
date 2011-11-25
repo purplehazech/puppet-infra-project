@@ -44,7 +44,7 @@ define jenkins::plugin(
 
             # install plugin on cli
             exec { "install jenkins plugin ${name}":
-                command => "/usr/bin/jenkins-cli -s http://$ipaddress:8080 install-plugin $name",
+                command => "/usr/bin/jenkins-cli -s http://$ipaddress:8080/jenkins/ install-plugin $name",
                 creates => "/var/lib/jenkins/home/plugins/$name.hpi",
                 require => [
                     File["/usr/bin/jenkins-cli"]
