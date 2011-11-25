@@ -27,17 +27,14 @@ class jenkins {
     
     jenkins::plugin {
         "analysis-core":
-            name   => "analysis-core",
             ensure => present;
         "analysis-collector":
-            name   => "analysis-collector",
             ensure => present;
     }
 }
 
 # define for installing plugins in a puppety manner
 define jenkins::plugin(
-    $name,
     $ensure
 ){
 
@@ -50,7 +47,7 @@ define jenkins::plugin(
                 command => "/usr/bin/jenkins-cli -s http://$ipaddress:8080 install-plugin $name",
                 creates => "/var/lib/jenkins/home/plugins/$name.hpi",
                 require => [
-                    File["/usr/binm/jenkins-cli"]
+                    File["/usr/bin/jenkins-cli"]
                 ]
             }
         }
