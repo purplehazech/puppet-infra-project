@@ -8,4 +8,5 @@ node "jenkins-01.hq.rabe.ch" {
     include sudo
     include jenkins::puppet
     include jenkins::mantis
+    include jenkins::php
 }

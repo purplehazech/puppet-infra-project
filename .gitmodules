@@ -1,0 +1,12 @@
+[submodule "modules/puppet"]
+	path = modules/puppet
+	url = https://github.com/puppetlabs/puppetlabs-puppet.git
+[submodule "modules/mysql"]
+	path = modules/mysql
+	url = https://github.com/puppetlabs/puppetlabs-mysql.git
+[submodule "modules/stdlib"]
+	path = modules/stdlib
+	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
+[submodule "modules/dashboard"]
+	path = modules/dashboard
+	url = https://github.com/puppetlabs/puppetlabs-dashboard.git
