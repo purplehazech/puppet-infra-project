@@ -9,13 +9,14 @@ node "jenkins-01.hq.rabe.ch" {
     include ant
     include sudo
 
-    class jenkins { }
-    jenkins::plugin {
-      analysis-core: ;
-      analysis-collector: ;
-      github: ;
-      puppet: ;
-      mantis: ;
-      php: ;
+    class jenkins {
+      jenkins::plugin {
+        analysis-core: ;
+        analysis-collector: ;
+        github: ;
+        puppet: ;
+        mantis: ;
+        php: ;
+      }
     }
 }
