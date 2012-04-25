@@ -56,9 +56,9 @@
     </target>
 
     <target name="pkg">
-        <tar destfile="puppet-infra-project.tar.bz2" 
+        <tar destfile="build/puppet-infra-project.tar.bz2" 
              basedir="."
-             excludes="puppet-infra-project.tar.bz2"/>
+             excludes="build/**"/>
     </target>
 
 </project>
