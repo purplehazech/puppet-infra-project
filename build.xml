@@ -56,7 +56,10 @@
     </target>
 
     <target name="pkg">
-        <tar destfile="build/puppet-infra-project.tar.bz2" 
+        <exec executable="cat" outputproperty="version">
+            <arg value="VERSION"/>
+        </exec>
+        <tar destfile="build/puppet-infra-project-${version}.tar.bz2" 
              basedir="." compression="bzip2"
              excludes="build/**"/>
     </target>
