@@ -4,7 +4,7 @@ node "jenkins-01.hq.rabe.ch" {
     include gentoo::rabe # our own overlay
     include gentoo::godin # thats where jenkins is from
 
-    class jenkins { 'jenkins' }
+    class jenkins { 'jenkins': }
     include ant
     include jenkins::github
     include sudo
