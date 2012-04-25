@@ -57,7 +57,7 @@
 
     <target name="pkg">
         <tar destfile="build/puppet-infra-project.tar.bz2" 
-             basedir="."
+             basedir="." compression="bz2"
              excludes="build/**"/>
     </target>
 
