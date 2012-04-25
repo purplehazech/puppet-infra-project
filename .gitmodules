@@ -12,4 +12,4 @@
 	url = https://github.com/puppetlabs/puppetlabs-dashboard.git
 [submodule "modules/jenkins"]
 	path = modules/jenkins
-	url = https://hairmare@github.com/hairmare/puppet-jenkins.git
+	url = https://github.com/hairmare/puppet-jenkins.git
