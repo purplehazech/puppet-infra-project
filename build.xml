@@ -71,6 +71,7 @@
             <arg value="commit"/>
             <arg value="-m"/>
             <arg value="version bump"/>
+	    <arg value="VERSION"/>
         </exec>
     </target>
 
