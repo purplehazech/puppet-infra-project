@@ -9,13 +9,13 @@
 
          this only does a simple puppet parse for now
     -->
-	<target name="test">
-		<exec executable="puppet" failonerror="true">
-			<arg value="apply"/>
-			<arg value="--parseonly"/>
-			<arg value="site.pp"/>
-		</exec>
-	</target>
+    <target name="test">
+        <exec executable="puppet" failonerror="true">
+            <arg value="apply"/>
+            <arg value="--parseonly"/>
+            <arg value="site.pp"/>
+        </exec>
+    </target>
 
     <!--
          Generate all sorts of documentation
@@ -53,6 +53,12 @@
         <exec executable="sudo" failonerror="true">
             <arg value="/usr/sbin/puppet-apply"/>
         </exec>
+    </target>
+
+    <target name="pkg">
+        <tar destfile="puppet-infra-project.tar.bz2" 
+             basedir="."
+             §exclude="puppet-infra-project.tar.bz2"/>
     </target>
 
 </project>
