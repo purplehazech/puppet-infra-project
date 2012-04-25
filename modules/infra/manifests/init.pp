@@ -12,7 +12,7 @@ class infra {
             ensure  => file,
             owner   => root,
             mode    => 500,
-            content => "cd /var/git/puppet && /usr/bin/git archive --format=tar HEAD | (cd /etc/puppet/ && tar xf - ) ; exit $?";
+            content => "TEMPREPO=/tmp/jenkins-receive-$PPID git clone --recursive file:///var/git/puppet $TEMPREPO && cd $TEMPREPO && tar -c . | (cd /etc/puppet/ && tar xf - && rm -rf $TEMPREPO); exit $?";
 
         "/usr/sbin/puppet-apply":
             ensure  => file,
