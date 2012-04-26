@@ -17,7 +17,6 @@ node "jenkins-01.hq.rabe.ch" {
         puppet: ;
         mantis: ;
         php: ;
-	artifactdeployer: ;
       }
     }
 }

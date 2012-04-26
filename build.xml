@@ -55,6 +55,19 @@
         </exec>
     </target>
 
+    <!-- 
+	 Deploy to webhost dir
+
+	 This is used for building further packages that get deployed
+	 everywhere else
+    -->
+    <target name="deploy-web">
+        <exec executable="cp" failonerror="true">
+	    <arg value="build/puppet-infra-project-${version}.tar.bz2"/>
+	    <arg value="/var/www/portage-overlay.jenkins-01.hq.rabe.ch/htdocs/"/>
+	</exec>
+    </target>
+
     <target name="pkg">
         <exec executable="cat" outputproperty="version">
             <arg value="VERSION"/>
