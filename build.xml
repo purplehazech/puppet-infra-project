@@ -67,7 +67,7 @@
         </exec>
         <exec executable="cp" failonerror="true">
 	    <arg value="build/puppet-infra-project-${version}.tar.bz2"/>
-	    <arg value="/var/www/portage-overlay.jenkins-01.hq.rabe.ch/htdocs/"/>
+	    <arg value="/var/www/distfile-repo.jenkins-01.hq.rabe.ch/htdocs/"/>
 	</exec>
     </target>
 
