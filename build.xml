@@ -62,6 +62,9 @@
 	 everywhere else
     -->
     <target name="deploy-web">
+        <exec executable="cat" outputproperty="version">
+            <arg value="VERSION"/>
+        </exec>
         <exec executable="cp" failonerror="true">
 	    <arg value="build/puppet-infra-project-${version}.tar.bz2"/>
 	    <arg value="/var/www/portage-overlay.jenkins-01.hq.rabe.ch/htdocs/"/>
