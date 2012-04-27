@@ -12,7 +12,7 @@ class puppet {
 
     service { "puppet":
         ensure => running,
-	require => 
+	require => [
 	    Package["puppet"],
 	    File["/etc/puppet/puppet.conf"]
 	]
