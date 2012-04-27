@@ -1,0 +1,4 @@
+
+class vserver {
+    import "*.pp"
+}
