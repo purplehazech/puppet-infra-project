@@ -7,7 +7,7 @@ class puppet {
 
     file { "/etc/puppet/puppet.conf":
         ensure => exists,
-	source => template("puppet/puppet.conf.erb")
+	content => template("puppet/puppet.conf.erb")
     }
 
     service { "puppet":
