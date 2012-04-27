@@ -1,8 +1,6 @@
 
 class vserver::puppet {
 
-	require => [
-		Class["puppet"]
-	] 
+	require puppet
 
 }
