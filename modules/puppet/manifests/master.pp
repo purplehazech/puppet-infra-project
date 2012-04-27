@@ -3,7 +3,6 @@ class puppet::master {
     require puppet
 
     package { 
-        "puppet": ;
 	"puppet-infra-project": 
 	    ensure => latest
     }
@@ -11,7 +10,6 @@ class puppet::master {
     service { "puppetmaster":
         ensure => running,
         require => [
-            Package["puppet"],
 	    Package["puppet-infra-project"]
         ]
     }
