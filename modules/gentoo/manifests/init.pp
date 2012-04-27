@@ -1,1 +1,4 @@
 import "*.pp"
+
+class gentoo {
+}
