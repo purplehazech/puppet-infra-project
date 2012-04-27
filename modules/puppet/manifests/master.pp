@@ -7,7 +7,7 @@ class puppet::master {
 	"puppet-infra-project": ;
     }
 
-    service { "puppet":
+    service { "puppetmaster":
         ensure => running,
         require => [
             Package["puppet"],
