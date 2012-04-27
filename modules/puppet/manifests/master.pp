@@ -4,7 +4,8 @@ class puppet::master {
 
     package { 
         "puppet": ;
-	"puppet-infra-project": ;
+	"puppet-infra-project": 
+	    ensure => latest
     }
 
     service { "puppetmaster":
