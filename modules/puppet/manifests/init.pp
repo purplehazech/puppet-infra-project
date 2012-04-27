@@ -6,7 +6,6 @@ class puppet {
     }
 
     file { "/etc/puppet/puppet.conf":
-        ensure => exists,
 	content => template("puppet/puppet.conf.erb")
     }
 
