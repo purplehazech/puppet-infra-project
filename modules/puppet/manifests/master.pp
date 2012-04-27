@@ -4,7 +4,9 @@ class puppet::master {
 
     package { 
 	"puppet-infra-project": 
-	    ensure => latest
+	    ensure => latest;
+	"puppet-dashboard":
+	    ensure => installed
     }
 
     service { "puppetmaster":
