@@ -18,7 +18,7 @@
 [master]
     reports = store,http
     reporturl = http://<%= puppet_server %>:3000/reports/upload
-<% if ldap_base_dn != null: %>
+<% if has_variable?("ldap_base_dn") then %>
     # ldapconfig 
     node_terminus = ldap
     ldapnodes = true
