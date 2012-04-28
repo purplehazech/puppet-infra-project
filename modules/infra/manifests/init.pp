@@ -7,7 +7,7 @@ class infra {
     }
 
     file { '/etc/zabbix/zabbix_agentd.conf':
-        contents => template("zabbix/agentd.conf")
+        contents => template("zabbix/zabbix_agentd.conf.erb")
     }
 
     service { "zabbix-agentd":
