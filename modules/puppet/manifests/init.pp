@@ -1,8 +1,11 @@
 
 class puppet {
 
-    package { "puppet":
-        ensure => installed
+    package {
+        "puppet":
+            ensure => installed;
+        "eix":
+	    ensure => installed;
     }
 
     file { "/etc/puppet/puppet.conf":
@@ -14,6 +17,12 @@ class puppet {
 	require => [
 	    Package["puppet"],
 	    File["/etc/puppet/puppet.conf"]
+	]
+    }
+
+    exec { "eix-update":
+        require => [
+	    ["puppet"]
 	]
     }
 }
