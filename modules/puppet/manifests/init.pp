@@ -16,6 +16,4 @@ class puppet {
 	    File["/etc/puppet/puppet.conf"]
 	]
     }
-
-    # @todo: configure /etc/puppet here
 }

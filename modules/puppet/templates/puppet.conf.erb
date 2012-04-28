@@ -12,11 +12,13 @@
     ssldir = $vardir/ssl
 
     config = /etc/config/puppet.conf
+<% if master == true: %>
     confdir = /usr/share/puppet-infra-project
     
 [master]
     reports = store,http
     reporturl = http://<%= puppet_server %>:3000/reports/upload
+<% if ldap_base_dn != null: %>
     # ldapconfig 
     node_terminus = ldap
     ldapnodes = true
@@ -24,8 +26,9 @@
     ldapbase = <%= ldap_base_dn %>
     ldapuser = <%= ldap_user %>
     ldappassword = <%= ldap_passwd %>
-    
-    
+<% end %>
+<% end %>
+
 [agent]
     report = true
     server = <%= puppet_server %>
