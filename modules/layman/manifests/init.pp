@@ -10,7 +10,9 @@ class layman {
 		"/etc/layman/layman.cfg":
 			ensure  => file,
 			content => template("layman/gentoo_layman.cfg"),
-			require => Package["layman"]
+			require => Package["layman"];
+		"/etc/cron.daily/layman":
+			content => "/usr/bin/layman -L && touch /var/lib/puppet/state/eix.stale";
 	}
 
 	exec {
