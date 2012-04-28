@@ -13,11 +13,11 @@ class puppet::master {
 
     # @todo dashboard needs to stabilize, i hacked package.keywords by hand for now
     # use flags are here though
-    file {
-    	"/etc/portage/package.use/puppet-dashboard":
-		content => "app-admin/puppet-dashboard mysql imagemagick fastcgi\ndev-ruby/activerecord mysql\ndev-lang/ruby threads"
-	"/etc/portage/package.keywords/puppet-dashboard": ;
-    }
+    #file {
+    #	"/etc/portage/package.use/puppet-dashboard":
+    #       content => "app-admin/puppet-dashboard mysql imagemagick fastcgi\ndev-ruby/activerecord mysql\ndev-lang/ruby threads";
+    #   "/etc/portage/package.keywords/puppet-dashboard": ;
+    #}
     # also i hacked the init script to also start delayed_jobs
     # then there where the whole changes to puppet-dashboards
     # config that live in /var/lib/puppet-dashboard/config
