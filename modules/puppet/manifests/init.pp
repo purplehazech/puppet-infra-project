@@ -20,9 +20,25 @@ class puppet {
 	]
     }
 
-    exec { "/usr/bin/eix-update":
-        require => [
-	    Service["puppet"]
-	]
+    exec { 
+        "rm-eix-stalefile":
+            command => "/bin/rm -f /var/lib/puppet/state/eix.stale";
+
+        "/usr/bin/eix-update":
+	    unless => "/usr/bin/test ! -f /var/lib/puppet/state/eix.stale"
+            require => [
+	        Service["puppet"],
+		Exec["sync layman repos"],
+	        Exec['rm-eix-stalefile']
+	    ]
+    }
+
+    file {
+        "/etc/cron.daily/eix-update":
+	    ensure => '/usr/bin/eix-update',
+	    require => [
+	        Exec["sync layman repos"],
+	        Exec['rm-eix-stalefile']
+	    ]
     }
 }

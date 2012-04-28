@@ -15,7 +15,7 @@ class layman {
 
 	exec {
 		"sync layman repos":
-			command => "/usr/bin/layman -L",
+			command => "/usr/bin/layman -L && touch /var/lib/puppet/state/eix.stale",
 			onlyif  => "/bin/ls -al /var/lib/layman/cache*xml && exit 1 || exit 0",
 			require => File["/etc/layman/layman.cfg"]
 	}
