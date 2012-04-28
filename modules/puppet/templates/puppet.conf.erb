@@ -12,7 +12,7 @@
     ssldir = $vardir/ssl
 
     config = /etc/config/puppet.conf
-<% if master == true: %>
+<% if has_variable?("master") && master == true then %>
     confdir = /usr/share/puppet-infra-project
     
 [master]
