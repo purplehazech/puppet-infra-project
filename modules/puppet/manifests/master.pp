@@ -1,8 +1,8 @@
 class puppet::master {
 
-    if ( master == true ) {
+    require puppet
 
-        require puppet
+    if ( master == true ) {
     
         package { 
     	    "puppet-infra-project": 
