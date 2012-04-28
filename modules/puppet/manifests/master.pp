@@ -2,7 +2,7 @@ class puppet::master {
 
     require puppet
 
-    if ( master == true ) {
+    if ( $master == true ) {
     
         package { 
     	    "puppet-infra-project": 
