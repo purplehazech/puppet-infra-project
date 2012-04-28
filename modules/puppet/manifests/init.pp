@@ -20,9 +20,9 @@ class puppet {
 	]
     }
 
-    exec { "eix-update":
+    exec { "/usr/bin/eix-update":
         require => [
-	    ["puppet"]
+	    Service["puppet"]
 	]
     }
 }
