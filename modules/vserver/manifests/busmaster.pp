@@ -9,7 +9,10 @@ class vserver::busmaster {
     package { "rabe-busmaster":; }
 
 
-    service { "gearmand":
-        ensure => running
+    service { 
+        "gearmand":
+            ensure => running;
+        "memcached":
+	    ensure => running;
     }
 }
