@@ -9,6 +9,8 @@ class vserver::busmaster {
 	    ensure => directory;
 	"/etc/busmaster/gearman.ini":
 	    ensure => file;
+	"/usr/share/rabe-busmaster/etc":
+	    ensure => "/etc/busmaster"
     }
 
     package { "rabe-busmaster":; }
