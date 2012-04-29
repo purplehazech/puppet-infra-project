@@ -40,7 +40,7 @@ class puppet {
 
     file {
         "/etc/cron.daily/eix-update":
-	    content => '/usr/bin/eix-update && rm /var/lib/puppet/state/eix.stale'
-	    mode    => '0755'.
+	    content => '/usr/bin/eix-update && rm /var/lib/puppet/state/eix.stale',
+	    mode    => '0755'
     }
 }
