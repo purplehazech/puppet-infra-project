@@ -13,7 +13,10 @@ class vserver::busmaster {
 	    ensure => "/etc/busmaster"
     }
 
-    package { "rabe-busmaster":; }
+    package {
+        "rabe-busmaster":
+	    ensure => latest
+    }
 
 
     service { 
