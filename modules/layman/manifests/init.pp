@@ -12,7 +12,7 @@ class layman {
 			content => template("layman/gentoo_layman.cfg"),
 			require => Package["layman"];
 		"/etc/cron.daily/layman":
-			content => "/usr/bin/layman -L && touch /var/lib/puppet/state/eix.stale",
+			content => "/usr/bin/layman -S && touch /var/lib/puppet/state/eix.stale",
 			mode    => '0755';
 	}
 
