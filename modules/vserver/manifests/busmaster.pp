@@ -8,4 +8,8 @@ class vserver::busmaster {
 
     package { "rabe-busmaster":; }
 
+
+    service { "gearmand":
+        ensure => running
+    }
 }
