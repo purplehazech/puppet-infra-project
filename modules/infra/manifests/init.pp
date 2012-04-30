@@ -1,5 +1,5 @@
 class infra {
 
-    require Class['zabbix']
+    require zabbix
 
 }
