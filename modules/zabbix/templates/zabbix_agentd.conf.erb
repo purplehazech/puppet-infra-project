@@ -87,3 +87,4 @@ Timeout=3
 #UserParameter=mysql.slowqueries,mysqladmin -uroot status|cut -f5 -d":"|cut -f1 -d"O"
 #UserParameter=mysql.qps,mysqladmin -uroot status|cut -f9 -d":"
 #UserParameter=mysql.version,mysql -V
+Include /etc/zabbix/userparameter.d/*
