@@ -3,11 +3,6 @@ class vserver::reposync {
 
     require ::layman
 
-    package { 
-        "nfs-utils":
-            ensure => installed;
-    }
-
     class { 'sudo':; }
 
     sudo::conf {
@@ -19,8 +14,6 @@ class vserver::reposync {
 
     service {
         "sshd":
-            ensure => running;
-        "nfs":
             ensure => running;
     }
 
