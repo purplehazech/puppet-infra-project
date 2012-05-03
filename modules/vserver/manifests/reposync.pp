@@ -10,8 +10,8 @@ class vserver::reposync {
                     require => Exec["sync layman repos"];
             "add gentoo-vnkuznet-overlay repo to layman":
                     command => "/usr/bin/layman -a  gentoo-vnkuznet-overlay",
-                    creates => "/var/lib/layman/ gentoo-vnkuznet-overlay/",
-                    require => Exec["sync layman repos"];i
+                    creates => "/var/lib/layman/gentoo-vnkuznet-overlay/",
+                    require => Exec["sync layman repos"];
 		    /*
             "add rabe repo to layman":
                     command => "/usr/bin/layman -a rabe-portage-overlay",
