@@ -17,8 +17,11 @@ class vserver::reposync {
             content => 'jenkins ALL = NOPASSWD: JENKINS';
     }
 
-    service { "sshd":
-        ensure => running;
+    service {
+        "sshd":
+            ensure => running;
+        "ntp":
+            ensure => running;
     }
 
     user { "jenkins":
