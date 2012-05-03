@@ -20,7 +20,7 @@ class vserver::reposync {
     service {
         "sshd":
             ensure => running;
-        "ntp":
+        "nfs":
             ensure => running;
     }
 
