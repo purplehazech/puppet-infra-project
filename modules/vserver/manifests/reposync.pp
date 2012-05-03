@@ -2,6 +2,24 @@
 class vserver::reposync {
 
     require ::layman
+
+    exec {
+            "add rabe repo to layman":
+                    command => "/usr/bin/layman -a rabe-portage-overlay",
+                    creates => "/var/lib/layman/rabe-portage-overlay/",
+                    require => Exec["sync layman repos"];
+            "add gentoo-vnkuznet-overlay repo to layman":
+                    command => "/usr/bin/layman -a  -a gentoo-vnkuznet-overlay",
+                    creates => "/var/lib/layman/ -a gentoo-vnkuznet-overlay/",
+                    require => Exec["sync layman repos"];i
+		    /*
+            "add rabe repo to layman":
+                    command => "/usr/bin/layman -a rabe-portage-overlay",
+                    creates => "/var/lib/layman/rabe-portage-overlay/",
+                    require => Exec["sync layman repos"];
+		    */
+    }
+
     require ::eix
 
     class { 'sudo':; }
