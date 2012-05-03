@@ -33,7 +33,7 @@ class vserver::reposync {
             owner => 'jenkins';
         "/var/lib/jenkins/.ssh":
             ensure => directory,
-            owner => 'jenkins'
+            owner => 'jenkins',
             require => File['/var/lib/jenkins'];
         "/var/lib/jenkins/.ssh/authorized_keys":
             ensure => exists,
@@ -43,9 +43,9 @@ class vserver::reposync {
 
     file_line {
         "jenkins-publish-authorized_key":
-            line => $jenkins_authorized_key
-            path => '/var/lib/jenkins/authorized_keys'
-            require => File['/var/lib/jenkins/authorized_keys']
+            line => $jenkins_authorized_key,
+            path => '/var/lib/jenkins/.ssh/authorized_keys',
+            require => File['/var/lib/jenkins/.ssh/authorized_keys']
             
     }
 }
