@@ -10,3 +10,6 @@
 [submodule "modules/jenkins"]
 	path = modules/jenkins
 	url = https://github.com/hairmare/puppet-jenkins.git
+[submodule "modules/sudo"]
+	path = modules/sudo
+	url = git@github.com:hairmare/puppet-sudo.git
