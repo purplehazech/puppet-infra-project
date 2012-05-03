@@ -8,7 +8,7 @@ class vserver::reposync {
             ensure => installed;
     }
 
-    class { 'sudo' }
+    class { 'sudo':; }
 
     sudo::conf {
         'jenkins-alias':
