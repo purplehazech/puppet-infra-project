@@ -12,7 +12,7 @@ class vserver::reposync {
 
     sudo::conf {
         'jenkins-alias':
-            content => 'Cmnd_Alias JENKINS = /usr/bin/layman --sync-all, /usr/bin/layman --sync=*, /usr/bin/eix-update';
+            content => "Cmnd_Alias JENKINS = /usr/bin/layman --sync-all, /usr/bin/layman --sync=*, /usr/bin/eix-update\n";
         'jenkins-user':
             content => 'jenkins ALL = NOPASSWD: JENKINS';
     }
@@ -36,16 +36,8 @@ class vserver::reposync {
             owner => 'jenkins',
             require => File['/var/lib/jenkins'];
         "/var/lib/jenkins/.ssh/authorized_keys":
-            ensure => exists,
+            content => $jenkins_authorized_key,
             owner => jenkins,
             require => File['/var/lib/jenkins/.ssh/']
-    }
-
-    file_line {
-        "jenkins-publish-authorized_key":
-            line => $jenkins_authorized_key,
-            path => '/var/lib/jenkins/.ssh/authorized_keys',
-            require => File['/var/lib/jenkins/.ssh/authorized_keys']
-            
     }
 }
