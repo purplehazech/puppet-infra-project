@@ -2,6 +2,7 @@
 class vserver::reposync {
 
     require ::layman
+    require ::eix
 
     class { 'sudo':; }
 
