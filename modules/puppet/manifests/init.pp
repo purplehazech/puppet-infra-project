@@ -3,7 +3,7 @@ class puppet {
 
     package {
         "puppet":
-            ensure => installed.
+            ensure => installed,
             # i had to patch /usr/lib64/ruby/site_ruby/1.8/puppet/provider/package/portage.rb
             # to make it support a different EIX_CACHEFILE
             noop => true;
