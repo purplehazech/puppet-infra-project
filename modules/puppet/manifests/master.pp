@@ -5,18 +5,18 @@ class puppet::master {
     if ( $master == true ) {
     
         package { 
-    	    "puppet-infra-project": 
-    	        ensure => latest;
-    	    "puppet-dashboard":
-    	        # latest+noop to make sure i don't forget to cleanup when i upgrade
-    	        ensure => latest,
-    	        noop => true
+            "puppet-infra-project": 
+                ensure => latest;
+            "puppet-dashboard":
+                # latest+noop to make sure i don't forget to cleanup when i upgrade
+                ensure => latest,
+                noop => true
         }
     
         # @todo dashboard needs to stabilize, i hacked package.keywords by hand for now
         # use flags are here though
         #file {
-        #	"/etc/portage/package.use/puppet-dashboard":
+        #    "/etc/portage/package.use/puppet-dashboard":
         #       content => "app-admin/puppet-dashboard mysql imagemagick fastcgi\ndev-ruby/activerecord mysql\ndev-lang/ruby threads";
         #   "/etc/portage/package.keywords/puppet-dashboard": ;
         #}
@@ -32,7 +32,7 @@ class puppet::master {
         service { "puppetmaster":
             ensure => running,
             require => [
-    	    Package["puppet-infra-project"]
+            Package["puppet-infra-project"]
             ]
         }
     }
