@@ -1,0 +1,58 @@
+digraph G {
+    spline = true
+    subgraph clusterWeb {
+        label = "the web"
+        color = "purple"
+
+        thirdparty [label="third party repos"]
+
+        subgraph clusterGithub {
+            label = "github"
+            color = "blue"
+
+            puppetinfraproject [label="puppet-infra-project"]
+            rabeportageoverlay [label="rabe-portage-overlay"]
+        }
+    }
+    subgraph clusterRabe {
+        label = "rabe"
+
+        subgraph clusterJenkins {
+            label = "jenkins integration service"
+            color = "darkgreen"
+
+            portageoverlayrepo [label="rabe-portage-overlay"]
+            puppetinfratarball [label="puppet-infra-project.tar.bz2"]
+        }
+        subgraph clusterPuppet {
+            label = "puppet based deployment stack"
+            color = "red"
+
+            puppetmaster [label="puppet master vserver"]
+            reposync [label="reposync vserver"]
+        }
+        subgraph clusterClients {
+            label = "various puppet clients"
+            labelloc = "b"
+
+            vserver [label="standard vserver"]
+            desktop [label="standard desktop"]
+        }
+    }
+
+
+    puppetinfratarball -> reposync [dir="forward",color="darkgreen"]
+    portageoverlayrepo -> reposync [color="darkgreen"]
+    thirdparty -> reposync [color="purple"]
+    reposync -> vserver [color="darkgreen"]
+    reposync -> desktop [color="darkgreen"]
+    reposync -> puppetmaster [color="darkgreen"]
+
+    puppetmaster -> vserver [color="red"]
+    puppetmaster -> desktop [color="red"]
+    puppetmaster -> puppetmaster [color="red"]
+    puppetmaster -> reposync [color="red"]
+
+    puppetinfraproject -> puppetinfratarball [color="blue"]
+    rabeportageoverlay -> portageoverlayrepo [color="blue"]
+}
