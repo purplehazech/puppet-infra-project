@@ -15,7 +15,7 @@
             <arg value="validate"/>
             <arg value="site.pp"/>
             <arg value="--mode"/>
-            <arg value="user"/>
+            <arg value="master"/>
         </exec>
     </target>
 

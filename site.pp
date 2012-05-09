@@ -1,1 +1,1 @@
-import "nodes/*.pp"
+import "modules/*/manifests/*.pp"
