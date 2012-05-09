@@ -21,7 +21,7 @@ class vserver::busmaster {
 
     service { 
         "gearmand":
-            ensure => running;
+            ensure => stopped;
         "memcached":
             ensure => running;
     }

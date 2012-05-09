@@ -11,8 +11,8 @@
     -->
     <target name="test">
         <exec executable="puppet" failonerror="true">
-            <arg value="apply"/>
-            <arg value="--parseonly"/>
+            <arg value="parser"/>
+            <arg value="validate"/>
             <arg value="site.pp"/>
         </exec>
     </target>
