@@ -5,7 +5,11 @@ class vserver::web {
 
     package {
         "apache":
-            ensure => installed
+            ensure => installed;
+        "mod_proxy_html":
+            ensure => installed;
+        "mod_authnz_external":
+            ensure => installed;
     }
 
     service {
@@ -14,6 +18,15 @@ class vserver::web {
             subscribe => [
                 Package['apache']
             ]
+    }
+
+    file {
+        "/etc/portage/package.use/10_apache_proxy":
+            content => "www-servers/apache proxy proxy_balancer";
+        "/etc/portage/package.use/10_apache_ldap":
+            content => "www-servers/apache ldap";
+        "/etc/conf.d/apache2":
+            content => 'APACHE2_OPTS="-D INFO -D SSL -D LANGUAGE -D LDAP -D PROXY -D PROXY_HTML -D AUTHNZ_EXTERNAL"'
     }
 
 }
