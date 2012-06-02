@@ -9,7 +9,7 @@ class vserver::web {
     }
 
     service {
-        "apache":
+        "apache2":
             ensure => running,
             subscribe => [
                 Package['apache']
