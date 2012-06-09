@@ -16,6 +16,7 @@ class zabbix {
                 'C:\zabbix_agentd.conf':
                    content => template("zabbix/zabbix_agentd.win.conf.erb");
             }
+        }
     }
 
     case $::operatingsystem {
