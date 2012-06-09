@@ -4,7 +4,12 @@ class zabbix {
         windows: {
             file {
                 'C:\zabbix_agentd.conf':
-                   content => template("zabbix/zabbix_agentd.win.conf.erb");
+                   content => template("zabbix/zabbix_agentd.win.conf.erb"),
+                   subscribe => Service['Zabbix Agent'];
+            }
+            service {
+                'Zabbix Agent':
+                    ensure => running
             }
         }
         default: {
