@@ -1,7 +1,7 @@
 
 class puppet {
 
-    class $::operatingsystem {
+    case $::operatingsystem {
         windows: {
             $pluginsync = 'true'
 
