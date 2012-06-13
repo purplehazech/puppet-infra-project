@@ -1,7 +1,7 @@
 
 class desktop::windows {
 
-    $winCommonMusic != '' ? {
+    if $winCommonMusic != '' {
         registry_value { 
             'HKLM\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\CommonMusic':
                 ensure => present,
