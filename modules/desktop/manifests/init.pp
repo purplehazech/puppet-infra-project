@@ -1,5 +1,7 @@
 
-class desktop {
+class desktop 
+
+    require ::puppet
 
 }
 
