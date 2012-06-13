@@ -8,7 +8,7 @@ class puppet {
             service { "puppet":
                 ensure => running,
                 require => [
-                    File["%ALLUSERSPROFILE%\Anwendungsdaten\PuppetLabs\puppet\etc\puppet.conf"]
+                    File['%ALLUSERSPROFILE%\Anwendungsdaten\PuppetLabs\puppet\etc\puppet.conf']
                 ]
             }
  
