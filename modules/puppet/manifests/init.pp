@@ -8,11 +8,11 @@ class puppet {
             service { "puppet":
                 ensure => running,
                 require => [
-                    File['%ALLUSERSPROFILE%\Anwendungsdaten\PuppetLabs\puppet\etc\puppet.conf']
+                    File['C:\Dokumente und Einstellungen\Anwendungsdaten\PuppetLabs\puppet\etc\puppet.conf']
                 ]
             }
  
-            file { '%ALLUSERSPROFILE%\Anwendungsdaten\PuppetLabs\puppet\etc\puppet.conf':
+            file { 'C:\Dokumente und Einstellungen\Anwendungsdaten\PuppetLabs\puppet\etc\puppet.conf':
                 content => template('puppet/puppet.conf.erb'),
                 subscribe => Service['puppet']
             }
