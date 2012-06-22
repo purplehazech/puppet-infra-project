@@ -26,7 +26,8 @@ class puppet {
             }
         
             if tagged(Class[puppet::master]) {
-                $pluginsync = 'true'
+                # deactivated due to much bugieness on the windows side of things
+                $pluginsync = 'false'
             } else {
                 $pluginsync = 'false'
             }
