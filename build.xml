@@ -28,7 +28,6 @@
     <target name="docs">
         <mkdir dir="build/"/>
         <delete dir="build/docs"/>
-        <mkdir dir="build/docs"/>
 
         <exec executable="puppet" failonerror="true">
             <arg value="doc"/>
