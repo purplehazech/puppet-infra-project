@@ -28,6 +28,19 @@
     <target name="docs">
         <mkdir dir="build/"/>
         <mkdir dir="build/docs"/>
+
+        <exec executable="puppet" failonerror="true">
+            <arg value="doc"/>
+            <arg value="--mode"/>
+            <arg value="rdoc"/>
+            <arg value="--manifestdir"/>
+            <arg value="manifests/"/>
+            <arg value="--modulepath"/>
+            <arg value="modules/"/>
+            <arg value="--outputdir"/>
+            <arg value="build/docs"/>
+        </exec>
+
         <copy file="docs/README.head.html" tofile="build/docs/README_all-in-one.html" overwrite="true"/>
         <apply executable="markdown" failonerror="true" 
                parallel="false" append="true"
@@ -39,7 +52,6 @@
                 <include name="README.md"/>
                 <include name="modules/**/README.md"/>
             </fileset>
-
         </apply>
     </target>
 
@@ -58,19 +70,19 @@
     </target>
 
     <!-- 
-	 Deploy to webhost dir
+     Deploy to webhost dir
 
-	 This is used for building further packages that get deployed
-	 everywhere else
+     This is used for building further packages that get deployed
+     everywhere else
     -->
     <target name="deploy-web">
         <exec executable="cat" outputproperty="version">
             <arg value="VERSION"/>
         </exec>
         <exec executable="cp" failonerror="true">
-	    <arg value="build/puppet-infra-project-${version}.tar.bz2"/>
-	    <arg value="/var/www/distfile-repo.jenkins-01.hq.rabe.ch/htdocs/"/>
-	</exec>
+            <arg value="build/puppet-infra-project-${version}.tar.bz2"/>
+            <arg value="/var/www/distfile-repo.jenkins-01.hq.rabe.ch/htdocs/"/>
+        </exec>
     </target>
 
     <target name="pkg">
@@ -87,14 +99,12 @@
             <arg value="-F." />
             <arg value='1{$NF+=1; OFS="."; print $0}'/>
             <arg value="VERSION"/>
-	</exec>
+        </exec>
         <exec executable="git" failonerror="true">
             <arg value="commit"/>
             <arg value="-m"/>
             <arg value="version bump"/>
-	    <arg value="VERSION"/>
+            <arg value="VERSION"/>
         </exec>
     </target>
-
-
 </project>
