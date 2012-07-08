@@ -21,7 +21,7 @@ define git::wc(
 
         "${name}-git-remoteorigin":
             command  => "cd ${name} && git remote add origin $repo",
-            requires => Exec["${name}-git-workingcopy"]
+            requires => Exec["${name}-git-workingcopy"],
             creates  => "${name}/.git/refs/remotes/origin";
 
         "${name}-git-latest":
