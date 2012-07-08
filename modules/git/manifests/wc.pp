@@ -26,7 +26,7 @@ define git::wc(
 
         "${name}-git-latest":
             command  => "cd ${name} && git pull origin ${branch}",
-            requires => Exec["${name}-git-remoteorigin",
+            requires => Exec["${name}-git-remoteorigin"],
             onlyif   => $ensure == latest;
     }
 }
