@@ -11,8 +11,9 @@
 
 define git::wc(
     $repo,
-    $branch = 'master',
-    $ensure = exists,
+    $branch   = 'master',
+    $ensure   = exists,
+    $schedule = 'daily',
 ) {
     exec {
         "${name}-git-workingcopy":
@@ -20,15 +21,16 @@ define git::wc(
             creates => "$name";
 
         "${name}-git-remoteorigin":
-            cwd    => $name,
+            cwd     => $name,
             command => "/usr/bin/git remote add origin $repo",
             require => Exec["${name}-git-workingcopy"],
             creates => "${name}/.git/refs/remotes/origin";
 
         "${name}-git-latest":
-            cwd     => $name,
-            command => "/usr/bin/git pull origin ${branch}",
-            require => Exec["${name}-git-remoteorigin"],
-            onlyif  => "/usr/bin/test $ensure = 'latest'";
+            schedule => $schedule,
+            cwd      => $name,
+            command  => "/usr/bin/git pull origin ${branch}",
+            require  => Exec["${name}-git-remoteorigin"],
+            onlyif   => "/usr/bin/test $ensure = 'latest'";
     }
 }
