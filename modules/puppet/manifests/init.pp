@@ -3,7 +3,7 @@ class puppet {
 
     case $::operatingsystem {
         windows: {
-            $pluginsync = 'true'
+            $pluginsync = 'false'
 
             service { "puppet":
                 ensure => running,
