@@ -6,6 +6,16 @@ class layman {
                         ensure => installed
         }
 
+        /* reposync is the only machine that has a rw layman dir 
+         * @todo refactor this so reposync-01 isn't in here
+         */
+
+        if $hostname == 'reposync-01.hq.rabe.ch' {
+            $layman_dir = '/var/lib/layman'
+        } else {
+            $layman_dir = '/var/lib/infra/layman'
+        }
+
         file {
                 "/etc/layman/layman.cfg":
                         ensure  => file,
