@@ -1,4 +1,4 @@
-# Class: wc 
+# Class: git::wc 
 # 
 # Class for creating and maintaining working copies.
 #
@@ -16,17 +16,19 @@ define git::wc(
 ) {
     exec {
         "${name}-git-workingcopy":
-            command => "rm -r ${name} && git clone -b ${branch} ${repo} ${name}",
+            command => "/usr/bin/git clone -b ${branch} ${repo} ${name}",
             creates => "$name";
 
         "${name}-git-remoteorigin":
-            command  => "cd ${name} && git remote add origin $repo",
-            requires => Exec["${name}-git-workingcopy"],
-            creates  => "${name}/.git/refs/remotes/origin";
+            $cwd    => $name,
+            command => "/usr/bin/git remote add origin $repo",
+            require => Exec["${name}-git-workingcopy"],
+            creates => "${name}/.git/refs/remotes/origin";
 
         "${name}-git-latest":
-            command  => "cd ${name} && git pull origin ${branch}",
-            requires => Exec["${name}-git-remoteorigin"],
-            onlyif   => $ensure == latest;
+            cwd     => $name,
+            command => "/usr/bin/git pull origin ${branch}",
+            require => Exec["${name}-git-remoteorigin"],
+            onlyif  => "/usr/bin/test $ensure = 'latest'";
     }
 }
