@@ -13,7 +13,7 @@ class puppet {
             }
  
             file { 'C:\Dokumente und Einstellungen\All Users\Anwendungsdaten\PuppetLabs\puppet\etc\puppet.conf':
-                content => template('puppet/puppet.conf.erb')
+                content => template('puppet/puppet.conf.win.erb')
             }
         }
         default: {
