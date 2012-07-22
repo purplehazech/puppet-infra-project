@@ -20,7 +20,7 @@ define git::wc(
             creates => "$name";
 
         "${name}-git-remoteorigin":
-            $cwd    => $name,
+            cwd    => $name,
             command => "/usr/bin/git remote add origin $repo",
             require => Exec["${name}-git-workingcopy"],
             creates => "${name}/.git/refs/remotes/origin";
