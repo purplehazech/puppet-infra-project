@@ -8,3 +8,13 @@ What was orignally a git based puppet workflow has since evolved into what we pl
 * All code must be in the open to be considered for integration.
 
 As of now I have a working setup that integrates github with jenkins and puppet. Since this works nicely I have begun to write up an [architecture overview](https://github.com/purplehazech/puppet-infra-project/wiki/Architecture-Overview) on the github wiki.
+
+As of now I am progressing nicely towards creating some serious infrastructure based on the above goals. Currently I am building a fully puppet-managed metro build machine that shall be used by a jenkins/puppetmaster setup that is mostly controlled by puppet. The latter was built in an effort to kickstart the whole next-gen/devops infratructure at RaBe. Here are some of the point I plan on tackling next.
+
+* finalize metro build infrastructure and make it build our next generation of vserver images
+* create automated infrastructure for
+ * creating binary ebuilds for provisioning the new vservers/guests
+ * creating glsa update binaries for critical systems
+* start adding linux-desktop stuff to the puppet setup and later also to the build infrastructure
+
+From what I have done with metro over the odd several years I know that it is absolutely possible to roll a specialized desktop distro. This puppet tree shall provide dox on the toolchain and it will also be full of stuff needed for keeping a community radio stations techie stuff as transparent as possible.
