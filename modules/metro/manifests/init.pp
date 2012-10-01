@@ -17,7 +17,7 @@ class metro {
 		ensure => directory;
 	"/home/mirror/linux/":
 		ensure => directory;
-	"/home/mirror/linux/rabe-dev/i686/i686":
+	"/home/mirror/linux/rabe-dev/x86-32bit/i686":
 		ensure => directory;
 	"/var/lib/jenkins/workspace/rabe-metro-desktop":
 		ensure => link,
