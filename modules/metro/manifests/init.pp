@@ -4,11 +4,10 @@
 # 
 
 class metro {
+    require ccache;
     git::wc {
         "/var/lib/metro/":
             repo   => "https://github.com/funtoo/metro.git",
             ensure => latest
     }
 }
-
-Class['metro'] -> Class['ccache']
