@@ -15,9 +15,9 @@ class metro {
     file {
 	"/home/mirror/":
 		ensure => directory;
-	"/home/mirror/linux/"
+	"/home/mirror/linux/":
 		ensure => directory;
-	"/home/mirror/linux/rabe-dev/i686/i686"
+	"/home/mirror/linux/rabe-dev/i686/i686":
 		ensure => directory;
     }
 
