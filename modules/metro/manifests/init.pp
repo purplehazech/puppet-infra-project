@@ -10,3 +10,5 @@ class metro {
             ensure => latest
     }
 }
+
+Class['metro'] -> Class['ccache']
