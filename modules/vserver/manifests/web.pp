@@ -8,13 +8,17 @@ class vserver::web {
             serveradmin => 'purpleteam@purplehaze.ch';
         'apache::mod::proxy': 
             proxy_requests => 'On';
-        'apache::vhost::proxy':
+    }
+    apache::vhost::proxy {
+        'default_vhost':
             port       => 80,
             dest       => 'http://intranet.rabe.ch',
             servername => 'newintranet.rabe.ch';
-        'apache::vhost::proxy':
+        'default_ssl_vhost':
             port       => 443,
             ssl        => true,
+            ssl_cert   => 'server.crt',
+            ssl_key    => 'server.key',
             dest       => 'http://intranet.rabe.ch',
             servername => 'newintranet.rabe.ch';
     }
