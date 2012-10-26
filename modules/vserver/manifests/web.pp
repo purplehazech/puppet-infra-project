@@ -14,7 +14,7 @@ class vserver::web {
             servername => 'newintranet.rabe.ch';
         'apache::vhost::proxy':
             port       => 443,
-            ssl        => true
+            ssl        => true,
             dest       => 'http://intranet.rabe.ch',
             servername => 'newintranet.rabe.ch';
     }
