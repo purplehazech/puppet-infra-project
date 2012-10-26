@@ -3,8 +3,21 @@ class vserver::web {
 
     # @todo move stuff into apache module when stable
 
-    class {'apache':  }
-    class {'apache::mod::proxy': }
+    class {
+        'apache':
+            serveradmin => 'purpleteam@purplehaze.ch';
+        'apache::mod::proxy': 
+            proxy_requests => 'On';
+        'apache::vhost::proxy':
+            port       => 80,
+            dest       => 'http://intranet.rabe.ch',
+            servername => 'newintranet.rabe.ch'
+        'apache::vhost::proxy':
+            port       => 443,
+            ssl        => true
+            dest       => 'http://intranet.rabe.ch',
+            servername => 'newintranet.rabe.ch'
+    }
 
     file {
         "/etc/portage/package.use/10_apache_proxy":
