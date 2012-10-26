@@ -16,3 +16,6 @@
 [submodule "modules/registry"]
 	path = modules/registry
 	url = https://github.com/puppetlabs/puppetlabs-registry.git
+[submodule "modules/apache"]
+	path = modules/apache
+	url = https://github.com/puppetlabs/puppetlabs-apache.git

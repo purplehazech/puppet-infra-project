@@ -3,14 +3,8 @@ class vserver::web {
 
     # @todo move stuff into apache module when stable
 
-    package {
-        "apache":
-            ensure => installed;
-        "mod_proxy_html":
-            ensure => installed;
-        "mod_authnz_external":
-            ensure => installed;
-    }
+    class {'apache':  }
+    class {'apache::mod::proxy': }
 
     service {
         "apache2":
