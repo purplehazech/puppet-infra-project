@@ -6,14 +6,6 @@ class vserver::web {
     class {'apache':  }
     class {'apache::mod::proxy': }
 
-    service {
-        "apache2":
-            ensure => running,
-            subscribe => [
-                Package['apache']
-            ]
-    }
-
     file {
         "/etc/portage/package.use/10_apache_proxy":
             content => "www-servers/apache proxy proxy_balancer";
