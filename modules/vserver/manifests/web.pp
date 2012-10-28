@@ -20,6 +20,17 @@ class vserver::web {
             servername => 'newintranet.rabe.ch';
     }
 
+    apache::vhost::include::proxy {
+        'mantis_default_reverseproxy':
+            proxy_vhost => 'default_vhost',
+            location    => '/mantisbt/',
+            dest        => 'http://10.1.1.93:80/';
+        'mantis_default_ssl_reverseproxy':
+            proxy_vhost => 'default_ssl_vhost',
+            location    => '/mantisbt/',
+            dest        => 'http://10.1.1.93:80/';
+    }
+
     file {
         "/etc/portage/package.use/10_apache_proxy":
             content => "www-servers/apache proxy proxy_balancer";
