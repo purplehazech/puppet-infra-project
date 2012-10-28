@@ -91,7 +91,7 @@
         </exec>
         <tar destfile="build/puppet-infra-project-${version}.tar.bz2" 
              basedir="." compression="bzip2"
-             excludes="build/**"/>
+             excludes="build/**,**/.git"/>
     </target>
 
     <target name="bump-version">
