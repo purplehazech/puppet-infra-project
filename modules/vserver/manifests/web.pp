@@ -1,7 +1,6 @@
 
 class vserver::web {
 
-    # @todo move stuff into apache module when stable
     class {
         'apache':
             serveradmin => 'purpleteam@purplehaze.ch'
@@ -22,14 +21,14 @@ class vserver::web {
     }
 
     apache::vhost::include::proxy {
-        'mantis_default_reverseproxy':
-            proxy_vhost => 'default_vhost',
-            location    => '/mantisbt/',
-            dest        => 'http://10.1.1.93:80/';
         'mantis_default_ssl_reverseproxy':
             proxy_vhost => 'default_ssl_vhost',
             location    => '/mantisbt/',
             dest        => 'http://10.1.1.93:80/';
+        'webdav_default_ssl_reverseproxy':
+            proxy_vhost => 'default_ssl_vhost',
+            location    => '/webdav/',
+            dest        => 'http://10.1.1.100:80/';
     }
 
     file {
