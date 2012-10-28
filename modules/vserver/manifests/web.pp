@@ -14,8 +14,8 @@ class vserver::web {
         'default_ssl_vhost':
             port       => 443,
             ssl        => true,
-            ssl_cert   => 'server.crt',
-            ssl_key    => 'server.key',
+            ssl_cert   => 'intranet.rabe.ch.crt.pem',
+            ssl_key    => 'intranet.rabe.ch.key.pem',
             dest       => 'http://intranet.rabe.ch',
             servername => 'newintranet.rabe.ch';
     }
