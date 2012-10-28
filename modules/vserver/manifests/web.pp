@@ -20,7 +20,7 @@ class vserver::web {
             servername => 'intranet.rabe.ch';
     }
 
-    if defined($proxy_mantisbt) {
+    if $proxy_mantisbt != undef {
         apache::vhost::include::proxy {
             'mantis_default_ssl_reverseproxy':
                 proxy_vhost => 'default_ssl_vhost',
@@ -28,7 +28,7 @@ class vserver::web {
                 dest        => $proxy_mantisbt;
         }
     }
-    if defined($proxy_webdav) {
+    if $proxy_webdav != undef {
         apache::vhost::include::proxy {
             'webdav_default_ssl_reverseproxy':
                 proxy_vhost => 'default_ssl_vhost',
