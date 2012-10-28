@@ -3,12 +3,12 @@ class vserver::web {
 
     class {
         'apache':
-            serveradmin => 'purpleteam@purplehaze.ch'
+            serveradmin => $http_serveradmin
     }
     apache::vhost::proxy {
         'default_vhost':
             port       => 80,
-            dest       => 'http://intranet.rabe.ch',
+            dest       => $proxy_fallback,
             servername => 'intranet.rabe.ch';
         'default_ssl_vhost':
             port       => 443,
@@ -16,19 +16,25 @@ class vserver::web {
             ssl_cert   => 'intranet.rabe.ch.crt.pem',
             ssl_key    => 'intranet.rabe.ch.key.pem',
             ssl_ca     => 'intermediate.rapidssl.com.ca.pem',
-            dest       => 'http://intranet.rabe.ch',
+            dest       => $proxy_fallback,
             servername => 'intranet.rabe.ch';
     }
 
-    apache::vhost::include::proxy {
-        'mantis_default_ssl_reverseproxy':
-            proxy_vhost => 'default_ssl_vhost',
-            location    => '/mantisbt/',
-            dest        => 'http://10.1.1.93:80/';
-        'webdav_default_ssl_reverseproxy':
-            proxy_vhost => 'default_ssl_vhost',
-            location    => '/webdav/',
-            dest        => 'http://10.1.1.100:80/';
+    if defined($proxy_mantisbt) {
+        apache::vhost::include::proxy {
+            'mantis_default_ssl_reverseproxy':
+                proxy_vhost => 'default_ssl_vhost',
+                location    => '/mantisbt/',
+                dest        => $proxy_mantisbt;
+        }
+    }
+    if defined($proxy_webdav) {
+        apache::vhost::include::proxy {
+            'webdav_default_ssl_reverseproxy':
+                proxy_vhost => 'default_ssl_vhost',
+                location    => '/webdav/',
+                dest        => $proxy_webdav;
+        }
     }
 
     file {
