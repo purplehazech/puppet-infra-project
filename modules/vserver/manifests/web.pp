@@ -2,12 +2,9 @@
 class vserver::web {
 
     # @todo move stuff into apache module when stable
-
     class {
         'apache':
-            serveradmin => 'purpleteam@purplehaze.ch';
-        'apache::mod::proxy': 
-            proxy_requests => 'On';
+            serveradmin => 'purpleteam@purplehaze.ch'
     }
     apache::vhost::proxy {
         'default_vhost':
