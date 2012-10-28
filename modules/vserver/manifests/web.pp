@@ -16,6 +16,7 @@ class vserver::web {
             ssl        => true,
             ssl_cert   => 'intranet.rabe.ch.crt.pem',
             ssl_key    => 'intranet.rabe.ch.key.pem',
+            ssl_ca     => 'intermediate.rapidssl.com.ca.pem',
             dest       => 'http://intranet.rabe.ch',
             servername => 'newintranet.rabe.ch';
     }
