@@ -25,6 +25,7 @@ class vserver::web {
             'mantis_default_ssl_reverseproxy':
                 proxy_vhost => 'default_ssl_vhost',
                 location    => '/mantisbt/',
+                url_map     => '/ /mantisbt/',
                 dest        => $proxy_mantisbt;
         }
     }
