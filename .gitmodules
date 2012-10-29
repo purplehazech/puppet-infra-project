@@ -19,3 +19,6 @@
 [submodule "modules/apache"]
 	path = modules/apache
 	url = https://github.com/purplehazech/puppetlabs-apache.git
+[submodule "modules/ccache"]
+	path = modules/ccache
+	url = git@github.com:purplehazech/puppet-ccache.git
