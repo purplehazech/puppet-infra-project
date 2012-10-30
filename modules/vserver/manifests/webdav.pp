@@ -1,5 +1,8 @@
 class vserver::webdav {
     webdavcgi {
-        'webdav':;
+        'webdav':
+            hostname => $webdav_hostname,
+            docroot  => $webdav_docroot,
+            ldalp    => true;
     }
 }
