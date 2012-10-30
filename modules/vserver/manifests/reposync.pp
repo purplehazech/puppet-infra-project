@@ -20,7 +20,7 @@ class vserver::reposync {
 		    */
     }
 
-    require ::eix
+    eix { 'eix':; }
 
     class { 'sudo':; }
 

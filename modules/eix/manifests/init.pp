@@ -1,7 +1,9 @@
-class eix {
+define eix (
+    $ensure = installed
+) {
 
     package { "eix":
-        ensure => installed
+        ensure => $ensure
     }
 
     file {

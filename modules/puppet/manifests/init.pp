@@ -44,8 +44,7 @@ class puppet {
         
             file {
                 "/etc/cron.daily/eix-update":
-                    content => '',
-                    mode    => '0755'
+                    ensure => absent;
             }
         }
     }
