@@ -25,6 +25,12 @@ class layman {
                         mode    => '0755';
                 "/var/lib/infra/layman":
                         ensure  => directory;
+                "/var/lib/layman":
+                        ensure => directory,
+                        mode   => '0555';
+                "/var/lib/layman/make.conf":
+                        ensure => files,
+                        mode => '0555';
         }
 
        exec {
