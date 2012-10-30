@@ -3,6 +3,6 @@ class vserver::webdav {
         'webdav':
             hostname => $webdav_hostname,
             docroot  => $webdav_docroot,
-            ldalp    => true;
+            ldap    => true;
     }
 }
