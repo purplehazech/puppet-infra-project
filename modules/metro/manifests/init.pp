@@ -9,7 +9,7 @@ class metro {
 
     git::wc {
         "/var/lib/metro/":
-            ensure => latest
+            ensure => latest,
             repo   => "https://github.com/purplehazech/metro.git",
     }
 
