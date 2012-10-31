@@ -29,7 +29,7 @@ class layman {
                         ensure => directory,
                         mode   => '0555';
                 "/var/lib/layman/make.conf":
-                        ensure => files,
+                        ensure => file,
                         mode => '0555';
         }
 
