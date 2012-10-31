@@ -33,6 +33,8 @@
             <arg value="doc"/>
             <arg value="--mode"/>
             <arg value="rdoc"/>
+            <arg value="--manifestdir"/>
+            <arg value="."/>
             <arg value="--modulepath"/>
             <arg value="modules/"/>
             <arg value="--outputdir"/>
