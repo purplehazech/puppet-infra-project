@@ -4,12 +4,13 @@
 # 
 
 class metro {
-    require ::ccache
+
+    ccache { 'ccache': ; }
 
     git::wc {
         "/var/lib/metro/":
-            repo   => "https://github.com/purplehazech/metro.git",
             ensure => latest
+            repo   => "https://github.com/purplehazech/metro.git",
     }
 
     file {
