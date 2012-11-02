@@ -1,5 +1,25 @@
-
-class vserver::web {
+# == Class: vserver::web
+#
+# Class for our main proxy vhost
+#
+# @todo move proxy_* config stuff to puppetdb
+#
+# === Parameters
+# [*http_serveradmin*]
+#   ServerAdmin config for apache
+# [*proxy_fallback*]
+#   What server to proxy requests through if no proxy::include matches
+# [*proxy_mantisbt*]
+#   Where /mantisbt/ shall proxy to
+# [*proxy_webdav*]
+#   Where /webdav/ shal proxy to
+#
+class vserver::web (
+  $http_serveradmin,
+  $proxy_fallback,
+  $proxy_mantisbt,
+  $proxy_webdav
+) {
 
     class {
         'apache':
