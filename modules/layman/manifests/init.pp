@@ -1,13 +1,21 @@
-class layman ($ensure = installed, $sync = true) {
+# == Class: layman
+#
+# Install and manage layman
+#
+# === Parameters
+# [*ensure*]
+#   installed
+# [*sync*]
+#   true lets layman vserver sync to /var/lib/layman, default, false uses a readonly mount in /var/lib/infra/layman
+#
+class layman ($ensure = installed, $sync = false) {
   package { 'layman': ensure => $ensure }
 
-  # reposync is the only machine that has a rw layman dir
-  # @todo refactor this so reposync-01 isn't in here
-  #
-
-  if $hostname == 'reposync-01' {
+  if $sync {
+    # rw layman dir
     $layman_dir = '/var/lib/layman'
   } else {
+    # ro mount for dependant systems
     $layman_dir = '/var/lib/infra/layman'
   }
 
@@ -36,8 +44,7 @@ class layman ($ensure = installed, $sync = true) {
   exec { 'sync layman repos':
     command => '/usr/bin/layman -L && touch /var/lib/puppet/state/eix.stale',
     onlyif  => "/bin/ls -al ${layman_dir}r}/cache*xml && exit 1 || exit 0",
-    require => File['tc/layman/layman.cfg"]']
+    require => File['/etc/layman/layman.cfg"]']
   }
 }
 # EOF
-
