@@ -1,5 +1,5 @@
-class layman {
-  package { 'layman': ensure => installed }
+class layman ($ensure = installed, $sync = true) {
+  package { 'layman': ensure => $ensure }
 
   # reposync is the only machine that has a rw layman dir
   # @todo refactor this so reposync-01 isn't in here
@@ -39,4 +39,5 @@ class layman {
     require => File['tc/layman/layman.cfg"]']
   }
 }
-# EOF 
+# EOF
+
