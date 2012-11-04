@@ -1,5 +1,5 @@
 
-class vserver::reposync ($jenkins_authorized_key) {
+class vserver::reposync {
   class { 'layman': sync => true }
 
   exec {
