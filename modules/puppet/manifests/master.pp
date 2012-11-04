@@ -11,7 +11,7 @@ class puppet::master {
         ensure => latest,
         noop   => true;
 
-      'hier':
+      'hiera':
         ensure   => installed,
         provider => 'gem';
     }
