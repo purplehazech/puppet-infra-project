@@ -14,6 +14,17 @@ class puppet::master {
       'hiera':
         ensure   => installed,
         provider => 'gem';
+
+      'hiera-puppet':
+        ensure   => installed,
+        provider => 'gem'
+    }
+
+    # create links for including hiera on master
+    file { '/usr/share/puppet/modules/hiera':
+      ensure  => link,
+      target  => '/usr/local/lib64/ruby/gems/1.8/gems/hiera-puppet-1.0.0/',
+      require => Package['hiera-puppet']
     }
 
     # @todo dashboard needs to stabilize, i hacked package.keywords by hand for now
@@ -36,7 +47,8 @@ class puppet::master {
       ensure  => running,
       require => [Package['puppet-infra-project']]
     }
+
   }
 }
 
-# EOF
+# EO
