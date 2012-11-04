@@ -32,11 +32,11 @@ class puppet::master {
     # i might even decide to just pop the report data into
     # zabbix without using the dashboard...
 
-    service { "puppetmaster":
+    service { 'puppetmaster':
       ensure  => running,
-      require => [Package["puppet-infra-project"]]
+      require => [Package['puppet-infra-project']]
     }
   }
+}
 
-  # EOF
-     
+# EOF
