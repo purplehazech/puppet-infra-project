@@ -10,14 +10,6 @@ class puppet::master {
         # latest+noop to make sure i don't forget to cleanup when i upgrade
         ensure => latest,
         noop   => true;
-
-      'hiera':
-        ensure   => installed,
-        provider => 'gem';
-
-      'hiera-puppet':
-        ensure   => installed,
-        provider => 'gem'
     }
 
     # create links for including hiera on master
