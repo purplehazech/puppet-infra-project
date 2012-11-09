@@ -19,11 +19,11 @@ class puppet {
           before => Service['puppet'];
 
         'hiera':
-          ensure   => installed,
+          ensure   => absent,
           provider => 'gem';
 
         'hiera-puppet':
-          ensure   => installed,
+          ensure   => absent,
           provider => 'gem'
       }
 
@@ -36,7 +36,7 @@ class puppet {
           ensure => directory;
 
         '/usr/share/puppet/modules/hiera':
-          ensure  => link,
+          ensure  => absent,
           target  => '/usr/local/lib64/ruby/gems/1.8/gems/hiera-puppet-1.0.0/',
           require => Package['hiera-puppet'];
       }
