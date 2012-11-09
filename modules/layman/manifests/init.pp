@@ -42,9 +42,10 @@ class layman ($ensure = installed, $sync = false) {
   }
 
   exec { 'sync layman repos':
-    command => '/usr/bin/layman -L && touch /var/lib/puppet/state/eix.stale',
-    onlyif  => "/bin/ls -al ${layman_dir}r}/cache*xml && exit 1 || exit 0",
-    require => File['/etc/layman/layman.cfg']
+    command  => '/usr/bin/layman -L && touch /var/lib/puppet/state/eix.stale',
+    onlyif   => "/bin/ls -al ${layman_dir}r}/cache*xml && exit 1 || exit 0",
+    require  => File['/etc/layman/layman.cfg'],
+    schedule => daily
   }
 }
 # EOF
