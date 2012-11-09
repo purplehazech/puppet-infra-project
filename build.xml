@@ -31,6 +31,7 @@
 
         <exec executable="puppet" failonerror="true">
             <arg value="doc"/>
+            <arg value="--all"/>
             <arg value="--mode"/>
             <arg value="rdoc"/>
             <arg value="--manifestdir"/>
