@@ -4,7 +4,7 @@
 #
 
 class metro {
-  class { 'ccache': ; }
+  include ccache
 
   git::wc { "/var/lib/metro/":
     ensure => latest,
