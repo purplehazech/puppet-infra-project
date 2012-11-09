@@ -2,9 +2,9 @@
 class puppet {
   case $::operatingsystem {
     windows : {
-      $pluginsync = 'false'
+      $pluginsync = false
 
-      service { "puppet":
+      service { 'puppet':
         ensure  => running,
         require => [File['C:\Dokumente und Einstellungen\All Users\Anwendungsdaten\PuppetLabs\puppet\etc\puppet.conf']]
       }
@@ -43,19 +43,19 @@ class puppet {
 
       if tagged(Class[puppet::master]) {
         # deactivated due to much bugieness on the windows side of things
-        $pluginsync = 'false'
+        $pluginsync = false
       } else {
-        $pluginsync = 'false'
+        $pluginsync = false
       }
 
-      file { "/etc/puppet/puppet.conf": content => template("puppet/puppet.conf.erb") }
+      file { '/etc/puppet/puppet.conf': content => template('puppet/puppet.conf.erb') }
 
-      service { "puppet":
+      service { 'puppet':
         ensure  => running,
-        require => [File["/etc/puppet/puppet.conf"]]
+        require => [File['/etc/puppet/puppet.conf']]
       }
 
-      file { "/etc/cron.daily/eix-update": ensure => absent; }
+      file { '/etc/cron.daily/eix-update': ensure => absent; }
     }
   }
 }
