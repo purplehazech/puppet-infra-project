@@ -27,6 +27,13 @@ class puppet {
           provider => 'gem'
       }
 
+      # create links for including hiera
+      file { '/usr/share/puppet/modules/hiera':
+        ensure  => link,
+        target  => '/usr/local/lib64/ruby/gems/1.8/gems/hiera-puppet-1.0.0/',
+        require => Package['hiera-puppet']
+      }
+
       if tagged(Class[puppet::master]) {
         # deactivated due to much bugieness on the windows side of things
         $pluginsync = 'false'
@@ -41,10 +48,8 @@ class puppet {
         require => [File["/etc/puppet/puppet.conf"]]
       }
 
-      file { "/etc/cron.daily/eix-update": ensure =>absent;
-            }
-        }
+      file { "/etc/cron.daily/eix-update": ensure => absent; }
     }
+  }
 }
-
-
+      
