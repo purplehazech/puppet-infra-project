@@ -65,16 +65,19 @@ class vserver::mediawiki {
   }
 
   file_line { 'enable-php-/etc/conf.d/apache2':
+    ensure  => present,
     path    => '/etc/conf.d/apache2',
     line    => 'APACHE2_OPTS="-D INFO -D SSL -D LANGUAGE -D LDAP -D PHP5"',
+    match   => '/^APACHE2_OPTS=/',
     require => Class['apache']
   }
 
   file_line { 'apache2-modules-/etc/make.conf':
+    ensure => present,
     path   => '/etc/make.conf',
     line   => 'APACHE2_MODULES="actions alias auth_basic authn_alias authn_default authn_file authz_default authz_groupfile authz_host authz_owner authz_user autoindex cgi dir env imagemap include info log_config logio mime mime_magic negotiation rewrite setenvif status unique_id userdir usertrack"',
+    match  => '/^APACHE2_MODULES=/',
     before => Class['apache']
   }
 }
 
- 
