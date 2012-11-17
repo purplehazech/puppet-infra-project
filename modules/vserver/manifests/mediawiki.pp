@@ -31,7 +31,7 @@ class vserver::mediawiki {
       content => 'www-servers/apache ldap';
 
     '/etc/portage/package.use/10_php_default':
-      content => 'dev-lang/php unicode curl';
+      content => 'dev-lang/php unicode curl curlwrappers';
 
     '/etc/portage/package.use/10_php_apache':
       content => 'dev-lang/php apache2';
