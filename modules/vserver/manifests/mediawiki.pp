@@ -86,7 +86,14 @@ class vserver::mediawiki {
     before => Class['apache']
   }
 
-  package { 'mediawiki': ensure => installed }
+  package { 'mediawiki':
+    ensure  => installed,
+    require => [
+      File['/etc/portage/package.use/10_mediawiki_mysql'],
+      File['/etc/portage/package.use/10_mediawiki_vhosts'],
+      File['/etc/portage/package.use/10_mediawiki_imagemagick'],
+      File['/etc/portage/package.use/10_php_xmlreader']]
+  }
 
   webapp_config { 'mediawiki':
     action  => 'install',
