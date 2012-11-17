@@ -17,14 +17,12 @@ class vserver::mediawiki {
   apache::vhost { 'default_vhost':
     port       => 80,
     docroot    => "/var/www/${fqdn}/htdocs",
-    servername => $fqdn,
-    require    => Class['apache'];
+    servername => $fqdn;
   }
 
   file {
     "/var/www/${fqdn}":
-      ensure  => directory,
-      require => Class['apache'];
+      ensure => directory;
 
     '/etc/portage/package.use/10_apache_nossl':
       content => 'www-servers/apache -ssl';
@@ -71,7 +69,5 @@ class vserver::mediawiki {
     line   => 'APACHE2_MODULES="actions alias auth_basic authn_alias authn_default authn_file authz_default authz_groupfile authz_host authz_owner authz_user autoindex cgi dir env imagemap include info log_config logio mime mime_magic negotiation rewrite setenvif status unique_id userdir usertrack"',
     before => Class['apache']
   }
-
 }
-   
- 
+
