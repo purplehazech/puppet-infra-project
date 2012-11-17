@@ -22,3 +22,6 @@
 [submodule "modules/webdavcgi"]
 	path = modules/webdavcgi
 	url = git@github.com:purplehazech/puppet-webdavcgi.git
+[submodule "modules/webapp_config"]
+	path = modules/webapp_config
+	url = git://github.com/dkerwin/puppet-webapp-config.git
