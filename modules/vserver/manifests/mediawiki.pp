@@ -87,7 +87,7 @@ class vserver::mediawiki {
   }
 
   package { 'mediawiki':
-    ensure  => installed,
+    ensure  => '1.19.2',
     require => [
       File['/etc/portage/package.use/10_mediawiki_mysql'],
       File['/etc/portage/package.use/10_mediawiki_vhosts'],
@@ -99,7 +99,7 @@ class vserver::mediawiki {
     action  => 'install',
     vhost   => $fqdn,
     app     => 'mediawiki',
-    version => '',
+    version => '1.19.2',
     depends => Package['mediawiki']
   }
 }
