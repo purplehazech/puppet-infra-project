@@ -38,6 +38,12 @@ class vserver::mediawiki {
     '/etc/portage/package.use/10_php_apache':
       content => 'dev-lang/php apache2';
 
+    '/etc/portage/package.use/10_mysql_virtual_minimal':
+      content => 'virtual/mysql minimal';
+
+    '/etc/portage/package.use/10_mysql_minimal':
+      content => 'dev-db/mysql minimal';
+
     '/etc/portage/package.use/10_php_mysql':
       content => 'dev-lang/php mysql mysqli -berkdb';
 
@@ -65,4 +71,7 @@ class vserver::mediawiki {
     line   => 'APACHE2_MODULES="actions alias auth_basic authn_alias authn_default authn_file authz_default authz_groupfile authz_host authz_owner authz_user autoindex cgi dir env imagemap include info log_config logio mime mime_magic negotiation rewrite setenvif status unique_id userdir usertrack"',
     before => Class['apache']
   }
+
 }
+   
+ 
