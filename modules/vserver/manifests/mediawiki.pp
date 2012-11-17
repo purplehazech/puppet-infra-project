@@ -51,11 +51,17 @@ class vserver::mediawiki {
     '/etc/portage/package.use/10_php_memcached':
       content => 'dev-lang/php memcached';
 
+    '/etc/portage/package.use/10_php_xmlreader':
+      content => 'dev-lang/php xmlreader';
+
     '/etc/portage/package.use/10_apache_ldap_apr':
       content => 'dev-libs/apr-util ldap';
 
     '/etc/portage/package.use/10_apache_ldap_minimal':
       content => 'net-nds/openldap minimal';
+
+    '/etc/portage/package.use/10_mediawiki_mysql':
+      content => 'www-apps/mediawiki imagemagick mysql';
   }
 
   file_line { 'enable-php-/etc/conf.d/apache2':
@@ -71,3 +77,4 @@ class vserver::mediawiki {
   }
 }
 
+ 
