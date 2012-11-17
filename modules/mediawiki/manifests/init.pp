@@ -1,6 +1,25 @@
 # == Class: mediawiki
 #
+# === Parameters:
+# [*mediawiki_sitename*]
+#   wgSitename
+# [*mediawiki_server*]
+#   wgServer
+# [*mediawiki_db_server*]
+#  wgDBserver
+# [*mediawiki_db_name*]
+#  wgDBname
+# [*mediawiki_db_user*]
+#  wgDBuser
+# [*mediawiki_db_password*]
+#  wgDBpassword
+#
 class mediawiki {
+  $mediawiki_raw_html               = true
+  $mediawiki_disable_unauthed_edits = true
+  $mediawiki_file_extensions        = ['svg', 'pdf', 'ppt', 'xls', 'dia']
+  $mediawiki_remote_auth            = true
+
   file {
     '/etc/portage/package.use/10_php_xmlreader':
       content => 'dev-lang/php xmlreader';
@@ -36,5 +55,4 @@ class mediawiki {
     depends => Package['mediawiki']
   }
 }
-   
-   
+
