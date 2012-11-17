@@ -12,7 +12,9 @@
 # [*proxy_mantisbt*]
 #   Where /mantisbt/ shall proxy to
 # [*proxy_webdav*]
-#   Where /webdav/ shal proxy to
+#   Where /webdav/ shall proxy to
+# [*proxy_jenkins*]
+#   Where /jenkins/ shall proxy to
 #
 # These all get passed as global parameters since i am still using the ldap enc
 #
@@ -52,21 +54,30 @@ class vserver::web {
     }
   }
 
-  file {
-    "/etc/portage/package.use/10_apache_proxy":
-      content => "www-servers/apache proxy proxy_balancer";
-
-    "/etc/portage/package.use/10_apache_ldap":
-      content => "www-servers/apache ldap";
-
-    "/etc/portage/package.use/10_apache_ldap_apr":
-      content => "dev-libs/apr-util ldap";
-
-    "/etc/portage/package.use/10_apache_ldap_minimal":
-      content => "net-nds/openldap minimal";
-
-    "/etc/conf.d/apache2":
-      content => 'APACHE2_OPTS="-D INFO -D SSL -D LANGUAGE -D LDAP -D PROXY -D PROXY_HTML -D AUTHNZ_EXTERNAL"'
+  if $proxy_jenkins != undef {
+    apache::vhost::include::proxy { 'jenkins_default_ssl_reverseproxy':
+      proxy_vhost => 'default_ssl_vhost',
+      location    => '/jenkins/',
+      url_map     => '/ /jenkins/',
+      dest        => $proxy_jenkins;
+    }
   }
 
+  file {
+    '/etc/portage/package.use/10_apache_proxy':
+      content => 'www-servers/apache proxy proxy_balancer';
+
+    '/etc/portage/package.use/10_apache_ldap':
+      content => 'www-servers/apache ldap';
+
+    '/etc/portage/package.use/10_apache_ldap_apr':
+      content => 'dev-libs/apr-util ldap';
+
+    '/etc/portage/package.use/10_apache_ldap_minimal':
+      content => 'net-nds/openldap minimal';
+
+    '/etc/conf.d/apache2':
+      content => 'APACHE2_OPTS="-D INFO -D SSL -D LANGUAGE -D LDAP -D PROXY -D PROXY_HTML -D AUTHNZ_EXTERNAL"'
+  }
 }
+
