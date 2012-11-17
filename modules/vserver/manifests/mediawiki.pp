@@ -22,7 +22,12 @@ class vserver::mediawiki {
 
   file {
     "/var/www/${fqdn}":
-      ensure => directory;
+      ensure => directory,
+      mode   => '0755';
+
+    "/var/www/${fqdn}/htdocs":
+      ensure => directory,
+      mode   => '0755';
 
     '/etc/portage/package.use/10_apache_nossl':
       content => 'www-servers/apache -ssl';
@@ -51,23 +56,11 @@ class vserver::mediawiki {
     '/etc/portage/package.use/10_php_memcached':
       content => 'dev-lang/php memcached';
 
-    '/etc/portage/package.use/10_php_xmlreader':
-      content => 'dev-lang/php xmlreader';
-
     '/etc/portage/package.use/10_apache_ldap_apr':
       content => 'dev-libs/apr-util ldap';
 
     '/etc/portage/package.use/10_apache_ldap_minimal':
       content => 'net-nds/openldap minimal';
-
-    '/etc/portage/package.use/10_mediawiki_mysql':
-      content => 'www-apps/mediawiki mysql';
-
-    '/etc/portage/package.use/10_mediawiki_vhosts':
-      content => 'www-apps/mediawiki vhosts';
-
-    '/etc/portage/package.use/10_mediawiki_imagemagick':
-      content => 'www-apps/mediawiki imagemagick';
   }
 
   file_line { 'enable-php-/etc/conf.d/apache2':
@@ -86,21 +79,6 @@ class vserver::mediawiki {
     before => Class['apache']
   }
 
-  package { 'mediawiki':
-    ensure  => '1.19.2',
-    require => [
-      File['/etc/portage/package.use/10_mediawiki_mysql'],
-      File['/etc/portage/package.use/10_mediawiki_vhosts'],
-      File['/etc/portage/package.use/10_mediawiki_imagemagick'],
-      File['/etc/portage/package.use/10_php_xmlreader']]
-  }
-
-  webapp_config { 'mediawiki':
-    action  => 'install',
-    vhost   => $fqdn,
-    app     => 'mediawiki',
-    version => '1.19.2',
-    depends => Package['mediawiki']
-  }
+  include ::mediawiki
 }
 
