@@ -61,7 +61,13 @@ class vserver::mediawiki {
       content => 'net-nds/openldap minimal';
 
     '/etc/portage/package.use/10_mediawiki_mysql':
-      content => 'www-apps/mediawiki imagemagick mysql';
+      content => 'www-apps/mediawiki mysql';
+
+    '/etc/portage/package.use/10_mediawiki_vhosts':
+      content => 'www-apps/mediawiki vhosts';
+
+    '/etc/portage/package.use/10_mediawiki_imagemagick':
+      content => 'www-apps/mediawiki imagemagick';
   }
 
   file_line { 'enable-php-/etc/conf.d/apache2':
@@ -81,4 +87,13 @@ class vserver::mediawiki {
   }
 
   package { 'mediawiki': ensure => installed }
+
+  webapp_config { 'mediawiki':
+    action  => 'install',
+    vhost   => $fqdn,
+    app     => 'mediawiki',
+    version => '',
+    depends => Package['mediawiki']
+  }
 }
+
