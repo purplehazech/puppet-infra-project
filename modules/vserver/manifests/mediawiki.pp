@@ -79,5 +79,6 @@ class vserver::mediawiki {
     match  => '/^APACHE2_MODULES=/',
     before => Class['apache']
   }
-}
 
+  package { 'mediawiki': ensure => installed }
+}
