@@ -9,15 +9,23 @@
 # These all get passed as global parameters since i am still using the ldap enc
 #
 class vserver::mediawiki {
-  class { 'apache': serveradmin => $http_serveradmin }
+  class { 'apache':
+    serveradmin => $http_serveradmin,
+    require     => [File['/etc/portage/package.use/10_apache_nossl'], File['/etc/portage/package.use/10_apache_ldap']]
+  }
 
   apache::vhost { 'default_vhost':
     port       => 80,
     docroot    => "/var/www/${fqdn}/htdocs",
-    servername => $fqdn;
+    servername => $fqdn,
+    require    => Class['apache'];
   }
 
   file {
+    "/var/www/${fqdn}":
+      ensure  => directory,
+      require => Class['apache'];
+
     '/etc/portage/package.use/10_apache_nossl':
       content => 'www-servers/apache -ssl';
 
@@ -47,9 +55,9 @@ class vserver::mediawiki {
   }
 
   file_line { 'enable-php-/etc/conf.d/apache2':
-    path => '/etc/conf.d/apache2',
-    line => 'APACHE2_OPTS="-D INFO -D SSL -D LANGUAGE -D LDAP -D PHP5"'
+    path    => '/etc/conf.d/apache2',
+    line    => 'APACHE2_OPTS="-D INFO -D SSL -D LANGUAGE -D LDAP -D PHP5"',
+    require => Class['apache']
   }
 }
-    
-   
+
