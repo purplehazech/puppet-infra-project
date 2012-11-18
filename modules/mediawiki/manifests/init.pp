@@ -57,6 +57,9 @@ class mediawiki {
     '/etc/portage/package.use/10_mediawiki_imagemagick':
       content => 'www-apps/mediawiki imagemagick';
 
+    '/etc/portage/package.use/10_imagemagick_mediawiki':
+      content => 'media-gfx/imagemagick jpeg png svg';
+
     "/var/www/${fqdn}/htdocs/LocalSettings.php":
       content => template('mediawiki/LocalSettings.php.erb'),
       require => Webapp_config['mediawiki'];
@@ -100,3 +103,5 @@ class mediawiki {
     }
   }
 }
+
+ 
