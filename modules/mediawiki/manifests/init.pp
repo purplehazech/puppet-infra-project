@@ -43,6 +43,7 @@ class mediawiki {
   $mediawiki_wikieditor                = true
   $mediawiki_socialprofile             = true
   $mediawiki_disable_anon              = true
+  $mediawiki_enable_uploads            = true
 
   file {
     '/etc/portage/package.use/10_php_xmlreader':
@@ -104,4 +105,3 @@ class mediawiki {
   }
 }
 
- 
