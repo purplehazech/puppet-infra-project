@@ -133,6 +133,10 @@ $wgResourceLoaderMaxQueryLength = -1;
 $wgLogo = <%= mediawiki_logo %>;
 <% end %>
 
+$wgShowExceptionDetails = <%= mediawiki_show_exception_details %>;
+
+$wgEnableScaryTranscluding = <%= mediawiki_enable_scary_transcluding %>;
+
 $wgRawHtml = <%= mediawiki_raw_html %>;
 
 <% if mediawiki_disable_unauthed_edits %>
@@ -179,4 +183,8 @@ $wgLDAPProxyAgentPassword = array(
 AutoAuthSetup();
 <% end %>
 $wgAuth = new LdapAuthenticationPlugin();
+<% end %>
+
+<% if mediawiki_fckeditor %>
+require_once("$IP/extensions/FCKeditor/FCKeditor.php");
 <% end %>

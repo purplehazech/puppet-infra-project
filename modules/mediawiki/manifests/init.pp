@@ -33,10 +33,13 @@
 #  wgLDAPProxyAgentPassword
 #
 class mediawiki {
-  $mediawiki_raw_html               = true
-  $mediawiki_disable_unauthed_edits = true
-  $mediawiki_file_extensions        = ['svg', 'pdf', 'ppt', 'xls', 'dia']
-  $mediawiki_ldap_encryption_type   = 'clear'
+  $mediawiki_raw_html                  = true
+  $mediawiki_disable_unauthed_edits    = true
+  $mediawiki_file_extensions           = ['svg', 'pdf', 'ppt', 'xls', 'dia']
+  $mediawiki_ldap_encryption_type      = 'clear'
+  $mediawiki_enable_scary_transcluding = true
+  $mediawiki_show_exception_details    = true
+  $mediawiki_fckeditor                 = true
 
   file {
     '/etc/portage/package.use/10_php_xmlreader':
@@ -86,5 +89,11 @@ class mediawiki {
       before => Webapp_config['mediawiki']
     }
   }
-}
 
+  if $mediawiki_fckeditor == true {
+    package { 'mediawiki-ext-fckeditor':
+      ensure => installed,
+      before => Webapp_config['mediawiki']
+    }
+  }
+}
