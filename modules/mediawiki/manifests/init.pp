@@ -13,6 +13,10 @@
 #  wgDBuser
 # [*mediawiki_db_password*]
 #  wgDBpassword
+# [*mediawiki_remote_auth*]
+#  use and activate remote auth login
+# [*mediawiki_ldap_auth*]
+#  use and activate ldap auth
 # [*mediawiki_ldap_domain_name*]
 #  wgLDAPDomainNames[0]
 # [*mediawiki_ldap_server_name*]
@@ -24,8 +28,6 @@ class mediawiki {
   $mediawiki_raw_html               = true
   $mediawiki_disable_unauthed_edits = true
   $mediawiki_file_extensions        = ['svg', 'pdf', 'ppt', 'xls', 'dia']
-  $mediawiki_remote_auth            = true
-  $mediawiki_ldap_auth              = true
 
   file {
     '/etc/portage/package.use/10_php_xmlreader':
