@@ -45,9 +45,9 @@ $wgEnableUserEmail  = true; # UPO
 $wgEmergencyContact = "<%= http_serveradmin %>";
 $wgPasswordSender   = "<%= http_serveradmin %>";
 
-$wgEnotifUserTalk      = false; # UPO
-$wgEnotifWatchlist     = false; # UPO
-$wgEmailAuthentication = true;
+$wgEnotifUserTalk      = <%= mediawiki_enotif_user_talk %>; # UPO
+$wgEnotifWatchlist     = <%= mediawiki_enotif_watchlist %>; # UPO
+$wgEmailAuthentication = <%= mediawiki_email_authentication %>;
 
 ## Database settings
 $wgDBtype           = "mysql";
