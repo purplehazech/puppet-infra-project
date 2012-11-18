@@ -44,6 +44,9 @@ class mediawiki {
   $mediawiki_socialprofile             = true
   $mediawiki_disable_anon              = true
   $mediawiki_enable_uploads            = true
+  $mediawiki_rights_url                = 'http://creativecommons.org/licenses/by-nc-sa/2.5/ch/'
+  $mediawiki_rights_text               = 'Attribution-Noncommercial-Share Alike 2.5 Switzerland License'
+  $mediawiki_rights_icon               = '//i.creativecommons.org/l/by-nc-sa/3.0/88x31.png'
 
   file {
     '/etc/portage/package.use/10_php_xmlreader':
