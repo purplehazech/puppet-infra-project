@@ -19,6 +19,7 @@ class mediawiki {
   $mediawiki_disable_unauthed_edits = true
   $mediawiki_file_extensions        = ['svg', 'pdf', 'ppt', 'xls', 'dia']
   $mediawiki_remote_auth            = true
+  $mediawiki_ldap_auth              = true
 
   file {
     '/etc/portage/package.use/10_php_xmlreader':
@@ -62,5 +63,11 @@ class mediawiki {
     }
   }
 
+  if $mediawiki_ldap_auth == true {
+    package { 'mediawiki-ext-ldap-auth':
+      ensure => installed,
+      before => Webapp_config['mediawiki']
+    }
+  }
 }
 
