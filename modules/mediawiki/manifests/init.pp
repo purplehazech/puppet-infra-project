@@ -34,6 +34,7 @@
 #
 class mediawiki {
   $mediawiki_raw_html                  = true
+  $mediawiki_allow_copy_uploads        = true
   $mediawiki_disable_unauthed_edits    = true
   $mediawiki_file_extensions           = ['svg', 'pdf', 'ppt', 'xls', 'dia']
   $mediawiki_ldap_encryption_type      = 'clear'
