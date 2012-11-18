@@ -15,6 +15,10 @@
 #   Where /webdav/ shall proxy to
 # [*proxy_jenkins*]
 #   Where /jenkins/ shall proxy to
+# [*proxy_mediawiki*]
+#   Where /mediawiki/ goes
+# [*proxy_mediaiki_test*]
+#   Where /mediawiki-test/ goes
 #
 # These all get passed as global parameters since i am still using the ldap enc
 #
@@ -63,6 +67,24 @@ class vserver::web {
     }
   }
 
+  if $proxy_mediawiki != undef {
+    apache::vhost::include::proxy { 'mediawiki_default_ssl_reverseproxy':
+      proxy_vhost => 'default_ssl_vhost',
+      location    => '/mediawiki/',
+      url_map     => '/ /mediawiki/',
+      dest        => $proxy_mediawiki;
+    }
+  }
+
+  if $proxy_mediawiki_test != undef {
+    apache::vhost::include::proxy { 'mediawiki_test_default_ssl_reverseproxy':
+      proxy_vhost => 'default_ssl_vhost',
+      location    => '/mediawiki_test/',
+      url_map     => '/ /mediawiki_test/',
+      dest        => $proxy_mediawiki_test;
+    }
+  }
+
   file {
     '/etc/portage/package.use/10_apache_proxy':
       content => 'www-servers/apache proxy proxy_balancer';
@@ -80,4 +102,3 @@ class vserver::web {
       content => 'APACHE2_OPTS="-D INFO -D SSL -D LANGUAGE -D LDAP -D PROXY -D PROXY_HTML -D AUTHNZ_EXTERNAL"'
   }
 }
-
