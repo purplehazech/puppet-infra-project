@@ -49,6 +49,7 @@ class mediawiki {
   $mediawiki_enotif_watchlist          = true
   $mediawiki_enable_email              = true
   $mediawiki_enable_user_email         = false
+  $mediawiki_memcached                 = true
   $mediawiki_rights_url                = 'http://creativecommons.org/licenses/by-nc-sa/2.5/ch/'
   $mediawiki_rights_text               = 'Attribution-Noncommercial-Share Alike 2.5 Switzerland License'
   $mediawiki_rights_icon               = '//i.creativecommons.org/l/by-nc-sa/3.0/88x31.png'
@@ -111,5 +112,19 @@ class mediawiki {
       before => Webapp_config['mediawiki']
     }
   }
-}
 
+  if $mediawiki_memcached == true {
+    package { 'memcached': ensure => installed }
+
+    service { 'memcached':
+      ensure  => running,
+      require => Package['memcached']
+    }
+
+    $mediawiki_main_cache_type = 'CACHE_MEMCACHED'
+    $mediawiki_cached_server   = "${fqdn}:11211"
+
+  } else {
+    $mediawiki_main_cache_type = 'CACHE_NONE'
+  }
+}

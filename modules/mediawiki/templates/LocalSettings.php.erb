@@ -70,8 +70,15 @@ $wgDBTableOptions   = "ENGINE=InnoDB, DEFAULT CHARSET=utf8";
 $wgDBmysql5 = false;
 
 ## Shared memory settings
-$wgMainCacheType    = CACHE_NONE;
+$wgMainCacheType    = <%= $mediawiki_main_cache_type %>;
+<% if mediawiki_cached_server %>
+$wgMemCachedServers = array(
+    '<%= mediawiki_cached_server %>'
+);
+<% else %>
 $wgMemCachedServers = array();
+<% end %>
+
 
 ## To enable image uploads, make sure the 'images' directory
 ## is writable, then set this to true:
