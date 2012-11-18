@@ -141,7 +141,12 @@ $wgRawHtml = <%= mediawiki_raw_html %>;
 $wgAllowCopyUploads = <%= mediawiki_allow_copy_uploads %>;
 
 <% if mediawiki_disable_unauthed_edits %>
-$wgGroupPermissions['*'    ]['edit']            = false;
+$wgGroupPermissions['*']['edit']            = false;
+<% end %>
+<% if mediawiki_disable_anon %>
+$wgGroupPermissions['*']['createaccount']   = false;
+$wgGroupPermissions['*']['read']            = false;
+$wgGroupPermissions['*']['edit']            = false;
 <% end %>
 
 <% mediawiki_file_extensions.each do |extension| %>

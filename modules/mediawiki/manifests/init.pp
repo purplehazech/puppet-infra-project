@@ -42,6 +42,7 @@ class mediawiki {
   $mediawiki_show_exception_details    = true
   $mediawiki_wikieditor                = true
   $mediawiki_socialprofile             = true
+  $mediawiki_disable_anon              = true
 
   file {
     '/etc/portage/package.use/10_php_xmlreader':
