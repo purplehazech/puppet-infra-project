@@ -54,5 +54,13 @@ class mediawiki {
     version => '1.19.2',
     depends => Package['mediawiki']
   }
+
+  if $mediawiki_remote_auth == true {
+    package { 'mediawiki-ext-automatic-remoteuser':
+      ensure => installed,
+      before => Webapp_config['mediawiki']
+    }
+  }
+
 }
 
