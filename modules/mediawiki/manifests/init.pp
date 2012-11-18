@@ -25,6 +25,10 @@
 #  wgLDAPServerNames[0]
 # [*mediawiki_ldap_search_string*]
 #  wgLDAPSearchStrings[0]
+# [*mediawiki_ldap_proxy_agent*]
+#  wgLDAPProxyAgent
+# [*mediawiki_ldap_proxy_agent_password*]
+#  wgLDAPProxyAgentPassword
 #
 class mediawiki {
   $mediawiki_raw_html               = true

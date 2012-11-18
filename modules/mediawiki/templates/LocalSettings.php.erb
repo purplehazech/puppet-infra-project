@@ -159,6 +159,14 @@ $wgLDAPServerNames = array(
 $wgLDAPSearchStrings = array(
     '<%= mediawiki_ldap_domain_name %>' => '<%= mediawiki_ldap_search_string %>'
 );
+<% if mediawiki_ldap_proxy_agent %>
+$wgLDAPProxyAgent = array(
+    '<%= mediawiki_ldap_domain_name %>' => '<%= mediawiki_ldap_proxy_agent %>'
+);
+$wgLDAPProxyAgentPassword = array(
+    '<%= mediawiki_ldap_domain_name %>' => '<%= mediawiki_ldap_proxy_agent_password %>'
+);
+<% end %>
 
 <% if mediawiki_ldap_autoauth %>
 AutoAuthSetup();
