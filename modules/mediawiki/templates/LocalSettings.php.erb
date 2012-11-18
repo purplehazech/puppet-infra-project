@@ -129,6 +129,10 @@ $wgResourceLoaderMaxQueryLength = -1;
 # End of automatically generated settings.
 # Add more configuration options below.
 
+<% if mediawiki_logo %>
+$wgLogo = <%= mediawiki_logo %>;
+<% end %>
+
 $wgRawHtml = <%= mediawiki_raw_html %>;
 
 <% if mediawiki_disable_unauthed_edits %>

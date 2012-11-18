@@ -3,6 +3,8 @@
 # === Parameters:
 # [*mediawiki_sitename*]
 #   wgSitename
+# [*mediawiki_logo*]
+#   wgLogo
 # [*mediawiki_server*]
 #   wgServer
 # [*mediawiki_db_server*]
