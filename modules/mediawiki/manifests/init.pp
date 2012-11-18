@@ -47,6 +47,8 @@ class mediawiki {
   $mediawiki_email_authentication      = false
   $mediawiki_enotif_user_talk          = true
   $mediawiki_enotif_watchlist          = true
+  $mediawiki_enable_email              = true
+  $mediawiki_enable_user_email         = false
   $mediawiki_rights_url                = 'http://creativecommons.org/licenses/by-nc-sa/2.5/ch/'
   $mediawiki_rights_text               = 'Attribution-Noncommercial-Share Alike 2.5 Switzerland License'
   $mediawiki_rights_icon               = '//i.creativecommons.org/l/by-nc-sa/3.0/88x31.png'

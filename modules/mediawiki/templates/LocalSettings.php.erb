@@ -35,12 +35,16 @@ $wgStylePath        = "$wgScriptPath/skins";
 
 ## The relative URL path to the logo.  Make sure you change this from the default,
 ## or else you'll overwrite your logo when you upgrade!
+<% if mediawiki_logo %>
+$wgLogo             = <%= mediawiki_logo %>;
+<% else %>
 $wgLogo             = "$wgStylePath/common/images/wiki.png";
+<% end %>
 
 ## UPO means: this is also a user preference option
 
-$wgEnableEmail      = true;
-$wgEnableUserEmail  = true; # UPO
+$wgEnableEmail      = <%= mediawiki_enable_email %>;
+$wgEnableUserEmail  = <%= mediawiki_enable_user_email %>; # UPO
 
 $wgEmergencyContact = "<%= http_serveradmin %>";
 $wgPasswordSender   = "<%= http_serveradmin %>";
@@ -129,9 +133,6 @@ $wgResourceLoaderMaxQueryLength = -1;
 # End of automatically generated settings.
 # Add more configuration options below.
 
-<% if mediawiki_logo %>
-$wgLogo = <%= mediawiki_logo %>;
-<% end %>
 
 $wgShowExceptionDetails = <%= mediawiki_show_exception_details %>;
 
