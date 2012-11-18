@@ -143,3 +143,20 @@ $wgFileExtensions[] = '<%= extension %>';
 require_once('extensions/Auth_remoteuser.php');
 $wgAuth = new Auth_remoteuser();
 <% end %>
+
+<% if mediawiki_ldap_auth %>
+require_once( "$IP/extensions/LdapAuthentication/LdapAuthentication.php" );
+require_once( "$IP/extensions/LdapAuthentication/LdapAutoAuthentication.php" );
+
+$wgLDAPDomainNames = array(
+	'<%= mediawiki_ldap_domain_name %>'
+);
+$wgLDAPServerNames = array(
+    '<%= mediawiki_ldap_domain_name %>' => '<%= mediawiki_ldap_server_name %>'
+);
+$wgLDAPSearchStrings = array(
+    '<%= mediawiki_ldap_domain_name %>' => '<%= mediawiki_ldap_search_string %>'
+);
+
+AutoAuthSetup();
+<% end %>

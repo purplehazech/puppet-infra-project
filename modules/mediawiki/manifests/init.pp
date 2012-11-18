@@ -13,6 +13,12 @@
 #  wgDBuser
 # [*mediawiki_db_password*]
 #  wgDBpassword
+# [*mediawiki_ldap_domain_name*]
+#  wgLDAPDomainNames[0]
+# [*mediawiki_ldap_server_name*]
+#  wgLDAPServerNames[0]
+# [*mediawiki_ldap_search_string*]
+#  wgLDAPSearchStrings[0]
 #
 class mediawiki {
   $mediawiki_raw_html               = true
