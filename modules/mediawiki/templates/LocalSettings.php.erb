@@ -201,3 +201,12 @@ $wgDefaultUserOptions['wikieditor-publish'] = 1;
 # Displays a navigation column (summary) on the right side
 $wgDefaultUserOptions['usenavigabletoc'] = 1;
 <% end %>
+
+<% if mediawiki_socialprofile %>
+require_once("$IP/extensions/SocialProfile/SocialProfile.php");
+$wgUserBoard = true;
+$wgUserProfileDisplay['friends'] = true;
+$wgUserProfileDisplay['foes'] = true;
+$wgUserProfileDisplay['board'] = true;
+$wgUserProfileDisplay['stats'] = true;
+<% end %>

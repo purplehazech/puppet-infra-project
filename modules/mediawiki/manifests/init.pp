@@ -40,6 +40,7 @@ class mediawiki {
   $mediawiki_enable_scary_transcluding = true
   $mediawiki_show_exception_details    = true
   $mediawiki_wikieditor                = true
+  $mediawiki_socialprofile             = true
 
   file {
     '/etc/portage/package.use/10_php_xmlreader':
@@ -90,8 +91,8 @@ class mediawiki {
     }
   }
 
-  if $mediawiki_wikieditor == true {
-    package { 'mediawiki-ext-wikieditor':
+  if $mediawiki_socialprofile == true {
+    package { 'mediawiki-ext-socialprofile':
       ensure => installed,
       before => Webapp_config['mediawiki']
     }
