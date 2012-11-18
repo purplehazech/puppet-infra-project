@@ -17,6 +17,8 @@
 #  use and activate remote auth login
 # [*mediawiki_ldap_auth*]
 #  use and activate ldap auth
+# [*mediawiki_ldap_autoauth*]
+#  to auto auth or not to auto auth
 # [*mediawiki_ldap_domain_name*]
 #  wgLDAPDomainNames[0]
 # [*mediawiki_ldap_server_name*]

@@ -146,7 +146,9 @@ $wgAuth = new Auth_remoteuser();
 
 <% if mediawiki_ldap_auth %>
 require_once( "$IP/extensions/LdapAuthentication/LdapAuthentication.php" );
+<% if mediawiki_ldap_autoauth %>
 require_once( "$IP/extensions/LdapAuthentication/LdapAutoAuthentication.php" );
+<% end %>
 
 $wgLDAPDomainNames = array(
 	'<%= mediawiki_ldap_domain_name %>'
@@ -158,5 +160,8 @@ $wgLDAPSearchStrings = array(
     '<%= mediawiki_ldap_domain_name %>' => '<%= mediawiki_ldap_search_string %>'
 );
 
+<% if mediawiki_ldap_autoauth %>
 AutoAuthSetup();
+<% end %>
+$wgAuth = new LdapAuthenticationPlugin();
 <% end %>
