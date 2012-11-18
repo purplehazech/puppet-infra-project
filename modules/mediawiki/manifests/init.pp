@@ -57,7 +57,7 @@ class mediawiki {
 
   $mediawiki_rights_url                = 'http://creativecommons.org/licenses/by-nc-sa/2.5/ch/'
   $mediawiki_rights_text               = 'Attribution-Noncommercial-Share Alike 2.5 Switzerland License'
-  $mediawiki_rights_icon               = '//i.creativecommons.org/l/by-nc-sa/3.0/88x31.png'
+  $mediawiki_rights_icon               = 'https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png'
 
   $mediawiki_main_cache_type           = 'CACHE_MEMCACHED'
   $mediawiki_cached_server             = "${fqdn}:11211"
