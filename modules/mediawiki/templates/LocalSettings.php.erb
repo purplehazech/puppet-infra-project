@@ -185,6 +185,19 @@ AutoAuthSetup();
 $wgAuth = new LdapAuthenticationPlugin();
 <% end %>
 
-<% if mediawiki_fckeditor %>
-require_once("$IP/extensions/FCKeditor/FCKeditor.php");
+<% if mediawiki_wikieditor %>
+require_once("$IP/extensions/WikiEditor/WikiEditor.php");
+
+# Enables use of WikiEditor by default but still allow users to disable it in preferences
+$wgDefaultUserOptions['usebetatoolbar'] = 1;
+$wgDefaultUserOptions['usebetatoolbar-cgd'] = 1;
+ 
+# Displays the Preview and Changes tabs
+$wgDefaultUserOptions['wikieditor-preview'] = 1;
+ 
+# Displays the Publish and Cancel buttons on the top right side
+$wgDefaultUserOptions['wikieditor-publish'] = 1;
+ 
+# Displays a navigation column (summary) on the right side
+$wgDefaultUserOptions['usenavigabletoc'] = 1;
 <% end %>

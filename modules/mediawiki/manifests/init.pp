@@ -39,7 +39,7 @@ class mediawiki {
   $mediawiki_ldap_encryption_type      = 'clear'
   $mediawiki_enable_scary_transcluding = true
   $mediawiki_show_exception_details    = true
-  $mediawiki_fckeditor                 = true
+  $mediawiki_wikieditor                = true
 
   file {
     '/etc/portage/package.use/10_php_xmlreader':
@@ -90,8 +90,8 @@ class mediawiki {
     }
   }
 
-  if $mediawiki_fckeditor == true {
-    package { 'mediawiki-ext-fckeditor':
+  if $mediawiki_wikieditor == true {
+    package { 'mediawiki-ext-wikieditor':
       ensure => installed,
       before => Webapp_config['mediawiki']
     }
