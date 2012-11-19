@@ -1,9 +1,9 @@
 # == Class: puppet::hiera
 # 
-class puppet::hiera inherits puppet:params {
+class puppet::hiera inherits puppet::params {
   package { 'hiera':
     ensure   => absent,
-    provider => 'gem';
+    provider => 'gem'
   }
   package { 'hiera-puppet':
     ensure   => absent,
