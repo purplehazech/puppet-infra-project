@@ -1,6 +1,5 @@
 class puppet::master inherits puppet::params {
-
-  case $puppet_master_infra_version {
+  case $puppetmaster_infra_version {
     latest: {
       package { 'puppet-infra-project':
         ensure => latest
@@ -13,22 +12,32 @@ class puppet::master inherits puppet::params {
     }
   }
 
+  if $puppet_master_infra_resource {
+    $puppet_service_require = [File[$puppet_conf_file], $puppet_master_infra_resource]
+  } else {
+    $puppet_service_require = File[$puppet_conf_file]
+  }
   service { 'puppetmaster':
     ensure  => running,
-    require => [File[$puppet_conf_file], $puppet_master_infra_resource]
+    require => $puppet_service_require
   }
 
   package { 'puppet-dashboard':
     ensure => installed
   }
 
-  service { $puppet_dashboard_services:
-    ensure => running
-  }
+  # @todo unbreak me in rabe infra
+  #service { $puppet_dashboard_services:
+  #  ensure  => running,
+  #  require => Package['puppet-dashboard']
+  #}
 
   # @todo create puppet::dashboard and let it confiure dashboard
   # dashboard needs to stabilize, i hacked package.keywords by hand for now
-  # use flags are here though
+  # use flags are here though, all in all a rather nasty hack that id rather 
+  # not repeat, in seriously just considering to deploy the dashboard instead
+  # of installing it, not my fav solution :(
+  #
   # file {
   #    "/etc/portage/package.use/puppet-dashboard":
   #       content => "app-admin/puppet-dashboard mysql imagemagick fastcgi\ndev-ruby/activerecord mysql\ndev-lang/ruby threads";
@@ -45,4 +54,5 @@ class puppet::master inherits puppet::params {
 
 }
 
-# EO
+# EOF
+

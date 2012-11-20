@@ -1,6 +1,7 @@
 # == Class: puppet
 #
 # @todo rename $master to $puppet_master
+# 
 class puppet inherits puppet::params {
   # @todo also change in win tpl
   $pluginsync = $puppet_pluginsync

@@ -10,12 +10,12 @@ class puppet::params {
     }
     Gentoo: {
       $puppet_install = true
-      $puppet_hiera_gem = true
+      $puppet_hiera_gem = false
       # @bug: windows makes problems when master has sync but clients dont
       $puppet_pluginsync = false
       $puppet_conf_file = '/etc/puppet/puppet.conf'
       $puppet_conf_template = 'puppet.conf.erb'
-      $puppet_master_infra_version = lastest
+      $puppet_master_infra_version = latest
       $puppet_dashboard_services = ['puppet-dashboard']
     }
     default: {
