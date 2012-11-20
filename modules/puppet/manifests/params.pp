@@ -16,6 +16,8 @@ class puppet::params {
       $puppet_conf_file = '/etc/puppet/puppet.conf'
       $puppet_conf_template = 'puppet.conf.erb'
       $puppet_master_infra_version = latest
+      # @todo unbreak me in rabe infra
+      $puppet_install_dashboard = false
       $puppet_dashboard_services = ['puppet-dashboard']
     }
     default: {
@@ -25,6 +27,7 @@ class puppet::params {
       $puppet_conf_file = '/etc/puppet/puppet.conf'
       $puppet_conf_template = 'puppet.conf.erb'
       $puppet_master_infra_version = 'git'
+      $puppet_install_dashboard = true
       $puppet_dashboard_services = ['puppet-dashboard', 'puppet-dashboard-workers']
     }
   }

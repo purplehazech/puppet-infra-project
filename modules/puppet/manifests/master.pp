@@ -22,16 +22,16 @@ class puppet::master inherits puppet::params {
     require => $puppet_service_require
   }
 
-  package { 'puppet-dashboard':
-    ensure => installed
+  if $puppet_master_install_dashboard {
+    package { 'puppet-dashboard':
+      ensure => installed
+    }
+
+    service { $puppet_dashboard_services:
+      ensure  => running,
+      require => Package['puppet-dashboard']
+    }
   }
-
-  # @todo unbreak me in rabe infra
-  #service { $puppet_dashboard_services:
-  #  ensure  => running,
-  #  require => Package['puppet-dashboard']
-  #}
-
   # @todo create puppet::dashboard and let it confiure dashboard
   # dashboard needs to stabilize, i hacked package.keywords by hand for now
   # use flags are here though, all in all a rather nasty hack that id rather 
