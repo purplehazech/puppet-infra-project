@@ -7,8 +7,8 @@
 #
 class zabbix inherits zabbix::params {
   file { $zabbix_agentd_conf_file:
-    content   => template("zabbix/${zabbix_agentd_conf_template}"),
-    subscribe => Service[$zabbix_agentd_service_name];
+    content => template("zabbix/${zabbix_agentd_conf_template}"),
+    notify  => Service[$zabbix_agentd_service_name];
   }
 
   if $zabbix_agentd_install {
