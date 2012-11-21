@@ -1,18 +1,18 @@
 [submodule "modules/stdlib"]
 	path = modules/stdlib
-	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
+	url = git://github.com/puppetlabs/puppetlabs-stdlib.git
 [submodule "modules/sudo"]
 	path = modules/sudo
-	url = git@github.com:hairmare/puppet-sudo.git
+	url = git://github.com/hairmare/puppet-sudo.git
 [submodule "modules/registry"]
 	path = modules/registry
-	url = https://github.com/puppetlabs/puppetlabs-registry.git
+	url = git://github.com/puppetlabs/puppetlabs-registry.git
 [submodule "modules/apache"]
 	path = modules/apache
-	url = https://github.com/purplehazech/puppetlabs-apache.git
+	url = git://github.com/purplehazech/puppetlabs-apache.git
 [submodule "modules/ccache"]
 	path = modules/ccache
-	url = git@github.com:purplehazech/puppet-ccache.git
+	url = git://github.com/purplehazech/puppet-ccache.git
 [submodule "modules/firewall"]
 	path = modules/firewall
 	url = git://github.com/puppetlabs/puppetlabs-firewall.git
@@ -21,7 +21,7 @@
 	url = git://github.com/puppetlabs/puppetlabs-passenger.git
 [submodule "modules/webdavcgi"]
 	path = modules/webdavcgi
-	url = git@github.com:purplehazech/puppet-webdavcgi.git
+	url = git://github.com/purplehazech/puppet-webdavcgi.git
 [submodule "modules/webapp_config"]
 	path = modules/webapp_config
 	url = git://github.com/dkerwin/puppet-webapp-config.git
