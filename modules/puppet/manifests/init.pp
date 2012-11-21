@@ -1,5 +1,7 @@
 
 class puppet {
+  include gem
+
   case $::operatingsystem {
     windows : {
       $pluginsync = false
