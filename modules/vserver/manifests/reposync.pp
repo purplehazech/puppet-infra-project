@@ -20,9 +20,8 @@ class vserver::reposync {
      */
   }
 
-  eix { 'eix': ; }
-
-  class { 'sudo': ; }
+  include eix
+  include sudo
 
   sudo::conf {
     'jenkins-alias':
