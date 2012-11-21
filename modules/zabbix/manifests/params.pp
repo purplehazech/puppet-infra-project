@@ -15,7 +15,7 @@ class zabbix::params {
       $zabbix_agentd_package_name     = 'zabbix-agent'
       $zabbix_agentd_service_name     = 'zabbix-agentd'
       $zabbix_agentd_conf_file        = '/etc/zabbix/zabbix_agentd.conf'
-      $zabbix_agentd_conf_template    = 'zabbix/zabbix_agentd.conf.erb'
+      $zabbix_agentd_conf_template    = 'zabbix_agentd.conf.erb'
     }
     default : {
       $zabbix_supports_userparameters = true
@@ -23,7 +23,7 @@ class zabbix::params {
       $zabbix_agentd_package_name     = 'zabbix'
       $zabbix_agentd_service_name     = 'zabbix-agentd'
       $zabbix_agentd_conf_file        = '/etc/zabbix/zabbix_agentd.conf'
-      $zabbix_agentd_conf_template    = 'zabbix/zabbix_agentd.conf.erb'
+      $zabbix_agentd_conf_template    = 'zabbix_agentd.conf.erb'
     }
   }
 }
