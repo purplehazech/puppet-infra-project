@@ -15,6 +15,8 @@ class puppet::params {
       $puppet_pluginsync = false
       $puppet_conf_file = '/etc/puppet/puppet.conf'
       $puppet_conf_template = 'puppet.conf.erb'
+      $puppet_master_infra_version = lastest
+      $puppet_dashboard_services = ['puppet-dashboard']
     }
     default: {
       $puppet_install = true
@@ -22,6 +24,8 @@ class puppet::params {
       $puppet_pluginsync = true
       $puppet_conf_file = '/etc/puppet/puppet.conf'
       $puppet_conf_template = 'puppet.conf.erb'
+      $puppet_master_infra_version = 'git'
+      $puppet_dashboard_services = ['puppet-dashboard', 'puppet-dashboard-workers']
     }
   }
 }
