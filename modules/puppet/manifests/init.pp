@@ -1,63 +1,26 @@
+# == Class: puppet
+#
+class puppet inherits puppet::params {
+  $pluginsync = $puppet_pluginsync
 
-class puppet {
   include gem
 
-  case $::operatingsystem {
-    windows : {
-      $pluginsync = false
+  service { 'puppet':
+    ensure  => running,
+    require => File[$puppet_conf_file]
+  }
 
-      service { 'puppet':
-        ensure  => running,
-        require => [File['C:\Dokumente und Einstellungen\All Users\Anwendungsdaten\PuppetLabs\puppet\etc\puppet.conf']]
-      }
+  file { $puppet_conf_file:
+    content => template("puppet/${puppet_conf_template}"),
+    notify  => Service['puppet']
+  }
 
-      file { 'C:\Dokumente und Einstellungen\All Users\Anwendungsdaten\PuppetLabs\puppet\etc\puppet.conf': content => template('puppet/puppet.conf.win.erb'
-        ) }
+  if $puppet_install {
+    if $puppet_hiera_gem {
+      include puppet::hiera
     }
-    default : {
-      package {
-        'puppet':
-          ensure => installed,
-          before => Service['puppet'];
-
-        'hiera':
-          ensure   => absent,
-          provider => 'gem';
-
-        'hiera-puppet':
-          ensure   => absent,
-          provider => 'gem'
-      }
-
-      # create links for including hiera
-      file {
-        '/usr/share/puppet':
-          ensure => directory;
-
-        '/usr/share/puppet/modules':
-          ensure => directory;
-
-        '/usr/share/puppet/modules/hiera':
-          ensure  => absent,
-          target  => '/usr/local/lib64/ruby/gems/1.8/gems/hiera-puppet-1.0.0/',
-          require => Package['hiera-puppet'];
-      }
-
-      if tagged(Class[puppet::master]) {
-        # deactivated due to much bugieness on the windows side of things
-        $pluginsync = false
-      } else {
-        $pluginsync = false
-      }
-
-      file { '/etc/puppet/puppet.conf': content => template('puppet/puppet.conf.erb') }
-
-      service { 'puppet':
-        ensure  => running,
-        require => [File['/etc/puppet/puppet.conf']]
-      }
-
-      file { '/etc/cron.daily/eix-update': ensure => absent; }
+    package { 'puppet':
+      ensure => installed
     }
   }
 }
