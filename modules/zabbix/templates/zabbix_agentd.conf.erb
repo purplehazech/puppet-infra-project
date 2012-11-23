@@ -73,6 +73,9 @@ LogFile=/var/log/zabbix/zabbix_agentd.log
 # Must be between 1 and 30
 
 Timeout=3
+<% if $zabbix_supports_userparameters %>
+Include=<%= $zabbix_userparameters_directory %>
+<% end %>
 
 ####### USER-DEFINED MONITORED PARAMETERS #######
 # Format: UserParameter=<key>,<shell command>

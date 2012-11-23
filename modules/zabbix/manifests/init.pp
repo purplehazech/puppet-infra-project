@@ -20,7 +20,10 @@ class zabbix inherits zabbix::params {
   }
 
   if $zabbix_supports_userparameters {
-    file { '/etc/zabbix/userparameter.d': ensure => directory; }
+    file { $zabbix_agentd_conf_include:
+      ensure => directory,
+      notify => Service[$zabbix_agentd_service_name]
+    }
   }
 
   service { $zabbix_agentd_service_name:
