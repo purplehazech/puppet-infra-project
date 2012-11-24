@@ -1,5 +1,13 @@
 # == Class: puppet
 #
+# Install puppet on a box
+#
+# === Parameters:
+# [*puppet_server*]
+#   where to find the puppetmaster (defaults to puppet)
+# [*puppet_master*]
+#   set to true if the box is a master
+#
 class puppet inherits puppet::params {
   # @todo also change in win tpl
   $pluginsync = $puppet_pluginsync
@@ -10,9 +18,8 @@ class puppet inherits puppet::params {
     if $puppet_hiera_gem {
       include puppet::hiera
     }
-    package { 'puppet':
-      ensure => installed
-    }
+
+    package { 'puppet': ensure => installed }
   }
 
   if $puppet_master {
@@ -24,7 +31,5 @@ class puppet inherits puppet::params {
     notify  => Service['puppet']
   }
 
-  service { 'puppet':
-    ensure  => running
-  }
+  service { 'puppet': ensure => running }
 }

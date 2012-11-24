@@ -1,14 +1,16 @@
+# == Class: puppet::master
+#
+# Class responsible for installing and configuring the puppet master.
+#
 class puppet::master inherits puppet::params {
   include puppet::storeconfig
 
-  case $puppetmaster_infra_version {
-    latest: {
-      package { 'puppet-infra-project':
-        ensure => latest
-      }
+  case $puppet_master_infra_version {
+    latest : {
+      package { 'puppet-infra-project': ensure => latest }
       $puppet_master_infra_resource = Package['puppet-infra-project']
     }
-    'git': {
+    'git'  : {
       # @todo implement autosyncing
       $puppet_master_infra_resource = []
     }
@@ -19,15 +21,14 @@ class puppet::master inherits puppet::params {
   } else {
     $puppet_service_require = File[$puppet_conf_file]
   }
+
   service { 'puppetmaster':
     ensure  => running,
     require => $puppet_service_require
   }
 
   if $puppet_master_install_dashboard {
-    package { 'puppet-dashboard':
-      ensure => installed
-    }
+    package { 'puppet-dashboard': ensure => installed }
 
     service { $puppet_dashboard_services:
       ensure  => running,
@@ -36,7 +37,7 @@ class puppet::master inherits puppet::params {
   }
   # @todo create puppet::dashboard and let it confiure dashboard
   # dashboard needs to stabilize, i hacked package.keywords by hand for now
-  # use flags are here though, all in all a rather nasty hack that id rather 
+  # use flags are here though, all in all a rather nasty hack that id rather
   # not repeat, in seriously just considering to deploy the dashboard instead
   # of installing it, not my fav solution :(
   #
@@ -53,8 +54,6 @@ class puppet::master inherits puppet::params {
   # scripts when the dashboard is a bit more mature.
   # i might even decide to just pop the report data into
   # zabbix without using the dashboard...
-
 }
 
 # EOF
-
