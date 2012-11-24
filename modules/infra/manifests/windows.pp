@@ -1,6 +1,4 @@
-
+# @deprecated
 class infra::windows {
-
-    include infra
 
 }

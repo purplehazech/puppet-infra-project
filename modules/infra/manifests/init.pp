@@ -4,10 +4,8 @@
 # under Puppet control.
 #
 # It gets added to all nodes by the external node classifier (ENC)
-# 
+#
 class infra {
+  class { 'zabbix': } -> class { 'puppet': }
 
-  class { 'zabbix': }
-  ->
-  class { 'puppet': }
 }

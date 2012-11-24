@@ -1,2 +1,11 @@
 name 'purplehazech-infra'
+version '0.0.1'
 
+author 'Lucas S. Bickel'
+license 'AGPL'
+project_page 'https://github.com/purplehazech/puppet-infra-project'
+source 'https://github.com/purplehazech/puppet-infra-project/tree/master/modules/infra'
+summary 'basic we want on all machines'
+description 'Install the basic tools needed on each and every machine we are going to manage.'
+dependency 'purplehazech/puppet', '>=0.0.1'
+dependency 'purplehazech/zabbix', '>=0.0.1'
