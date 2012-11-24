@@ -1,7 +1,5 @@
 # == Class: puppet
 #
-# @todo rename $master to $puppet_master
-# 
 class puppet inherits puppet::params {
   # @todo also change in win tpl
   $pluginsync = $puppet_pluginsync
@@ -17,7 +15,7 @@ class puppet inherits puppet::params {
     }
   }
 
-  if $master {
+  if $puppet_master {
     include puppet::master
   }
 

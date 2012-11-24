@@ -1,4 +1,6 @@
 class puppet::master inherits puppet::params {
+  include puppet::storeconfig
+
   case $puppetmaster_infra_version {
     latest: {
       package { 'puppet-infra-project':

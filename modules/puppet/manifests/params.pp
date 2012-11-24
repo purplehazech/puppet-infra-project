@@ -19,6 +19,8 @@ class puppet::params {
       # @todo unbreak me in rabe infra
       $puppet_install_dashboard = false
       $puppet_dashboard_services = ['puppet-dashboard']
+      # not installing yet
+      # $puppet_storeconfig_provider = 'activerecord'
     }
     default: {
       $puppet_install = true
@@ -29,6 +31,10 @@ class puppet::params {
       $puppet_master_infra_version = 'git'
       $puppet_install_dashboard = true
       $puppet_dashboard_services = ['puppet-dashboard', 'puppet-dashboard-workers']
+      # $puppet_storeconfig_provider = 'puppetdb'
+      $puppet_puppetdb_server = $puppet_server
+      $puppet_puppetdb_config_file = '/etc/puppet/puppetdb.conf'
+      $puppet_puppetdb_config_template = 'puppetdb.conf.erb'
     }
   }
 }
