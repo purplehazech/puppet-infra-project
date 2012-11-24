@@ -7,6 +7,7 @@
 # 
 class infra {
 
-    require zabbix
-
+  class { 'zabbix': }
+  ->
+  class { 'puppet': }
 }
