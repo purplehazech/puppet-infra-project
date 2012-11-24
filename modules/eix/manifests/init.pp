@@ -1,4 +1,4 @@
-# Define: eix
+# == Class: eix
 #
 # install and manage eix
 #
@@ -8,28 +8,25 @@
 # maybe one-day i'll find a use for doing stuff to eixrc :)
 # 
 #
-# Parameters:
-# - ensure
+# === Parameters:
+# [*ensure*]
 #
 # Actions:
 # * Install eix package and manage eixrc
 #
 # Sample Usage:
 # 
-#      eix{ 'install':; }
+#      include eix
 #
-define eix (
-    $ensure = installed
-) {
+class eix ($ensure = installed) {
+  package { 'eix':
+    ensure => $ensure
+  }
 
-    package { "eix":
-        ensure => $ensure
-    }
-
-    file {
-        "/var/cache/eix":
-            ensure => file;
-        "/etc/eixrc":
-            content => template("eix/eixrc.erb")
-    }
+  file {
+    '/var/cache/eix':
+       ensure => file;
+    '/etc/eixrc':
+       content => template('eix/eixrc.erb')
+  }
 }

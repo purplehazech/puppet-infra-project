@@ -1,0 +1,2 @@
+The infra module contains basic setup routines for the various
+supported operating systems.

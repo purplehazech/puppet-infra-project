@@ -13,15 +13,19 @@
 
     config = /etc/config/puppet.conf
 
-    pluginsync = <%= pluginsync %>
+    pluginsync = <%= puppet_pluginsync %>
 
-<% if has_variable?("master") && master == true then %>
-
-    confdir = /usr/share/puppet-infra-project
-    
+    modulepath = $confdir/modules:/usr/share/puppet/modules:/usr/share/puppet-infra-project/modules
+    manifestdir = /usr/share/puppet-infra-project/manifests
+ 
+<% if has_variable?("puppet_master") && puppet_master == true then %>
 [master]
     reports = store,http
     reporturl = http://<%= puppet_server %>:3000/reports/upload
+<% if has_variable?("puppet_storeconfig_provider") && puppet_storeconfig_provider == "puppetdb" then %>
+    storeconfigs = true
+    storeconfigs_backend = puppetdb
+<%end%>
 <% if has_variable?("ldap_base_dn") then %>
     # ldapconfig 
     node_terminus = ldap

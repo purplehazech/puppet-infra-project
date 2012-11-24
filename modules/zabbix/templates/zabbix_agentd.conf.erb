@@ -42,7 +42,7 @@ StartAgents=5
 
 # Disable active checks. The agent will work in passive mode listening server.
 
-#DisableActive=1
+DisableActive=1
 
 # Enable remote commands for ZABBIX agent. By default remote commands disabled.
 
@@ -73,6 +73,9 @@ LogFile=/var/log/zabbix/zabbix_agentd.log
 # Must be between 1 and 30
 
 Timeout=3
+<% if $zabbix_supports_userparameters %>
+Include=<%= $zabbix_userparameters_directory %>
+<% end %>
 
 ####### USER-DEFINED MONITORED PARAMETERS #######
 # Format: UserParameter=<key>,<shell command>
