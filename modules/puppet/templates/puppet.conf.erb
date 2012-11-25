@@ -43,8 +43,10 @@
     ldapnodes = true
     ldapserver = <%= ldap_server %>
     ldapbase = <%= ldap_base_dn %>
+<% if has_variable?("ldap_user") then %>
     ldapuser = <%= ldap_user %>
     ldappassword = <%= ldap_passwd %>
+<% end %>
 <% end %>
 <% end %>
 
