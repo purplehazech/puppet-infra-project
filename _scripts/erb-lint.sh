@@ -1,7 +1,5 @@
 #!/bin/sh
 
-echo "Linting ERB files"
-
 for erbfile in $@; do
         erb -x -T '-' $erbfile | ruby -c
         if [[ $? != 0 ]]; then
