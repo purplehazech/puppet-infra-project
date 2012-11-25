@@ -17,6 +17,8 @@ class zabbix::params {
       $zabbix_agentd_conf_file        = '/etc/zabbix/zabbix_agent.conf'
       $zabbix_agentd_conf_template    = 'zabbix_agentd.conf.erb'
       $zabbix_agentd_conf_include     = '/etc/zabbix/zabbix_agentd.d/'
+      $zabbix_agentd_pid_file         = '/var/run/zabbix-agent/zabbix_agentd.pid'
+      $zabbix_agentd_log_file         = '/var/log/zabbix-agent/zabbix_agentd.log'
     }
     default : {
       $zabbix_supports_userparameters = true
@@ -26,6 +28,8 @@ class zabbix::params {
       $zabbix_agentd_conf_file        = '/etc/zabbix/zabbix_agentd.conf'
       $zabbix_agentd_conf_template    = 'zabbix_agentd.conf.erb'
       $zabbix_agentd_conf_include     = '/etc/zabbix/userparameter.d/'
+      $zabbix_agentd_pid_file         = '/var/run/zabbix/zabbix_agentd.pid'
+      $zabbix_agentd_log_file         = '/var/log/zabbix/zabbix_agentd.log'
     }
   }
 }

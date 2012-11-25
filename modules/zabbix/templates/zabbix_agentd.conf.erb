@@ -52,19 +52,20 @@ DisableActive=1
 # 0 - debug is not created
 # 1 - critical information
 # 2 - error information
-# 3 - warnings (default)
-# 4 - for debugging (produces lots of information)
+# 3 - warnings
+# 4 - information (default)
+# 5 - for debugging (produces lots of information)
 
 DebugLevel=3
 
 # Name of PID file
 
-PidFile=/var/run/zabbix/zabbix_agentd.pid
+PidFile=<%= zabbix_agentd_pid_file %>
 
 # Name of log file.
 # If not set, syslog will be used
 
-LogFile=/var/log/zabbix/zabbix_agentd.log
+LogFile=<%= zabbix_agentd_log_file %>
 
 # Maximum size of log file in MB. Set to 0 to disable automatic log rotation.
 #LogFileSize=1
@@ -73,7 +74,7 @@ LogFile=/var/log/zabbix/zabbix_agentd.log
 # Must be between 1 and 30
 
 Timeout=3
-<% if $zabbix_supports_userparameters %>
+<% if zabbix_supports_userparameters %>
 Include=<%= $zabbix_userparameters_directory %>
 <% end %>
 
