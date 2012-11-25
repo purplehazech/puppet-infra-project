@@ -30,14 +30,15 @@ class puppet::params {
       $puppet_storeconfig_db_adapter            = 'mysql'
     }
     default : {
-      $puppet_install                  = true
-      $puppet_hiera_gem                = false
-      $puppet_pluginsync               = true
-      $puppet_conf_file                = '/etc/puppet/puppet.conf'
-      $puppet_conf_template            = 'puppet.conf.erb'
-      $puppet_master_infra_version     = 'git'
-      $puppet_master_install_dashboard = true
-      $puppet_dashboard_services       = ['puppet-dashboard', 'puppet-dashboard-workers']
+      $puppet_install       = true
+      $puppet_hiera_gem     = false
+      $puppet_pluginsync    = true
+      $puppet_conf_file     = '/etc/puppet/puppet.conf'
+      $puppet_conf_template = 'puppet.conf.erb'
+      $puppet_master_infra_version         = 'git'
+      $puppet_master_install_dashboard     = true
+      $puppet_dashboard_services           = ['puppet-dashboard', 'puppet-dashboard-workers']
+      $puppet_dashboard_database_yaml_file = '/usr/share/puppet-dashboard/config/database.yml'
       # not installing yet
       # $puppet_storeconfig_provider = 'puppetdb'
     }

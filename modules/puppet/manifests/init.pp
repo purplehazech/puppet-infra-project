@@ -24,6 +24,11 @@ class puppet inherits puppet::params {
 
   if $puppet_master {
     include puppet::master
+
+    if $puppet_master_install_dashboard {
+      include puppet::dashboard
+
+    }
   }
 
   file { $puppet_conf_file:
@@ -33,3 +38,4 @@ class puppet inherits puppet::params {
 
   service { 'puppet': ensure => running }
 }
+
