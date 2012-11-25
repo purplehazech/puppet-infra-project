@@ -17,6 +17,15 @@
             <arg value="--mode"/>
             <arg value="master"/>
         </exec>
+        <!-- look into erb syntax -->
+        <!-- erb -x -T '-' modules/puppet/templates/puppet.conf.erb | ruby -c -->
+        <apply executable="./_scripts/erb-lint.sh" failonerror="true" 
+               parallel="false">
+
+            <fileset dir=".">
+                <include name="modules/**/*.erb"/>
+            </fileset>
+        </apply>
     </target>
 
     <!--
