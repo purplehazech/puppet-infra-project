@@ -22,10 +22,21 @@
 [master]
     reports = store,http
     reporturl = http://<%= puppet_server %>:3000/reports/upload
-<% if has_variable?("puppet_storeconfig_provider") && puppet_storeconfig_provider == "puppetdb" then %>
+<% if has_variable?("puppet_storeconfig_provider") then %>
     storeconfigs = true
+<% if puppet_storeconfig_provider == "puppetdb" then %>
     storeconfigs_backend = puppetdb
-<%end%>
+<% end %<
+<% if puppet_storeconfig_provider == "activerecord" then %>
+    storeconfigs_backend = active_record
+
+    dbadapter  = <%= puppet_storeconfig_db_adapter %>
+    dbuser     = <%= puppet_storeconfig_db_user %>
+    dbpassword = <%= puppet_storeconfig_db_password %>
+    dbserver   = <%= puppet_storeconfig_db_server %>
+    dbname     = <%= puppet_storeconfig_db_name %>
+<% end %>
+<% end %>
 <% if has_variable?("ldap_base_dn") then %>
     # ldapconfig 
     node_terminus = ldap

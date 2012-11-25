@@ -15,18 +15,19 @@ class puppet::params {
       $puppet_conf_template = 'puppet.conf.win.erb'
     }
     Gentoo  : {
-      $puppet_install                  = true
-      $puppet_hiera_gem                = false
+      $puppet_install       = true
+      $puppet_hiera_gem     = false
       # @bug: windows makes problems when master has sync but clients dont
-      $puppet_pluginsync               = false
-      $puppet_conf_file                = '/etc/puppet/puppet.conf'
-      $puppet_conf_template            = 'puppet.conf.erb'
-      $puppet_master_infra_version     = latest
+      $puppet_pluginsync    = false
+      $puppet_conf_file     = '/etc/puppet/puppet.conf'
+      $puppet_conf_template = 'puppet.conf.erb'
+      $puppet_master_infra_version              = latest
       # @todo unbreak me in rabe infra
-      $puppet_master_install_dashboard = false
-      $puppet_dashboard_services       = ['puppet-dashboard']
-      # not installing yet
-      # $puppet_storeconfig_provider = 'activerecord'
+      $puppet_master_install_dashboard          = false
+      $puppet_dashboard_services                = ['puppet-dashboard']
+      $puppet_storeconfig_provider              = 'activerecord'
+      $puppet_storeconfig_activerecord_packages = ['mysql-ruby']
+      $puppet_storeconfig_db_adapter            = 'mysql'
     }
     default : {
       $puppet_install                  = true
@@ -37,6 +38,7 @@ class puppet::params {
       $puppet_master_infra_version     = 'git'
       $puppet_master_install_dashboard = true
       $puppet_dashboard_services       = ['puppet-dashboard', 'puppet-dashboard-workers']
+      # not installing yet
       # $puppet_storeconfig_provider = 'puppetdb'
     }
   }

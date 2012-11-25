@@ -9,7 +9,8 @@ class puppet::storeconfig inherits puppet::params {
       include puppet::puppetdb
     }
     'activerecord' : {
-      # @todo implement me
+      $puppet_storeconfig_install = false
+      include puppet::activerecord
     }
     default        : {
       $puppet_storeconfig_install = false
