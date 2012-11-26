@@ -1,0 +1,9 @@
+== Module: mediawiki
+
+Install mediawiki with bells and whistles
+
+This module wal built to install mediawiki with bells and whistles. We like 
+our wiki shiny and  outfitted with niceties such as social profile. This
+module takes care of that and does so well on gentoo.
+
+To run this you will need some packages from the rabe-portage-overlay.

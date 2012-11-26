@@ -1,0 +1,14 @@
+name 'purplehazech-mediawiki'
+version '0.0.2'
+
+author 'Lucas S. Bickel'
+license 'AGPL'
+project_page 'https://github.com/purplehazech/puppet-infra-project'
+source 'https://github.com/purplehazech/puppet-infra-project/tree/master/modules/mediawiki'
+summary 'mediawiki, with some bells and whistles'
+description 'we need a wiki, its mediawiki and it has nice plugins installed
+
+this does all that and tells our proxy to let it through as well
+
+all in glorious testing details :)'
+dependency 'webapp/config', '==1.0.0'
