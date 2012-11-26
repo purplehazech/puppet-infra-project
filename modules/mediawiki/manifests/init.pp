@@ -33,6 +33,8 @@
 #  wgLDAPProxyAgentPassword
 #
 class mediawiki inherits mediawiki::params {
+  include mediawiki::exports
+
   file {
     '/etc/portage/package.use/10_php_xmlreader':
       content => 'dev-lang/php xmlreader';
@@ -100,4 +102,6 @@ class mediawiki inherits mediawiki::params {
       require => Package['memcached']
     }
   }
+
 }
+ 
