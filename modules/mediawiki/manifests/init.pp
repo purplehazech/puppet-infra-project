@@ -33,6 +33,7 @@
 #  wgLDAPProxyAgentPassword
 #
 class mediawiki inherits mediawiki::params {
+  include mediawiki::gentoo
   include mediawiki::exports
 
   file {
@@ -104,4 +105,3 @@ class mediawiki inherits mediawiki::params {
   }
 
 }
- 
