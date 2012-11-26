@@ -48,7 +48,7 @@
             <arg value="--mode"/>
             <arg value="rdoc"/>
             <arg value="--manifestdir"/>
-            <arg value="."/>
+            <arg value="manifests/"/>
             <arg value="--modulepath"/>
             <arg value="modules/"/>
             <arg value="--outputdir"/>
