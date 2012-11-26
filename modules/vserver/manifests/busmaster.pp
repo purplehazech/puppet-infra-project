@@ -1,28 +1,31 @@
-
+# == Class: vserver::busmaster
+#
+# a sad little unused server in php, on its own node, sad
+#
 class vserver::busmaster {
+  file {
+    # pulling in a not so minimal php config
+    '/etc/portage/package.use/rabe-bustmaster':
+      content => template('vserver/busmaster.use.erb');
 
-    file { 
-        # pulling in a not so minimal php config 
-        "/etc/portage/package.use/rabe-bustmaster":
-            content => template("vserver/busmaster.use.erb");
-        "/etc/busmaster":
-            ensure => directory;
-        "/etc/busmaster/gearman.ini":
-            ensure => file;
-        "/usr/share/rabe-busmaster/etc":
-            ensure => "/etc/busmaster"
-    }
+    '/etc/busmaster':
+      ensure => directory;
 
-    package {
-        "rabe-busmaster":
-            ensure => latest
-    }
+    '/etc/busmaster/gearman.ini':
+      ensure => file;
 
+    '/usr/share/rabe-busmaster/etc':
+      ensure => '/etc/busmaster'
+  }
 
-    service { 
-        "gearmand":
-            ensure => stopped;
-        "memcached":
-            ensure => running;
-    }
+  package { 'rabe-busmaster': ensure => latest }
+
+  service {
+    'gearmand':
+      ensure => stopped;
+
+    'memcached':
+      ensure => running;
+  }
+
 }
