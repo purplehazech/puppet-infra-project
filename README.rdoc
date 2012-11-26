@@ -12,8 +12,8 @@ As of now I am progressing nicely towards creating some serious infrastructure b
 
 * finalize metro build infrastructure and make it build our next generation of vserver images
 * create automated infrastructure for
-* * creating binary ebuilds for provisioning the new vservers/guests
-* * creating glsa update binaries for critical systems
+ * creating binary ebuilds for provisioning the new vservers/guests
+ * creating glsa update binaries for critical systems
 * start adding linux-desktop stuff to the puppet setup and later also to the build infrastructure
 
 From what I have done with metro over the odd several years I know that it is absolutely possible to roll a specialized desktop distro. This puppet tree shall provide dox on the toolchain and it will also be full of stuff needed for keeping a community radio stations techie stuff as transparent as possible.
