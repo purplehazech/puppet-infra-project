@@ -40,6 +40,9 @@
 	<!-- need by builds manifestdir arg -->
 	<mkdir dir="manifests"/>
 	<copy file="README.rdoc" todir="manifests/"/>
+	<exec executable="touch">
+	    <arg value="manifests/site.pp"/>
+	</exec>
         
         <exec executable="puppet" failonerror="true">
             <arg value="doc"/>
