@@ -1,4 +1,12 @@
-
+# == Class: vserver::reposync
+#
+# reposync syncs out portage overlays, he might also sync other OSes in future.
+#
+# === Parameters:
+# @todo replace with resource collector & facter fact to fetch jenkins pubkey
+# [*::jenkins_authorized_key*]
+#   ssh authkey used by jenkins
+#
 class vserver::reposync {
   class { 'layman': sync => true }
 
@@ -12,12 +20,6 @@ class vserver::reposync {
       command => '/usr/bin/layman -a  gentoo-vnkuznet-overlay',
       creates => '/var/lib/layman/gentoo-vnkuznet-overlay/',
       require => Exec['sync layman repos'];
-    /*
-     *    "add rabe repo to layman":
-     *            command => "/usr/bin/layman -a rabe-portage-overlay",
-     *            creates => "/var/lib/layman/rabe-portage-overlay/",
-     *            require => Exec["sync layman repos"];
-     */
   }
 
   include eix
@@ -50,7 +52,7 @@ class vserver::reposync {
       require => File['/var/lib/jenkins'];
 
     '/var/lib/jenkins/.ssh/authorized_keys':
-      content => $jenkins_authorized_key,
+      content => $::jenkins_authorized_key,
       owner   => jenkins,
       require => File['/var/lib/jenkins/.ssh/']
   }

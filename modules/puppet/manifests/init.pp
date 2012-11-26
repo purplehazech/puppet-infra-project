@@ -3,9 +3,9 @@
 # Install puppet on a box
 #
 # === Parameters:
-# [*puppet_server*]
+# [*::puppet_server*]
 #   where to find the puppetmaster (defaults to puppet)
-# [*puppet_master*]
+# [*::puppet_master*]
 #   set to true if the box is a master
 #
 class puppet inherits puppet::params {
@@ -22,7 +22,7 @@ class puppet inherits puppet::params {
     package { 'puppet': ensure => installed }
   }
 
-  if $puppet_master {
+  if $::puppet_master {
     include puppet::master
 
     if $puppet_master_install_dashboard {

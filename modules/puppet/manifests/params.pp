@@ -3,7 +3,7 @@
 # Basic setup ala hiera
 #
 class puppet::params {
-  $puppet_puppetdb_server          = $puppet_server
+  $puppet_puppetdb_server          = $::puppet_server
   $puppet_puppetdb_config_file     = '/etc/puppet/puppetdb.conf'
   $puppet_puppetdb_config_template = 'puppetdb.conf.erb'
 

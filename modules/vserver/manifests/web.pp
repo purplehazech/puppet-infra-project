@@ -23,12 +23,12 @@
 # These all get passed as global parameters since i am still using the ldap enc
 #
 class vserver::web {
-  class { 'apache': serveradmin => $http_serveradmin }
+  class { 'apache': serveradmin => $::http_serveradmin }
 
   apache::vhost::proxy {
     'default_vhost':
       port       => 80,
-      dest       => $proxy_fallback,
+      dest       => $::proxy_fallback,
       servername => 'intranet.rabe.ch';
 
     'default_ssl_vhost':
@@ -37,42 +37,42 @@ class vserver::web {
       ssl_cert   => 'intranet.rabe.ch.crt.pem',
       ssl_key    => 'intranet.rabe.ch.key.pem',
       ssl_ca     => 'intermediate.rapidssl.com.ca.pem',
-      dest       => $proxy_fallback,
+      dest       => $::proxy_fallback,
       servername => 'intranet.rabe.ch';
   }
 
-  if $proxy_mantisbt != undef {
+  if $::proxy_mantisbt != undef {
     apache::vhost::include::proxy { 'mantis_default_ssl_reverseproxy':
       proxy_vhost => 'default_ssl_vhost',
       location    => '/mantisbt/',
-      dest        => $proxy_mantisbt;
+      dest        => $::proxy_mantisbt;
     }
   }
 
-  if $proxy_webdav != undef {
+  if $::proxy_webdav != undef {
     apache::vhost::include::proxy { 'webdav_default_ssl_reverseproxy':
       proxy_vhost => 'default_ssl_vhost',
       location    => '/webdav/',
       url_map     => '/ /webdav/',
-      dest        => $proxy_webdav;
+      dest        => $::proxy_webdav;
     }
   }
 
-  if $proxy_jenkins != undef {
+  if $::proxy_jenkins != undef {
     apache::vhost::include::proxy { 'jenkins_default_ssl_reverseproxy':
       proxy_vhost => 'default_ssl_vhost',
       location    => '/jenkins',
       url_map     => '/ /jenkins',
-      dest        => $proxy_jenkins;
+      dest        => $::proxy_jenkins;
     }
   }
 
-  if $proxy_mediawiki != undef {
+  if $::proxy_mediawiki != undef {
     apache::vhost::include::proxy { 'mediawiki_default_ssl_reverseproxy':
       proxy_vhost => 'default_ssl_vhost',
       location    => '/mediawiki/',
       url_map     => '/ /mediawiki/',
-      dest        => $proxy_mediawiki;
+      dest        => $::proxy_mediawiki;
     }
   }
 
@@ -91,6 +91,7 @@ class vserver::web {
     '/etc/portage/package.use/10_apache_ldap_minimal':
       content => 'net-nds/openldap minimal';
 
+    # @todo mediawiki does this friendlier, abstract and win! (this probably need gentoo work in modules/apache, thou art warned)
     '/etc/conf.d/apache2':
       content => 'APACHE2_OPTS="-D INFO -D SSL -D LANGUAGE -D LDAP -D PROXY -D PROXY_HTML -D AUTHNZ_EXTERNAL"'
   }
