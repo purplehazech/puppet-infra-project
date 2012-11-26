@@ -28,7 +28,6 @@
     storeconfigs_backend = puppetdb
 <% end %>
 <% if puppet_storeconfig_provider == "activerecord" then %>
-    storeconfigs_backend = active_record
 
     dbadapter  = <%= puppet_storeconfig_db_adapter %>
     dbuser     = <%= puppet_storeconfig_db_user %>
