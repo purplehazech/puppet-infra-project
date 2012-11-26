@@ -2,7 +2,7 @@
 #
 # Class for mediawiki instances.
 #
-# === Parameters
+# === Parameters:
 # [*http_serveradmin*]
 #   ServerAdmin config for apache
 #
@@ -10,7 +10,7 @@
 #
 class vserver::mediawiki {
   class { 'apache':
-    serveradmin => $http_serveradmin,
+    serveradmin => $::http_serveradmin,
     require     => [File['/etc/portage/package.use/10_apache_nossl'], File['/etc/portage/package.use/10_apache_ldap']]
   }
 
@@ -20,6 +20,7 @@ class vserver::mediawiki {
     servername => $fqdn;
   }
 
+  # @todo these belong in apache::vhost somewhere
   file {
     "/var/www/${fqdn}":
       ensure => directory,
@@ -30,7 +31,6 @@ class vserver::mediawiki {
       mode   => '0755';
   }
 
-  include ::mediawiki::gentoo
   include ::mediawiki
 }
 
