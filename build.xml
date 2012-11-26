@@ -39,6 +39,7 @@
         <delete dir="build/docs"/>
 	<!-- need by builds manifestdir arg -->
 	<mkdir dir="manifests"/>
+	<copy file="README.rdoc" todir="manifests/"/>
         
         <exec executable="puppet" failonerror="true">
             <arg value="doc"/>
