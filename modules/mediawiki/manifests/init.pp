@@ -74,14 +74,14 @@ class mediawiki inherits mediawiki::params {
     depends => Package['mediawiki']
   }
 
-  if $mediawiki_remote_auth == true {
+  if $::mediawiki_remote_auth == true {
     package { 'mediawiki-ext-automatic-remoteuser':
       ensure => installed,
       before => Webapp_config['mediawiki']
     }
   }
 
-  if $mediawiki_ldap_auth == true {
+  if $::mediawiki_ldap_auth == true {
     package { 'mediawiki-ext-ldap-auth':
       ensure => installed,
       before => Webapp_config['mediawiki']
