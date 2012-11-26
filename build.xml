@@ -37,11 +37,9 @@
     <target name="docs">
         <mkdir dir="build/"/>
         <delete dir="build/docs"/>
+	<!-- need by builds manifestdir arg -->
+	<mkdir dir="manifests"/>
         
-        <!-- workaround for broken webapp_config dox -->
-        <!-- @todo fork module and fix properly -->
-        <delete dir="modules/webapp_config/pkg"/>
-
         <exec executable="puppet" failonerror="true">
             <arg value="doc"/>
             <arg value="--all"/>
