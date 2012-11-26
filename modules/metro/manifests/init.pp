@@ -2,28 +2,27 @@
 #
 # Class for deploying metro to a node from git (as recommended in metros dox)
 #
-
 class metro {
   include ccache
 
-  git::wc { "/var/lib/metro/":
+  git::wc { '/var/lib/metro/':
     ensure => latest,
-    repo   => "https://github.com/purplehazech/metro.git",
+    repo   => 'https://github.com/purplehazech/metro.git',
   }
 
   file {
-    "/home/mirror/":
+    '/home/mirror/':
       ensure => directory;
 
-    "/home/mirror/linux/":
+    '/home/mirror/linux/':
       ensure => directory;
 
-    "/home/mirror/linux/rabe-dev/x86-32bit/i686":
+    '/home/mirror/linux/rabe-dev/x86-32bit/i686':
       ensure => directory;
 
-    "/var/lib/jenkins/workspace/rabe-metro-desktop":
+    '/var/lib/jenkins/workspace/rabe-metro-desktop':
       ensure => link,
-      target => "/var/lib/metro";
+      target => '/var/lib/metro';
   }
 
   class { 'sudo':
