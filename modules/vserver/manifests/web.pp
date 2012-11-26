@@ -61,8 +61,8 @@ class vserver::web {
   if $proxy_jenkins != undef {
     apache::vhost::include::proxy { 'jenkins_default_ssl_reverseproxy':
       proxy_vhost => 'default_ssl_vhost',
-      location    => '/jenkins/',
-      url_map     => '/ /jenkins/',
+      location    => '/jenkins',
+      url_map     => '/ /jenkins',
       dest        => $proxy_jenkins;
     }
   }
