@@ -1,6 +1,36 @@
 # == Class: zabbix::params
 #
+# parametrize zabbix class
+#
+# === Operating Systems
+# 
+# This module supports various operating systems.
+#
+# ==== Windows
+#
+# windows needs some pretty strange defaults, also most windowsy stuff is
+# deactivated since i was to lazy to get it all up and running. We should
+# try getting away from windows anyhow.
+# 
+# * agent installation and userparemeters are disabled
+# * config is in C:\zabbix_agentd.conf
+#
+# ==== Debian
+# 
+# installs on its own and has a fully featured setup using debian specific 
+# paths where applicable.
+#
+# ==== Gentoo, default
+# 
+# based on a oldish gentoo setup that could use some love. Also installs
+# on its own and supports userparameters.
+# 
+# === Example Usage
+#
+#   class zabbix::foot inherits zabbix::params
+#
 class zabbix::params {
+
   case $::operatingsystem {
     windows : {
       $zabbix_agentd_install          = false
@@ -20,7 +50,7 @@ class zabbix::params {
       $zabbix_agentd_pid_file         = '/var/run/zabbix-agent/zabbix_agentd.pid'
       $zabbix_agentd_log_file         = '/var/log/zabbix-agent/zabbix_agentd.log'
     }
-    default : {
+    Gentoo, default : {
       $zabbix_supports_userparameters = true
       $zabbix_agentd_install          = true
       $zabbix_agentd_package_name     = 'zabbix'
