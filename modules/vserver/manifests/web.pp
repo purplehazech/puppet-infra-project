@@ -76,14 +76,7 @@ class vserver::web {
     }
   }
 
-  if $proxy_mediawiki_test != undef {
-    apache::vhost::include::proxy { 'mediawiki_test_default_ssl_reverseproxy':
-      proxy_vhost => 'default_ssl_vhost',
-      location    => '/mediawiki_test/',
-      url_map     => '/ /mediawiki_test/',
-      dest        => $proxy_mediawiki_test;
-    }
-  }
+  Apache::Vhost::Include::Proxy <<| tag == 'extranet' |>>
 
   file {
     '/etc/portage/package.use/10_apache_proxy':
