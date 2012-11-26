@@ -36,7 +36,7 @@
     -->
     <target name="docs">
         <mkdir dir="build/"/>
-        <delete dir="build/docs"/>
+        <delete dir="doc/rdoc"/>
 	<!-- need by builds manifestdir arg -->
 	<mkdir dir="manifests"/>
 	<copy file="README.rdoc" todir="manifests/"/>
@@ -54,7 +54,7 @@
             <arg value="--modulepath"/>
             <arg value="modules/"/>
             <arg value="--outputdir"/>
-            <arg value="build/docs"/>
+            <arg value="doc/rdoc"/>
         </exec>
     </target>
 
