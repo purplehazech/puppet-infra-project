@@ -1,10 +1,6 @@
-
+# == Class: markdown
+#
 class markdown {
-    package {
-        "markdown":
-            ensure => installed,
-    }
+  package { 'markdown': ensure => installed, }
 
 }
-
-import "*.pp"
