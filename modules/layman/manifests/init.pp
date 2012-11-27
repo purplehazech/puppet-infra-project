@@ -16,15 +16,17 @@ class layman ($ensure = installed, $sync = false) inherits layman::params {
   if $sync {
     # rw layman dir
     $layman_dir = '/var/lib/layman'
+    $repository_schedule = 'daily'
   } else {
     # ro mount for dependant systems
     $layman_dir = '/var/lib/infra/layman'
+    $repository_schedule = 'never'
   }
 
   package { 'layman': ensure => $ensure }
 
   # register repos to install
-  layman::repository { $layman_cfg_overlays: }
+  layman::repository { $layman_cfg_overlays: schedule => $repository_schedule }
 
   file { $laymap_cfg_file:
     ensure  => file,
@@ -33,16 +35,12 @@ class layman ($ensure = installed, $sync = false) inherits layman::params {
   }
 
   file {
-    '/var/lib/infra/layman':
+    $layman_dir:
       ensure  => directory
   }
 
   file {
-    '/var/lib/layman':
-      ensure => directory,
-      mode   => '0555';
-
-    '/var/lib/layman/make.conf':
+    "${layman_dir}/make.conf":
       ensure => file,
       mode   => '0555';
   }
