@@ -1,2 +1,2 @@
 name 'purplehazech-layman'
-
+dependency 'purplehazech/infra', '0.0.2'

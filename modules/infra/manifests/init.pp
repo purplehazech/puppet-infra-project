@@ -8,5 +8,5 @@
 class infra {
   class { 'zabbix': }
 
-  file { '/var/lib/infra/': ensure => directory }
+  file { '/var/lib/infra': ensure => directory }
 }

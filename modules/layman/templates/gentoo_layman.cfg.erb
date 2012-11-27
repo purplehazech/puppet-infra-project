@@ -9,7 +9,7 @@ local_list: %(storage)s/overlays.xml
 make_conf : /var/lib/layman/make.conf
 
 overlays  : http://www.gentoo.org/proj/en/overlays/repositories.xml
-<% layman_cfg_overlays.each do |overlay| %><%= overlay %>
+<% layman_cfg_overlays.each do |overlay| %><%= "            " + overlay %>
 <% end %>
 
 nocheck  : yes

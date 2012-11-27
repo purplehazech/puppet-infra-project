@@ -24,7 +24,7 @@ class layman ($ensure = installed, $sync = false) inherits layman::params {
   package { 'layman': ensure => $ensure }
 
   # register repos to install
-  repository { $layman_cfg_overlays: }
+  layman::repository { $layman_cfg_overlays: }
 
   file { $laymap_cfg_file:
     ensure  => file,
@@ -34,8 +34,10 @@ class layman ($ensure = installed, $sync = false) inherits layman::params {
 
   file {
     '/var/lib/infra/layman':
-      ensure => directory;
+      ensure  => directory
+  }
 
+  file {
     '/var/lib/layman':
       ensure => directory,
       mode   => '0555';
