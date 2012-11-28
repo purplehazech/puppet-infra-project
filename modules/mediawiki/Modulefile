@@ -13,3 +13,4 @@ this does all that and tells our proxy to let it through as well
 all in glorious testing details :)'
 dependency 'hairmare/webapp_config', '=1.0.0'
 dependency 'purplehazech/apache', '=0.5.0'
+dependency 'purplehazech/layman', '=0.0.1'

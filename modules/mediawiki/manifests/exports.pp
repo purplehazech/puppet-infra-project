@@ -8,4 +8,6 @@ class mediawiki::exports {
     dest        => "http://${fqdn}/",
     tag         => ['intranet', 'extranet']
   }
+
 }
+

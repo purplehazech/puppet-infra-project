@@ -35,7 +35,8 @@
 #  wgLDAPProxyAgentPassword
 #
 class mediawiki inherits mediawiki::params {
-  anchor { 'mediawiki::start': }
+  anchor { 'mediawiki::start':
+  }
   include mediawiki::gentoo
   include mediawiki::exports
   include mediawiki::vhost
@@ -48,23 +49,37 @@ class mediawiki inherits mediawiki::params {
     vhost   => $fqdn,
     app     => 'mediawiki',
     version => $mediawiki_version
-  } -> package { 'mediawiki': ensure => $mediawiki_version }
+  } -> package { 'mediawiki':
+    ensure => $mediawiki_version
+  }
 
   if $::mediawiki_remote_auth == true {
-    Webapp_config['mediawiki'] -> package { 'mediawiki-ext-automatic-remoteuser': ensure => installed }
+    Layman::Overlay['rabe-portage-overlay'] -> Webapp_config['mediawiki'] -> package { 'mediawiki-ext-automatic-remoteuser':
+      ensure => installed
+    }
   }
 
   if $::mediawiki_ldap_auth == true {
-    Webapp_config['mediawiki'] -> package { 'mediawiki-ext-ldap-auth': ensure => installed }
+    Layman::Overlay['rabe-portage-overlay'] -> Webapp_config['mediawiki'] -> package { 'mediawiki-ext-ldap-auth':
+      ensure => installed
+    }
   }
 
   if $mediawiki_socialprofile == true {
-    Webapp_config['mediawiki'] -> package { 'mediawiki-ext-socialprofile': ensure => installed }
+    Layman::Overlay['rabe-portage-overlay'] -> Webapp_config['mediawiki'] -> package { 'mediawiki-ext-socialprofile':
+      ensure => installed
+    }
   }
 
   if $mediawiki_main_cache_type == 'CACHE_MEMCACHED' {
-    Package['mediawiki'] -> package { 'memcached': ensure => installed } -> service { 'memcached': ensure => running }
+    Package['mediawiki'] -> package { 'memcached':
+      ensure => installed
+    } -> service { 'memcached':
+      ensure => running
+    }
   }
 
-  anchor { 'mediawiki::end': }
+  anchor { 'mediawiki::end':
+  }
+
 }

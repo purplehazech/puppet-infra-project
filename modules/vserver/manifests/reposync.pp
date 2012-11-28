@@ -8,22 +8,10 @@
 #   ssh authkey used by jenkins
 #
 class vserver::reposync {
-  class { 'layman': sync => true }
-
-  exec {
-    'add rabe repo to layman':
-      command => '/usr/bin/layman -a rabe-portage-overlay',
-      creates => '/var/lib/layman/rabe-portage-overlay/',
-      require => Exec['sync layman repos'];
-
-    'add gentoo-vnkuznet-overlay repo to layman':
-      command => '/usr/bin/layman -a  gentoo-vnkuznet-overlay',
-      creates => '/var/lib/layman/gentoo-vnkuznet-overlay/',
-      require => Exec['sync layman repos'];
-  }
-
   include eix
   include sudo
+
+  layman { 'layman': sync => true } -> layman::overlay { 'rabe-portage-overlay': } -> layman::overlay { 'gentoo-vnkuznet-overlay': }
 
   sudo::conf {
     'jenkins-alias':
@@ -57,4 +45,3 @@ class vserver::reposync {
       require => File['/var/lib/jenkins/.ssh/']
   }
 }
-#
