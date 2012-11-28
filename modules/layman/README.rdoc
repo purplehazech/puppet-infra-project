@@ -1,0 +1,11 @@
+== Module: layman
+
+Install and manage layman.
+
+* installs layman
+* adds some customer overlay repositories
+* uses puppet schedule to sync everything on a regular basis
+
+=== Example Usage
+
+  include layman

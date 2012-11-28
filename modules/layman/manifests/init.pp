@@ -8,9 +8,11 @@
 # [*sync*]
 #   true lets layman vserver sync to /var/lib/layman, default, false uses a readonly mount in /var/lib/infra/layman
 #
-class layman ($ensure = installed, $sync = false) {
-  package { 'layman': ensure => $ensure }
-
+# === Example Usage
+#
+#  layman {'layman':}
+#
+class layman ($ensure = installed, $sync = false) inherits layman::params {
   if $sync {
     # rw layman dir
     $layman_dir = '/var/lib/layman'
@@ -19,16 +21,18 @@ class layman ($ensure = installed, $sync = false) {
     $layman_dir = '/var/lib/infra/layman'
   }
 
+  package { 'layman': ensure => $ensure }
+
+  # register repos to install
+  repository { $layman_cfg_overlays: }
+
+  file { $laymap_cfg_file:
+    ensure  => file,
+    content => template('layman/gentoo_layman.cfg.erb'),
+    require => Package['layman'];
+  }
+
   file {
-    '/etc/layman/layman.cfg':
-      ensure  => file,
-      content => template('layman/gentoo_layman.cfg'),
-      require => Package['layman'];
-
-    '/etc/cron.daily/layman':
-      content => '/usr/bin/layman -S',
-      mode    => '0755';
-
     '/var/lib/infra/layman':
       ensure => directory;
 
@@ -41,11 +45,16 @@ class layman ($ensure = installed, $sync = false) {
       mode   => '0555';
   }
 
-  exec { 'sync layman repos':
-    command  => '/usr/bin/layman -L && touch /var/lib/puppet/state/eix.stale',
-    onlyif   => "/bin/ls -al ${layman_dir}r}/cache*xml && exit 1 || exit 0",
+  schedule { 'layman-daily':
+    period => daily,
+    range  => '2-4'
+  }
+
+  exec { 'update-layman-cfg-overlays':
+    command  => '/usr/bin/layman -S && touch /var/lib/puppet/state/eix.stale',
+    onlyif   => "/bin/ls -al ${layman_dir}/cache*xml && exit 1 || exit 0",
     require  => File['/etc/layman/layman.cfg'],
-    schedule => daily
+    schedule => layman-daily
   }
 }
-# EOF
+
