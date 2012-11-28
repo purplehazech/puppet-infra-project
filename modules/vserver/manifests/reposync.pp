@@ -11,7 +11,11 @@ class vserver::reposync {
   include eix
   include sudo
 
-  layman { 'layman': sync => true } -> layman::overlay { 'rabe-portage-overlay': } -> layman::overlay { 'gentoo-vnkuznet-overlay': }
+  class { 'layman':
+    sync => true
+  } -> layman::overlay { 'rabe-portage-overlay':
+  } -> layman::overlay { 'gentoo-vnkuznet-overlay':
+  }
 
   sudo::conf {
     'jenkins-alias':
@@ -21,7 +25,9 @@ class vserver::reposync {
       content => 'jenkins ALL = NOPASSWD: JENKINS';
   }
 
-  service { 'sshd': ensure => running; }
+  service { 'sshd':
+    ensure => running;
+  }
 
   user { 'jenkins':
     ensure => present,
