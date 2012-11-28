@@ -11,4 +11,4 @@ description 'we need a wiki, its mediawiki and it has nice plugins installed
 this does all that and tells our proxy to let it through as well
 
 all in glorious testing details :)'
-dependency 'webapp/config', '==1.0.0'
+dependency 'hairmare/webapp_config', '=1.0.0'
