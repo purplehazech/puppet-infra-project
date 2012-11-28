@@ -38,6 +38,7 @@ class mediawiki inherits mediawiki::params {
   anchor { 'mediawiki::start': }
   include mediawiki::gentoo
   include mediawiki::exports
+  include mediawiki::vhost
 
   file { "/var/www/${fqdn}/htdocs/LocalSettings.php":
     ensure  => file,
@@ -67,4 +68,3 @@ class mediawiki inherits mediawiki::params {
 
   anchor { 'mediawiki::end': }
 }
- 
