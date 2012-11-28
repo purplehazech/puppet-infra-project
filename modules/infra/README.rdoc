@@ -1,2 +1,3 @@
-The infra module contains basic setup routines for the various
-supported operating systems.
+== Module: infra
+
+The infra module contains some very basic setup
