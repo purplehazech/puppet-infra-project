@@ -35,39 +35,48 @@
 #  wgLDAPProxyAgentPassword
 #
 class mediawiki inherits mediawiki::params {
-  anchor { 'mediawiki::start':
-  }
   include mediawiki::gentoo
   include mediawiki::exports
   include mediawiki::vhost
 
+  anchor { 'mediawiki::start':
+    before => File["/var/www/${fqdn}/htdocs/LocalSettings.php"]
+  }
+
   file { "/var/www/${fqdn}/htdocs/LocalSettings.php":
     ensure  => file,
     content => template('mediawiki/LocalSettings.php.erb')
-  } -> webapp_config { 'mediawiki':
+  }
+
+  webapp_config { 'mediawiki':
     action  => 'install',
     vhost   => $fqdn,
     app     => 'mediawiki',
-    version => $mediawiki_version
+    version => $mediawiki_version,
+    depends => File["/var/www/${fqdn}/htdocs/LocalSettings.php"]
   } -> package { 'mediawiki':
-    ensure => $mediawiki_version
+    ensure => $mediawiki_version,
+    before => Anchor['mediawiki::end']
   }
 
   if $::mediawiki_remote_auth == true {
     Layman::Overlay['rabe-portage-overlay'] -> Webapp_config['mediawiki'] -> package { 'mediawiki-ext-automatic-remoteuser':
-      ensure => installed
+      ensure => installed,
+      before => Anchor['mediawiki::end']
     }
   }
 
   if $::mediawiki_ldap_auth == true {
     Layman::Overlay['rabe-portage-overlay'] -> Webapp_config['mediawiki'] -> package { 'mediawiki-ext-ldap-auth':
-      ensure => installed
+      ensure => installed,
+      before => Anchor['mediawiki::end']
     }
   }
 
   if $mediawiki_socialprofile == true {
     Layman::Overlay['rabe-portage-overlay'] -> Webapp_config['mediawiki'] -> package { 'mediawiki-ext-socialprofile':
-      ensure => installed
+      ensure => installed,
+      before => Anchor['mediawiki::end']
     }
   }
 
@@ -75,7 +84,8 @@ class mediawiki inherits mediawiki::params {
     Package['mediawiki'] -> package { 'memcached':
       ensure => installed
     } -> service { 'memcached':
-      ensure => running
+      ensure => running,
+      before => Anchor['mediawiki::end']
     }
   }
 
