@@ -1,5 +1,7 @@
 # == Class: mediawiki
 #
+# install a mediawiki to the $fqdn vhost on the machine
+#
 # === Parameters:
 # [*mediawiki_sitename*]
 #   wgSitename
@@ -33,75 +35,36 @@
 #  wgLDAPProxyAgentPassword
 #
 class mediawiki inherits mediawiki::params {
+  anchor { 'mediawiki::start': }
   include mediawiki::gentoo
   include mediawiki::exports
 
-  file {
-    '/etc/portage/package.use/10_php_xmlreader':
-      content => 'dev-lang/php xmlreader';
-
-    '/etc/portage/package.use/10_mediawiki_mysql':
-      content => 'www-apps/mediawiki mysql';
-
-    '/etc/portage/package.use/10_mediawiki_vhosts':
-      content => 'www-apps/mediawiki vhosts';
-
-    '/etc/portage/package.use/10_mediawiki_imagemagick':
-      content => 'www-apps/mediawiki imagemagick';
-
-    '/etc/portage/package.use/10_imagemagick_mediawiki':
-      content => 'media-gfx/imagemagick jpeg png svg';
-
-    "/var/www/${fqdn}/htdocs/LocalSettings.php":
-      content => template('mediawiki/LocalSettings.php.erb'),
-      require => Webapp_config['mediawiki'];
-  }
-
-  package { 'mediawiki':
-    ensure  => '1.19.2',
-    require => [
-      File['/etc/portage/package.use/10_mediawiki_mysql'],
-      File['/etc/portage/package.use/10_mediawiki_vhosts'],
-      File['/etc/portage/package.use/10_mediawiki_imagemagick'],
-      File['/etc/portage/package.use/10_php_xmlreader']]
-  }
-
-  webapp_config { 'mediawiki':
+  file { "/var/www/${fqdn}/htdocs/LocalSettings.php":
+    ensure  => file,
+    content => template('mediawiki/LocalSettings.php.erb')
+  } -> webapp_config { 'mediawiki':
     action  => 'install',
     vhost   => $fqdn,
     app     => 'mediawiki',
-    version => '1.19.2',
-    depends => Package['mediawiki']
-  }
+    version => $mediawiki_version
+  } -> package { 'mediawiki': ensure => $mediawiki_version }
 
   if $::mediawiki_remote_auth == true {
-    package { 'mediawiki-ext-automatic-remoteuser':
-      ensure => installed,
-      before => Webapp_config['mediawiki']
-    }
+    Webapp_config['mediawiki'] -> package { 'mediawiki-ext-automatic-remoteuser': ensure => installed }
   }
 
   if $::mediawiki_ldap_auth == true {
-    package { 'mediawiki-ext-ldap-auth':
-      ensure => installed,
-      before => Webapp_config['mediawiki']
-    }
+    Webapp_config['mediawiki'] -> package { 'mediawiki-ext-ldap-auth': ensure => installed }
   }
 
   if $mediawiki_socialprofile == true {
-    package { 'mediawiki-ext-socialprofile':
-      ensure => installed,
-      before => Webapp_config['mediawiki']
-    }
+    Webapp_config['mediawiki'] -> package { 'mediawiki-ext-socialprofile': ensure => installed }
   }
 
   if $mediawiki_main_cache_type == 'CACHE_MEMCACHED' {
-    package { 'memcached': ensure => installed }
-
-    service { 'memcached':
-      ensure  => running,
-      require => Package['memcached']
-    }
+    Package['mediawiki'] -> package { 'memcached': ensure => installed } -> service { 'memcached': ensure => running }
   }
 
+  anchor { 'mediawiki::end': }
 }
+ 

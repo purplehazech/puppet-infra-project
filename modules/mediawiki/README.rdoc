@@ -7,3 +7,13 @@ our wiki shiny and  outfitted with niceties such as social profile. This
 module takes care of that and does so well on gentoo.
 
 To run this you will need some packages from the rabe-portage-overlay.
+
+=== Actions
+
+* install mediawiki and extensions
+* configure mediawiki with params coming from ldap
+* export resources so the reverse proxy knows he should be proxying this
+
+=== Example Usage
+
+  include ::mediawiki

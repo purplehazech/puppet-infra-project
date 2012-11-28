@@ -5,8 +5,22 @@
 # you still get to do the keywording my hand :)
 #
 class mediawiki::gentoo {
-
   file {
+    '/etc/portage/package.use/10_php_xmlreader':
+      content => 'dev-lang/php xmlreader';
+
+    '/etc/portage/package.use/10_mediawiki_mysql':
+      content => 'www-apps/mediawiki mysql';
+
+    '/etc/portage/package.use/10_mediawiki_vhosts':
+      content => 'www-apps/mediawiki vhosts';
+
+    '/etc/portage/package.use/10_mediawiki_imagemagick':
+      content => 'www-apps/mediawiki imagemagick';
+
+    '/etc/portage/package.use/10_imagemagick_mediawiki':
+      content => 'media-gfx/imagemagick jpeg png svg';
+
     '/etc/portage/package.use/10_apache_nossl':
       content => 'www-servers/apache -ssl';
 
@@ -39,8 +53,9 @@ class mediawiki::gentoo {
 
     '/etc/portage/package.use/10_apache_ldap_minimal':
       content => 'net-nds/openldap minimal';
-  }
+  } -> Package['mediawiki']
 
+  # @todo move these two into apache module
   file_line { 'enable-php-/etc/conf.d/apache2':
     ensure  => present,
     path    => '/etc/conf.d/apache2',
@@ -58,5 +73,4 @@ class mediawiki::gentoo {
   }
 
 }
-
 
