@@ -75,7 +75,7 @@ LogFile=<%= zabbix_agentd_log_file %>
 
 Timeout=3
 <% if zabbix_supports_userparameters %>
-Include=<%= $zabbix_userparameters_directory %>
+Include=<%= $zabbix_agentd_conf_include %>
 <% end %>
 
 ####### USER-DEFINED MONITORED PARAMETERS #######
