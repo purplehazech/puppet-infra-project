@@ -16,13 +16,6 @@ class zabbix::agent inherits zabbix::params {
     $zabbix_service_require = Package[$zabbix_agentd_package_name]
   }
 
-  if $zabbix_supports_userparameters {
-    file { $zabbix_agentd_conf_include:
-      ensure => directory,
-      notify => Service[$zabbix_agentd_service_name]
-    }
-  }
-
   service { $zabbix_agentd_service_name:
     ensure  => running,
     require => $zabbix_service_require
