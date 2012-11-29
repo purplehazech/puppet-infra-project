@@ -40,7 +40,7 @@ class mediawiki inherits mediawiki::params {
   include mediawiki::vhost
 
   anchor { 'mediawiki::start':
-    before => File["/var/www/${fqdn}/htdocs/LocalSettings.php"]
+    before => Packages['mediawiki']
   }
 
   file { "/var/www/${fqdn}/htdocs/LocalSettings.php":
@@ -48,15 +48,15 @@ class mediawiki inherits mediawiki::params {
     content => template('mediawiki/LocalSettings.php.erb')
   }
 
-  webapp_config { 'mediawiki':
+  package { 'mediawiki':
+    ensure => $mediawiki_version,
+    before => Anchor['mediawiki::end']
+  } -> webapp_config { 'mediawiki':
     action  => 'install',
     vhost   => $fqdn,
     app     => 'mediawiki',
     version => $mediawiki_version,
     depends => File["/var/www/${fqdn}/htdocs/LocalSettings.php"]
-  } -> package { 'mediawiki':
-    ensure => $mediawiki_version,
-    before => Anchor['mediawiki::end']
   }
 
   if $::mediawiki_remote_auth == true {
