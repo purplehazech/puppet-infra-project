@@ -16,17 +16,15 @@
 #
 class zabbix::bundle (
   $ensure          = 'present',
-  $server_template = undef,
+  $server_template = "${name}/zabbix-template.xml.erb",
   $agent_params    = {
   }
 ) inherits zabbix::params {
-  if $server_template == undef {
-    $server_template = "${name}/zabbix-template.xml.erb"
-  }
   $ensure_real = $ensure
 
   @@zabbix::server::template { $name:
-    ensure => $ensure_real
+    ensure   => $ensure_real,
+    template => $server_template
   }
 
   zabbix::agent::params { $name:

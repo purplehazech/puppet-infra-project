@@ -4,5 +4,6 @@
 #
 # @todo implement zabbix::server
 class zabbix::server inherits zabbix::params {
-
+  # install templates needed by different nodes
+  Zabbix::Server::Template <<| |>>
 }
