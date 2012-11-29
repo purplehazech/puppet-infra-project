@@ -6,13 +6,17 @@
 # It gets added to all nodes by the external node classifier (ENC)
 #
 class infra {
-  class { 'zabbix': }
+  class { 'zabbix':
+  }
 
   case $::operatingsystem {
     windows : {
     }
     default : {
-      file { '/var/lib/infra': ensure => directory }
+      file { '/var/lib/infra':
+        ensure => directory,
+        mode   => '0755'
+      }
 
     }
 
