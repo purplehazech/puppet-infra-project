@@ -5,6 +5,8 @@
 # you still get to do the keywording my hand :)
 #
 class mediawiki::gentoo {
+  include layman::overlay::rabe_portage_overlay
+
   file {
     '/etc/portage/package.use/10_php_xmlreader':
       content => 'dev-lang/php xmlreader';
@@ -73,3 +75,4 @@ class mediawiki::gentoo {
   }
 
 }
+
