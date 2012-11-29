@@ -40,7 +40,7 @@ class mediawiki inherits mediawiki::params {
   include mediawiki::vhost
 
   anchor { 'mediawiki::start':
-    before => Packages['mediawiki']
+    before => Package['mediawiki']
   }
 
   file { "/var/www/${fqdn}/htdocs/LocalSettings.php":
@@ -51,7 +51,7 @@ class mediawiki inherits mediawiki::params {
   package { 'mediawiki':
     ensure => $mediawiki_version,
     before => Anchor['mediawiki::end']
-  } -> webapp_config { 'mediawiki':
+  } ~> webapp_config { 'mediawiki':
     action  => 'install',
     vhost   => $fqdn,
     app     => 'mediawiki',
@@ -60,30 +60,30 @@ class mediawiki inherits mediawiki::params {
   }
 
   if $::mediawiki_remote_auth == true {
-    Layman::Overlay['rabe-portage-overlay'] -> Webapp_config['mediawiki'] -> package { 'mediawiki-ext-automatic-remoteuser':
+    Layman::Overlay['rabe-portage-overlay'] ~> Webapp_config['mediawiki'] ~> package { 'mediawiki-ext-automatic-remoteuser':
       ensure => installed,
       before => Anchor['mediawiki::end']
     }
   }
 
   if $::mediawiki_ldap_auth == true {
-    Layman::Overlay['rabe-portage-overlay'] -> Webapp_config['mediawiki'] -> package { 'mediawiki-ext-ldap-auth':
+    Layman::Overlay['rabe-portage-overlay'] ~> Webapp_config['mediawiki'] ~> package { 'mediawiki-ext-ldap-auth':
       ensure => installed,
       before => Anchor['mediawiki::end']
     }
   }
 
   if $mediawiki_socialprofile == true {
-    Layman::Overlay['rabe-portage-overlay'] -> Webapp_config['mediawiki'] -> package { 'mediawiki-ext-socialprofile':
+    Layman::Overlay['rabe-portage-overlay'] ~> Webapp_config['mediawiki'] ~> package { 'mediawiki-ext-socialprofile':
       ensure => installed,
       before => Anchor['mediawiki::end']
     }
   }
 
   if $mediawiki_main_cache_type == 'CACHE_MEMCACHED' {
-    Package['mediawiki'] -> package { 'memcached':
+    Package['mediawiki'] ~> package { 'memcached':
       ensure => installed
-    } -> service { 'memcached':
+    } ~> service { 'memcached':
       ensure => running,
       before => Anchor['mediawiki::end']
     }
