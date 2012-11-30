@@ -113,13 +113,14 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
   def item_destroy(name, host)
   
     load_server()
-    item_hash = @server.item.get({
+    items = @server.item.get({
       "filter" => {
         "key_" => name,
         "host" => host
       }
     })
-    @server.item.delete(item_hash)
+    items.collect! {|i| i = i.fetch('itemid')}
+    @server.item.delete(Array[*items])
   end
   
   def host_exists?(name)
