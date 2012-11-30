@@ -52,6 +52,14 @@ Puppet::Type.newtype(:zabbix_api) do
     desc 'hostgroup to put template into'
     defaultto "Templates"
   end
+  
+  newparam(:description) do
+    desc 'description for new items'
+  end
+  newparam(:applications) do
+    desc 'applications for items'
+    defaultto []
+  end
 
   validate do
     unless self[:name] and self[:type]
@@ -59,6 +67,9 @@ Puppet::Type.newtype(:zabbix_api) do
     end
     unless self[:server] and self[:user] and self[:password]
       raise(Puppet::Error, "zabbix_template: server configuration is required")
+    end
+    unless self[:host] and self[:description] or self[:type] != 'item'
+      raise(Puppet::Error, "zabbix_template: items need a host and description")
     end
 
   end

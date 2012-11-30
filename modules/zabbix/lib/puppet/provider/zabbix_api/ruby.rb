@@ -6,7 +6,9 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
     when "template"
       template_exists?(resource[:name])
     when "item"
-      item_exists?(resource[:name])
+      item_exists?(resource[:name], resource[:host])
+    else
+      raise Puppet::Error, "zabbix_api: non existant type '#{resource[:type]}'"
     end
   end
 
@@ -14,13 +16,17 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
     case resource[:type]
     when "template"
       template_create(resource[:name], resource[:hostgroup])
+    when "item"
+      item_create(resource[:name], resource[:host], resource[:description], resource[:applications])
     end
   end
 
   def destroy
     case resource[:type]
     when "template"
-      template_destroy(resource[:name], resource[:host])
+      template_destroy(resource[:name])
+    when "item"
+      item_destroy(resource[:name], resource[:host])
     end
   end
   
@@ -70,7 +76,55 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
     return @server.item.exists({"key_" => name, "host" => host})
   end
   
-  def item_create(name, host)
+  def item_create(name, host, description, applications = [])
+    load_server()
+    unless host_exists?(host) or template_exists?(host)
+      raise Puppet::Error, "missing host '#{resource[:host]}'"
+    end
+      
+    if host_exists?(host) 
+      host_array = @server.host.get({
+        "filter" => {
+          "host" => host
+        }
+      })
+    elsif template_exists?(host) 
+      host_array = @server.template.get({
+        "filter" => {
+          "host" => host
+        }
+      })
+      host_array.collect! {|t| t = {"hostid" => t.fetch("templateid") } }
+    end
+    
+    new = {
+      "key_"         => name,
+      "description"  => description,
+      "applications" => applications
+    }.merge(Hash[*host_array])
+    
+    results = @server.item.create(new)
+    
+    if not item_exists?(name, host)
+      raise Puppet::Error, "create failed '%s'" % name
+    end
+  end
+  
+  def item_destroy(name, host)
+  
+    load_server()
+    item_hash = @server.item.get({
+      "filter" => {
+        "key_" => name,
+        "host" => host
+      }
+    })
+    @server.item.delete(item_hash)
+  end
+  
+  def host_exists?(name)
+    load_server()
+    return @server.host.exists({"host" => name})
   end
 
 end
