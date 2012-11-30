@@ -19,7 +19,7 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
     when "template"
       template_create(resource[:name], resource[:hostgroup])
     when "item"
-      item_create(resource[:name], resource[:host], resource[:description], resource[:applications])
+      item_create(resource[:name], resource[:host], resource[:description], resource[:application])
     when "application"
       application_create(resource[:name], resource[:host])
     end
@@ -106,11 +106,21 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
     return @server.item.exists({"key_" => name, "host" => host})
   end
   
-  def item_create(name, host, description, applications = [])
+  def item_create(name, host, description, application = '')
     load_server()
     unless host_exists?(host) or template_exists?(host)
       raise Puppet::Error, "missing host '#{resource[:host]}'"
     end
+    unless application != '' and application_exists?(application, host)
+      raise Puppet::Error, "missing application '#{resource[:application]}'"
+    end
+    
+    applications = @server.application.get({
+      "filter" => {
+        "name" => application
+      }
+    })
+    applications.collect! {|a| a = a.fetch("applicationid")}
     
     new = {
       "key_"         => name,

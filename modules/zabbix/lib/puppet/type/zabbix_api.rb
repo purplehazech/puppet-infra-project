@@ -56,8 +56,8 @@ Puppet::Type.newtype(:zabbix_api) do
   newparam(:description) do
     desc 'description for new items'
   end
-  newparam(:applications) do
-    desc 'applications for items'
+  newparam(:application) do
+    desc 'application for items'
     defaultto []
   end
 
