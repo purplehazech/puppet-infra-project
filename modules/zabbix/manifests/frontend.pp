@@ -4,8 +4,8 @@ class zabbix::frontend {
   #   post_max_size = 32M
   #   max_execution_time = 600
   #   max_input_time = 600
-  # setup /usr/share/webapps/zabbix/1.8.15/htdocs/include/db.inc.php
+  # setup /usr/share/webapps/zabbix/2.0.3/htdocs/include/db.inc.php
   #   $DB_TYPE='SQLITE3';
   #   $zabbix_database_* vars
-  # webapp-config -I -h localhost -d zabbix zabbix 1.8.15
+  # webapp-config -I -h localhost -d zabbix zabbix 2.0.3
 }
