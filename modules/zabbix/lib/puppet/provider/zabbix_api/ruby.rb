@@ -7,6 +7,8 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
       template_exists?(resource[:name])
     when "item"
       item_exists?(resource[:name], resource[:host])
+    when "application"
+      application_exists?(resource[:name], resource[:host])
     else
       raise Puppet::Error, "zabbix_api: non existant type '#{resource[:type]}'"
     end
@@ -18,6 +20,8 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
       template_create(resource[:name], resource[:hostgroup])
     when "item"
       item_create(resource[:name], resource[:host], resource[:description], resource[:applications])
+    when "application"
+      application_create(resource[:name], resource[:host])
     end
   end
 
@@ -27,6 +31,8 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
       template_destroy(resource[:name])
     when "item"
       item_destroy(resource[:name], resource[:host])
+    when "application"
+      application_destroy(resource[:name], resource[:host])
     end
   end
   
@@ -71,6 +77,30 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
     @server.template.delete(template_hash)
   end
   
+  def application_exists?(name, host)
+    load_server()
+    return @server.application.exists({"name" => name, "host" => host})
+  end
+  
+  def application_create(name, host)
+    load_server()
+    
+    @server.application.create({
+      "name"         => name
+    }.merge(Hash[*host_get_hostids(host)]))
+    
+    if not application_exists?(name, host)
+      raise Puppet::Error, "create failed '%s'" % name
+    end
+  end
+  
+  def application_destroy(name, host)
+    load_server()
+    if application_exists?(name, host)
+      raise Puppet::Error, "destroy failed '%s'" % name
+    end
+  end
+  
   def item_exists?(name, host)
     load_server()
     return @server.item.exists({"key_" => name, "host" => host})
@@ -81,29 +111,14 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
     unless host_exists?(host) or template_exists?(host)
       raise Puppet::Error, "missing host '#{resource[:host]}'"
     end
-      
-    if host_exists?(host) 
-      host_array = @server.host.get({
-        "filter" => {
-          "host" => host
-        }
-      })
-    elsif template_exists?(host) 
-      host_array = @server.template.get({
-        "filter" => {
-          "host" => host
-        }
-      })
-      host_array.collect! {|t| t = {"hostid" => t.fetch("templateid") } }
-    end
     
     new = {
       "key_"         => name,
       "description"  => description,
       "applications" => applications
-    }.merge(Hash[*host_array])
+    }.merge(Hash[*host_get_hostids(host)])
     
-    results = @server.item.create(new)
+    @server.item.create(new)
     
     if not item_exists?(name, host)
       raise Puppet::Error, "create failed '%s'" % name
@@ -126,6 +141,23 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
   def host_exists?(name)
     load_server()
     return @server.host.exists({"host" => name})
+  end
+  
+  def host_get_hostids(name)
+    if host_exists?(name) 
+      host_array = @server.host.get({
+        "filter" => {
+          "host" => name
+        }
+      })
+    elsif template_exists?(name) 
+      host_array = @server.template.get({
+        "filter" => {
+          "host" => name
+        }
+      })
+      host_array.collect! {|t| t = {"hostid" => t.fetch("templateid") } }
+    end
   end
 
 end
