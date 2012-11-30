@@ -1,5 +1,5 @@
 require "zbxapi"
-Puppet::Type.type(:zabbix_template).provide(:ruby) do
+Puppet::Type.type(:zabbix_api).provide(:ruby) do
 
   def exists?
     load_server()

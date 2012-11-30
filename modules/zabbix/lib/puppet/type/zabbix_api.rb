@@ -1,11 +1,11 @@
-Puppet::Type.newtype(:zabbix_template) do
+Puppet::Type.newtype(:zabbix_api) do
 
   desc <<-EOT
     Install a zabbix template to a server from a given xml.
 
     Example:
     
-        zabbix_template{ 'Template_App_Puppet':
+        zabbix{ 'Template_App_Puppet':
           ensure => $present,
         }
     
@@ -18,6 +18,10 @@ Puppet::Type.newtype(:zabbix_template) do
 
   newparam(:name, :namevar => true) do
     desc 'An arbitrary name used as the identity of the resource.'
+  end
+  
+  newparam(:type) do
+    desc 'A type to manage, like template, item, host, ...'
   end
   
   newparam(:server) do
