@@ -7,29 +7,25 @@
 # === Parameters
 # [*ensure*]
 #   present or absent, present is default
-# [*server_template*]
-#   defaults to "${name}/zabbix-template.xml.erb"
-# [*agent_params*]
-#   hash of user parameters to configure
+# [*items*]
+#   hash of items to add to bundle
 #
 # === Example Usage
 #
 class zabbix::bundle (
-  $ensure          = 'present',
-  $server_template = "${name}/zabbix-template.xml.erb",
-  $agent_params    = {
+  $ensure = 'present',
+  $items  = {
   }
 ) inherits zabbix::params {
   $ensure_real = $ensure
 
   @@zabbix::server::template { $name:
-    ensure   => $ensure_real,
-    template => $server_template
+    ensure => $ensure_real
   }
 
   zabbix::agent::params { $name:
     ensure => $ensure_real,
-    params => $agent_params
+    params => $items
   }
 
 }

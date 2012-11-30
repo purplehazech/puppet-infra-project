@@ -19,10 +19,6 @@ Puppet::Type.newtype(:zabbix_template) do
   newparam(:name, :namevar => true) do
     desc 'An arbitrary name used as the identity of the resource.'
   end
-
-  newparam(:content) do
-    desc 'XML Content for the given template'
-  end
   
   newparam(:server) do
     desc 'URL to zabbix frontend'
@@ -50,7 +46,7 @@ Puppet::Type.newtype(:zabbix_template) do
   end
 
   validate do
-    unless self[:name] and self[:content] 
+    unless self[:name]
       raise(Puppet::Error, "zabbix_template: Both name and content are required attributes")
     end
     unless self[:server] and self[:user] and self[:password]

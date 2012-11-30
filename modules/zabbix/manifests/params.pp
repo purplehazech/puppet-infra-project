@@ -36,6 +36,8 @@ class zabbix::params {
   $zabbix_database_password = ''
 
   $zabbix_frontend_url      = 'http://localhost/zabbix'
+  $zabbix_frontend_user     = 'Admin'
+  $zabbix_frontend_password = 'zabbix'
 
   case $::operatingsystem {
     windows         : {

@@ -1,4 +1,4 @@
-
+require "zbxapi"
 Puppet::Type.type(:zabbix_template).provide(:ruby) do
 
   def exists?
@@ -38,7 +38,6 @@ Puppet::Type.type(:zabbix_template).provide(:ruby) do
     
     if !@server 
 
-      require "zbxapi"
       @server = ZabbixAPI.new(resource[:server])
       if resource[:proxy_host] != nil 
         @server.set_proxy(resource[:proxy_host] ,resource[:proxy_password])

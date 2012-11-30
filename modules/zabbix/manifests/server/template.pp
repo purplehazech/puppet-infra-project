@@ -6,11 +6,10 @@
 # [*ensure*]
 #   present or absent, default is present
 #
-define zabbix::server::template ($ensure = 'present', $template = "${name}/zabbix-template.json.erb") {
+define zabbix::server::template ($ensure = 'present') {
   zabbix_template { $name:
-    content  => template($template),
     server   => $zabbix::params::zabbix_frontend_url,
-    user     => 'Admin',
-    password => 'zabbix'
+    user     => $zabbix::params::zabbix_frontend_user,
+    password => $zabbix::params::zabbix_frontend_password
   }
 }
