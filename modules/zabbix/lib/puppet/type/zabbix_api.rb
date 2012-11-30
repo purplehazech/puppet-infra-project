@@ -50,8 +50,8 @@ Puppet::Type.newtype(:zabbix_api) do
   end
 
   validate do
-    unless self[:name]
-      raise(Puppet::Error, "zabbix_template: Both name and content are required attributes")
+    unless self[:name] and self[:type]
+      raise(Puppet::Error, "zabbix_template: Both name and type are required attributes")
     end
     unless self[:server] and self[:user] and self[:password]
       raise(Puppet::Error, "zabbix_template: server configuration is required")
