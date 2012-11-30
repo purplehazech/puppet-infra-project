@@ -9,6 +9,8 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
       item_exists?(resource[:name], resource[:host])
     when "application"
       application_exists?(resource[:name], resource[:host])
+    when "trigger"
+      trigger_exists?(resource[:name], resource[:host], resource[:description])
     else
       raise Puppet::Error, "zabbix_api: non existant type '#{resource[:type]}'"
     end
@@ -22,6 +24,8 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
       item_create(resource[:name], resource[:host], resource[:description], resource[:application])
     when "application"
       application_create(resource[:name], resource[:host])
+    when "trigger"
+      trigger_create(resource[:name], resource[:host], resource[:description])
     end
   end
 
@@ -33,6 +37,8 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
       item_destroy(resource[:name], resource[:host])
     when "application"
       application_destroy(resource[:name], resource[:host])
+    when "trigger"
+      trigger_destroy(resource[:name], resource[:host], resource[:description])
     end
   end
   
@@ -124,15 +130,26 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
     
     new = {
       "key_"         => name,
-      "description"  => description,
-      "applications" => applications
+      "name"         => description,
+      "applications" => applications,
+      "interfaceid"  => 0,
+      "delay"        => 60,
+      "type"         => 0,
+      "value_type"   => 0
     }.merge(Hash[*host_get_hostids(host)])
     
-    @server.item.create(new)
+    itemid = @server.item.create(new)
+    pp itemid
+    # activate item
+    @server.item.update({
+      "itemid" => itemid,
+      "status" => '0'
+    })
     
     if not item_exists?(name, host)
       raise Puppet::Error, "create failed '%s'" % name
     end
+    
   end
   
   def item_destroy(name, host)
@@ -142,10 +159,65 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
       "filter" => {
         "key_" => name,
         "host" => host
-      }
+      }, "output" => "extend"
     })
+    require 'pp'
+    pp items
     items.collect! {|i| i = i.fetch('itemid')}
     @server.item.delete(Array[*items])
+  end
+  
+  
+  def trigger_exists?(name, host, description)
+    load_server()
+    return @server.trigger.exists({
+      "expression"  => name, 
+      "description" => description,
+      "host"        => host
+    })
+  end
+  
+  def trigger_create(name, host, description)
+    require 'pp'
+    pp name
+    pp host
+    load_server()
+    
+    new = {
+      "expression"  => name, 
+      "description" => description,
+      "type"        => '0',
+      "status"      => '0'
+    }.merge(host_get_hostids(host, false, true))
+    pp new
+    
+    triggerid = @server.trigger.create(new)
+    @server.trigger.update({
+      "triggerid" => triggerid,
+      "status"    => '0'
+    })
+    
+    if not trigger_exists?(name, host, description)
+      raise Puppet::Error, "create failed"
+    end
+  end
+  
+  def trigger_destroy(name, host, description)
+    require 'pp'
+    load_server()
+    triggers = @server.trigger.get({
+      "filter" => {
+        "description" => [description],
+        "hostids"     => [host_get_hostids(host)],
+        "templateid"  => 0 
+      },
+      "output" => "extend"
+    })
+    pp triggers
+    triggers.collect! {|i| i = i.fetch('triggerid')}
+    pp triggers
+    ret = @server.item.delete(triggers)
+    pp ret
   end
   
   def host_exists?(name)
@@ -153,7 +225,7 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
     return @server.host.exists({"host" => name})
   end
   
-  def host_get_hostids(name)
+  def host_get_hostids(name, template_as_is = false, first = false)
     if host_exists?(name) 
       host_array = @server.host.get({
         "filter" => {
@@ -166,8 +238,15 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
           "host" => name
         }
       })
-      host_array.collect! {|t| t = {"hostid" => t.fetch("templateid") } }
+      if !template_as_is
+        host_array.collect! {|t| t = {"hostid" => t.fetch("templateid") } }
+      end
     end
+    if first
+      host_array = host_array.first
+    end
+    return host_array
+
   end
 
 end
