@@ -44,6 +44,10 @@ Puppet::Type.newtype(:zabbix_api) do
     desc 'zabbix users password'
   end
   
+  newparam(:host) do
+    desc 'host to operate on in cases like items'
+  end
+  
   newparam(:hostgroup) do
     desc 'hostgroup to put template into'
     defaultto "Templates"
