@@ -8,5 +8,4 @@ define zabbix::agent::params ($ensure = 'present', $params) {
     }
   }
 
-  # @todo traverse params hash and create lots of param nodes
 }

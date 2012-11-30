@@ -26,6 +26,13 @@
 # * .
 #
 class zabbix {
+  include zabbix::gentoo
   include zabbix::agent
+
+  # needed by the included libs
+  package { 'zbxapi':
+    ensure   => installed,
+    provider => 'gem'
+  }
 
 }
