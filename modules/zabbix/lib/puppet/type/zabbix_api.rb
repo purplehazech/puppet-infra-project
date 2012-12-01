@@ -60,6 +60,15 @@ Puppet::Type.newtype(:zabbix_api) do
     desc 'application for items'
     defaultto []
   end
+  
+  newparam(:trigger_type) do
+    desc 'type of trigger'
+    defaultto '0'
+  end
+  newparam(:trigger_status) do
+    desc 'status of trigger'
+    defaultto '0'
+  end
 
   validate do
     unless self[:name] and self[:type]

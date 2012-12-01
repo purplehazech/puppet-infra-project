@@ -10,7 +10,11 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
     when "application"
       application_exists?(resource[:name], resource[:host])
     when "trigger"
-      trigger_exists?(resource[:name], resource[:host], resource[:description])
+      trigger_exists?(
+        resource[:name], 
+        resource[:host], 
+        resource[:description]
+      )
     else
       raise Puppet::Error, "zabbix_api: non existant type '#{resource[:type]}'"
     end
@@ -25,7 +29,13 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
     when "application"
       application_create(resource[:name], resource[:host])
     when "trigger"
-      trigger_create(resource[:name], resource[:host], resource[:description])
+      trigger_create(
+        resource[:name], 
+        resource[:host], 
+        resource[:description], 
+        resource[:trigger_type], 
+        resource[:trigger_status]
+      )
     end
   end
 
@@ -75,12 +85,13 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
   
   def template_destroy(name)
     load_server()
-    template_hash = @server.template.get({
+    templates = @server.template.get({
       "filter" => {
         "host" => name
       }
     })
-    @server.template.delete(template_hash)
+    templates.collect! {|t| t = t.fetch('templateid')}
+    @server.template.delete(templates)
   end
   
   def application_exists?(name, host)
@@ -90,7 +101,6 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
   
   def application_create(name, host)
     load_server()
-    
     @server.application.create({
       "name"         => name
     }.merge(Hash[*host_get_hostids(host)]))
@@ -102,6 +112,14 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
   
   def application_destroy(name, host)
     load_server()
+    
+    applications = @server.application.get({
+      "filter" => {
+        "name" => name,
+      }, "output" => "extend"
+    })
+    applications.collect! {|a| a = a.fetch('applicationid')}
+    @server.application.delete(applications)
     if application_exists?(name, host)
       raise Puppet::Error, "destroy failed '%s'" % name
     end
@@ -133,27 +151,19 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
       "name"         => description,
       "applications" => applications,
       "interfaceid"  => 0,
+      "status"       => '0',
       "delay"        => 60,
       "type"         => 0,
       "value_type"   => 0
     }.merge(Hash[*host_get_hostids(host)])
     
-    itemid = @server.item.create(new)
-    pp itemid
-    # activate item
-    @server.item.update({
-      "itemid" => itemid,
-      "status" => '0'
-    })
-    
+    @server.item.create(new)
     if not item_exists?(name, host)
       raise Puppet::Error, "create failed '%s'" % name
     end
-    
   end
   
   def item_destroy(name, host)
-  
     load_server()
     items = @server.item.get({
       "filter" => {
@@ -161,8 +171,6 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
         "host" => host
       }, "output" => "extend"
     })
-    require 'pp'
-    pp items
     items.collect! {|i| i = i.fetch('itemid')}
     @server.item.delete(Array[*items])
   end
@@ -177,25 +185,17 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
     })
   end
   
-  def trigger_create(name, host, description)
-    require 'pp'
-    pp name
-    pp host
+  def trigger_create(name, host, description, type, status)
     load_server()
     
     new = {
       "expression"  => name, 
       "description" => description,
-      "type"        => '0',
-      "status"      => '0'
+      "type"        => type,
+      "status"      => status
     }.merge(host_get_hostids(host, false, true))
-    pp new
     
-    triggerid = @server.trigger.create(new)
-    @server.trigger.update({
-      "triggerid" => triggerid,
-      "status"    => '0'
-    })
+    @server.trigger.create(new)
     
     if not trigger_exists?(name, host, description)
       raise Puppet::Error, "create failed"
@@ -203,21 +203,15 @@ Puppet::Type.type(:zabbix_api).provide(:ruby) do
   end
   
   def trigger_destroy(name, host, description)
-    require 'pp'
     load_server()
     triggers = @server.trigger.get({
       "filter" => {
         "description" => [description],
-        "hostids"     => [host_get_hostids(host)],
-        "templateid"  => 0 
-      },
-      "output" => "extend"
+        "hostids"     => [host_get_hostids(host)]
+      }
     })
-    pp triggers
     triggers.collect! {|i| i = i.fetch('triggerid')}
-    pp triggers
-    ret = @server.item.delete(triggers)
-    pp ret
+    @server.trigger.delete(triggers)
   end
   
   def host_exists?(name)
