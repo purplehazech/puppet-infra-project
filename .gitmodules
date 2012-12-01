@@ -28,3 +28,6 @@
 [submodule "modules/webapp_config"]
 	path = modules/webapp_config
 	url = git://github.com/hairmare/puppet-webapp-config.git
+[submodule "modules/layman"]
+	path = modules/layman
+	url = git@github.com:purplehazech/puppet-layman.git
