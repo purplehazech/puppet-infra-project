@@ -31,3 +31,6 @@
 [submodule "modules/layman"]
 	path = modules/layman
 	url = git@github.com:purplehazech/puppet-layman.git
+[submodule "modules/zabbix"]
+	path = modules/zabbix
+	url = git@github.com:purplehazech/puppet-zabbix.git
