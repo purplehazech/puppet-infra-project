@@ -34,3 +34,6 @@
 [submodule "modules/zabbix"]
 	path = modules/zabbix
 	url = git@github.com:purplehazech/puppet-zabbix.git
+[submodule "modules/mediawiki"]
+	path = modules/mediawiki
+	url = git://github.com/purplehazech/puppet-mediawiki.git
