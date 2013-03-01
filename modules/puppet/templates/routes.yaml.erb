@@ -1,7 +1,0 @@
----
-master:
-<% if has_variable?("puppet_storeconfig_provider") && puppet_storeconfig_provider == "puppetdb" then %>
-  facts:
-    terminus: puppetdb
-    cache: yaml
-<% end %>
