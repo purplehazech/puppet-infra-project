@@ -40,3 +40,6 @@
 [submodule "modules/puppet"]
 	path = modules/puppet
 	url = https://github.com/purplehazech/puppet-puppet.git
+[submodule "modules/activerecord"]
+	path = modules/activerecord
+	url = https://github.com/purplehazech/puppet-activerecord.git
