@@ -43,3 +43,6 @@
 [submodule "modules/activerecord"]
 	path = modules/activerecord
 	url = https://github.com/purplehazech/puppet-activerecord.git
+[submodule "modules/mysql"]
+	path = modules/mysql
+	url = https://github.com/hairmare/puppetlabs-mysql.git
