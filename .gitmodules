@@ -46,6 +46,3 @@
 [submodule "modules/mysql"]
 	path = modules/mysql
 	url = https://github.com/hairmare/puppetlabs-mysql.git
-[submodule "modules/create_resources"]
-	path = modules/create_resources
-	url = https://github.com/puppetlabs/puppetlabs-create_resources.git
