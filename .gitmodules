@@ -48,4 +48,4 @@
 	url = https://github.com/hairmare/puppetlabs-mysql.git
 [submodule "modules/freeradius"]
 	path = modules/freeradius
-	url = https://github.com/fup/puppet-freeradius.git
+	url = https://github.com/hairmare/puppet-freeradius.git
