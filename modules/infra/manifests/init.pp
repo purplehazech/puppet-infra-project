@@ -13,10 +13,6 @@ class infra {
     windows : {
     }
     default : {
-      file { '/var/lib/infra':
-        ensure => directory,
-        mode   => '0755'
-      }
 
     }
 

@@ -2,11 +2,24 @@
 #
 # some basic setup for keeping gentoo in check.
 #
-class gentoo {
+class gentoo (
+  $puppet_server = 'puppet'
+) {
+  
+  # gentoo file bucket for gentoo related files
   filebucket { 'gentoo':
-    server => $::puppet_server,
+    server => $puppet_server,
     path   => false;
   }
 
-  file { '/var/lib/portage/world': backup => 'gentoo'; }
+  # store world file 
+  file { '/var/lib/portage/world':
+    backup => 'gentoo'
+  }
+  
+  # used by various puppet modules
+  file { '/var/lib/infra':
+    ensure => directory,
+    mode   => '0755'
+  }
 }
