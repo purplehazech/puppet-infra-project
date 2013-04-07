@@ -46,3 +46,6 @@
 [submodule "modules/mysql"]
 	path = modules/mysql
 	url = https://github.com/hairmare/puppetlabs-mysql.git
+[submodule "modules/freeradius"]
+	path = modules/freeradius
+	url = https://github.com/fup/puppet-freeradius.git
