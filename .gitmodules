@@ -49,3 +49,6 @@
 [submodule "modules/freeradius"]
 	path = modules/freeradius
 	url = https://github.com/hairmare/puppet-freeradius.git
+[submodule "modules/concat"]
+	path = modules/concat
+	url = https://github.com/ripienaar/puppet-concat.git
