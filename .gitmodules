@@ -52,3 +52,6 @@
 [submodule "modules/concat"]
 	path = modules/concat
 	url = https://github.com/ripienaar/puppet-concat.git
+[submodule "modules/xmpp"]
+	path = modules/xmpp
+	url = https://github.com/hairmare/puppet-xmpp.git
