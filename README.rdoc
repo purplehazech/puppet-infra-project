@@ -1,5 +1,12 @@
 = puppet-infra-project
 
+This puppet stack is deprecated. It has been superceded
+by the stack in https://github.com/radiorabe/puppet.
+
+This repo will be deleted after the transition to the
+new stack. New commits on this stack should only be
+made to ease the transition to the new stack.
+
 What was orignally a git based puppet workflow has 
 since evolved into what we plan on using for building 
 nexgen servers for Radio RaBe[http://www.rabe.ch]. 
